@@ -13,6 +13,7 @@
     <None Remove="Npgsql.EntityFrameworkCore.PostgreSQL" />
     <None Remove="Microsoft.EntityFrameworkCore" />
     <None Remove="Enums\" />
+    <None Remove="Microsoft.EntityFrameworkCore.Design" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Database\" />

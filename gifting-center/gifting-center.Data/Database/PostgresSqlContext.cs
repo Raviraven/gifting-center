@@ -6,7 +6,7 @@ namespace gifting_center.Data.Database
 {
     public class PostgresSqlContext : DbContext
     {
-        public PostgresSqlContext(DbContextOptions options) : base(options)
+        public PostgresSqlContext(DbContextOptions<PostgresSqlContext> options) : base(options)
         {
         }
 
@@ -26,10 +26,10 @@ namespace gifting_center.Data.Database
             this.Database.Migrate();
         }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    base.OnModelCreating(modelBuilder);
-        //}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
 
         //public override int SaveChanges()
         //{
