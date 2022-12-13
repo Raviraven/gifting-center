@@ -1,4 +1,4 @@
-﻿namespace gifting_center;
+﻿namespace gifting_center.Api;
 
 public class WeatherForecast
 {

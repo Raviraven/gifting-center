@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace gifting_center.Controllers;
+namespace gifting_center.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
