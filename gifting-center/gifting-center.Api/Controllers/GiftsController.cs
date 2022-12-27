@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using gifting_center.Data.ViewModels;
 
 namespace gifting_center.Api.Controllers
 {
@@ -7,7 +8,7 @@ namespace gifting_center.Api.Controllers
     public class GiftsController : ControllerBase
     {
         [HttpGet]
-        public IActionResult<List<>> GetGiftsForUser()
+        public ActionResult<List<Gift>> GetGiftsForUser()
         {
             return null;
         }
