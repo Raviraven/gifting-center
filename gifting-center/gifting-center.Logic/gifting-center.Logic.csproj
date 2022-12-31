@@ -9,6 +9,15 @@
 
   <ItemGroup>
     <Folder Include="Services\" />
+    <Folder Include="Services\Interfaces\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\gifting-center.Data\gifting-center.Data.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Services\Interfaces\" />
+    <None Remove="Exceptions\" />
+  </ItemGroup>
 </Project>
