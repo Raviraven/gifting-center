@@ -9,6 +9,7 @@ using gifting_center.Data.ViewModels;
 namespace gifting_center.Api.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     public class CategoriesController : Controller
     {
         private readonly ICategoriesService _categoriesService;
@@ -19,12 +20,14 @@ namespace gifting_center.Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<string>>> Get()
         {
             return Ok(await _categoriesService.Get());
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<Category>> Get(string id)
         {
             return Ok(await _categoriesService.GetById(id));

@@ -30,9 +30,9 @@ namespace gifting_center.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<GiftedUser> Edit(GiftedUser giftedUser)
+        public async Task<GiftedUser> Edit(int id, GiftedUser giftedUser)
         {
-            var userDb = await _context.GiftedUsers.SingleAsync(n => n.Id == giftedUser.Id);
+            var userDb = await _context.GiftedUsers.SingleAsync(n => n.Id == id);
             userDb.Name = giftedUser.Name;
 
             _context.Update(userDb);

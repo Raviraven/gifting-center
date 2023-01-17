@@ -39,7 +39,7 @@ namespace gifting_center.Api.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<GiftedUser>> Put(int id, [FromBody] GiftedUser giftedUser)
         {
-            return Ok(await _giftedUsersService.Edit(giftedUser));
+            return Ok(await _giftedUsersService.Edit(id, giftedUser));
         }
 
         [HttpDelete("{id}")]

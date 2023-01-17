@@ -25,9 +25,9 @@ namespace gifting_center.Logic.Services
             return await _giftedUsersRepository.Delete(id);
         }
 
-        public async Task<GiftedUser> Edit(GiftedUser giftedUser)
+        public async Task<GiftedUser> Edit(int id, GiftedUser giftedUser)
         {
-            return await _giftedUsersRepository.Edit(giftedUser);
+            return await _giftedUsersRepository.Edit(id, giftedUser);
         }
 
         public async Task<List<GiftedUser>> Get()

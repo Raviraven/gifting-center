@@ -9,7 +9,7 @@ namespace gifting_center.Logic.Services.Interfaces
 
 		Task<bool> Delete(int id);
 
-        Task<GiftedUser> Edit(GiftedUser giftedUser);
+        Task<GiftedUser> Edit(int id, GiftedUser giftedUser);
 
 		Task<List<GiftedUser>> Get();
 

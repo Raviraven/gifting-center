@@ -1,0 +1,1 @@
+﻿global using gifting_center.Api.Attributes;

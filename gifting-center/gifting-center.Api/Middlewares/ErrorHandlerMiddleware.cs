@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Text.Json;
+using gifting_center.Logic.Exceptions;
 
 namespace gifting_center.Api.Middlewares
 {
@@ -33,6 +34,10 @@ namespace gifting_center.Api.Middlewares
                     //case InvalidWebsiteDetailsException e:
                     //    response.StatusCode = (int)HttpStatusCode.BadRequest;
                     //    break;
+
+                    case NoGiftsForUserException:
+                        response.StatusCode = (int)HttpStatusCode.NotFound;
+                        break;
 
                     default:
                         response.StatusCode = (int)HttpStatusCode.InternalServerError;
