@@ -1,19 +1,19 @@
-﻿using System;
-using gifting_center.Data.ViewModels;
+﻿using gifting_center.Data.ViewModels;
+using System;
 
 namespace gifting_center.Logic.Services.Interfaces
 {
-	public interface IGiftedUsersService
-	{
-		Task<GiftedUser> Add(GiftedUser giftedUser);
+    public interface IGiftedUsersService
+    {
+        Task<GiftedUserAdd> Add(GiftedUserAdd giftedUser);
 
-		Task<bool> Delete(int id);
+        Task<bool> Delete(int id);
 
         Task<GiftedUser> Edit(int id, GiftedUser giftedUser);
 
-		Task<List<GiftedUser>> Get();
+        Task<List<GiftedUser>> Get();
 
-		Task<GiftedUser> GetById(string id);
-	}
+        Task<GiftedUser> GetById(string id);
+    }
 }
 

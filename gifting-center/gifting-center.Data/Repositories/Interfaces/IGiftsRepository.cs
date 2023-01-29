@@ -10,6 +10,10 @@ namespace gifting_center.Data.Repositories.Interfaces
 
 		Task<Gift> Edit(Gift gift);
 
+		Task<List<Gift>> Get();
+
+		Task<Gift> GetById(int id);
+
 		Task<List<Gift>> GetGiftsByUserId(int id);
 	}
 }

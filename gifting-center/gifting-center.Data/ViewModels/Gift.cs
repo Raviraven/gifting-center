@@ -1,7 +1,7 @@
 ﻿namespace gifting_center.Data.ViewModels
 {
-	public class Gift
-	{
+    public class Gift
+    {
         public Gift(
             int id,
             string name,

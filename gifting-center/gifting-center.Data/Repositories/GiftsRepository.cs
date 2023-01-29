@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace gifting_center.Data.Repositories
 {
-	public class GiftsRepository : IGiftsRepository
+    public class GiftsRepository : IGiftsRepository
     {
         protected readonly PostgresSqlContext _context;
 
@@ -60,6 +60,21 @@ namespace gifting_center.Data.Repositories
             return gift;
         }
 
+        public async Task<List<Gift>> Get()
+        {
+            var result = new List<Gift>();
+            var giftsDb = await _context.Gifts.ToListAsync();
+            giftsDb.ForEach(n => result.Add(new Gift(n.Id, n.Name, n.Price, n.Url, n.Reserved, n.Deleted, n.CategoryId, n.GiftedUserId)));
+            return result;
+        }
+
+        public async Task<Gift> GetById(int id)
+        {
+            var giftDb = await _context.Gifts.SingleAsync(n => n.Id == id);
+
+            return new Gift(giftDb.Id, giftDb.Name, giftDb.Price, giftDb.Url, giftDb.Reserved, giftDb.Deleted, giftDb.CategoryId, giftDb.GiftedUserId);
+        }
+
         public async Task<List<Gift>> GetGiftsByUserId(int id)
         {
             var giftsDb = await _context.Gifts
@@ -69,7 +84,7 @@ namespace gifting_center.Data.Repositories
             List<Gift> result = new();
             giftsDb.ForEach(gift =>
             {
-                result.Add(new(gift.Id, gift.Name, gift.Price, gift.Url, gift.Reserved, gift.Deleted, gift.CategoryId, gift.GiftedUserId ));
+                result.Add(new(gift.Id, gift.Name, gift.Price, gift.Url, gift.Reserved, gift.Deleted, gift.CategoryId, gift.GiftedUserId));
             });
 
             return result;

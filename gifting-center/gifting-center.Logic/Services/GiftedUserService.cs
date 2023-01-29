@@ -1,12 +1,12 @@
-﻿using System;
-using gifting_center.Data.Extensions;
+﻿using gifting_center.Data.Extensions;
 using gifting_center.Data.Repositories.Interfaces;
 using gifting_center.Data.ViewModels;
 using gifting_center.Logic.Services.Interfaces;
+using System;
 
 namespace gifting_center.Logic.Services
 {
-	public class GiftedUserService : IGiftedUsersService
+    public class GiftedUserService : IGiftedUsersService
     {
         private readonly IGiftedUsersRepository _giftedUsersRepository;
 
@@ -15,7 +15,7 @@ namespace gifting_center.Logic.Services
             _giftedUsersRepository = giftedUsersRepository;
         }
 
-        public async Task<GiftedUser> Add(GiftedUser giftedUser)
+        public async Task<GiftedUserAdd> Add(GiftedUserAdd giftedUser)
         {
             return await _giftedUsersRepository.Add(giftedUser);
         }

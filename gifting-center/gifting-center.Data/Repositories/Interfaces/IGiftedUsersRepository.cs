@@ -2,9 +2,9 @@
 
 namespace gifting_center.Data.Repositories.Interfaces
 {
-	public interface IGiftedUsersRepository
-	{
-        Task<GiftedUser> Add(GiftedUser giftedUser);
+    public interface IGiftedUsersRepository
+    {
+        Task<GiftedUserAdd> Add(GiftedUserAdd giftedUser);
 
         Task<bool> Delete(int id);
 

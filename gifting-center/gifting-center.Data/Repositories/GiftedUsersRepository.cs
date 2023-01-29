@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace gifting_center.Data.Repositories
 {
-	public class GiftedUsersRepository : IGiftedUsersRepository
+    public class GiftedUsersRepository : IGiftedUsersRepository
     {
         protected readonly PostgresSqlContext _context;
 
@@ -14,10 +14,10 @@ namespace gifting_center.Data.Repositories
             _context = context;
         }
 
-        public async Task<GiftedUser> Add(GiftedUser giftedUser)
+        public async Task<GiftedUserAdd> Add(GiftedUserAdd giftedUser)
         {
-            await _context.GiftedUsers.AddAsync(new() {
-                Id = giftedUser.Id,
+            await _context.GiftedUsers.AddAsync(new()
+            {
                 Name = giftedUser.Name
             });
             await _context.SaveChangesAsync();
@@ -44,7 +44,7 @@ namespace gifting_center.Data.Repositories
         {
             var giftedUsers = await _context.GiftedUsers.ToListAsync();
             List<GiftedUser> result = new();
-            giftedUsers.ForEach(gu => result.Add(new (gu.Id, gu.Name)));
+            giftedUsers.ForEach(gu => result.Add(new(gu.Id, gu.Name)));
             return result;
         }
 

@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using gifting_center.Data.ViewModels;
+﻿using gifting_center.Data.ViewModels;
 using gifting_center.Logic.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace gifting_center.Api.Controllers
 {
@@ -21,11 +21,11 @@ namespace gifting_center.Api.Controllers
             return Ok(await _giftsService.GetById(id));
         }
 
-        //[HttpGet]
-        //public ActionResult GetAll()
-        //{
-        //    return null;
-        //}
+        [HttpGet]
+        public async Task<ActionResult<List<Gift>>> GetAll()
+        {
+            return Ok(await _giftsService.Get());
+        }
 
         [HttpGet("/user/{userId}")]
         public async Task<ActionResult<List<Gift>>> GetGiftsForUser(int userId)
@@ -45,7 +45,7 @@ namespace gifting_center.Api.Controllers
             return Ok(await _giftsService.Edit(gift));
         }
 
-        [HttpPost("{id}")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<bool>> Delete(int id)
         {
             return Ok(await _giftsService.Delete(id));

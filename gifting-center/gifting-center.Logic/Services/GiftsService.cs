@@ -1,9 +1,9 @@
-﻿using System;
-using gifting_center.Data.Extensions;
+﻿using gifting_center.Data.Extensions;
 using gifting_center.Data.Repositories.Interfaces;
 using gifting_center.Data.ViewModels;
 using gifting_center.Logic.Exceptions;
 using gifting_center.Logic.Services.Interfaces;
+using System;
 
 
 namespace gifting_center.Logic.Services
@@ -32,16 +32,21 @@ namespace gifting_center.Logic.Services
             return await _giftsRepository.Edit(gift);
         }
 
+        public async Task<List<Gift>> Get()
+        {
+            return await _giftsRepository.Get();
+        }
+
         public async Task<Gift> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _giftsRepository.GetById(id);
         }
 
         public async Task<List<Gift>> GetByUserId(int userId)
         {
             var result = await _giftsRepository.GetGiftsByUserId(userId);
 
-            if(result == null || result.Count == 0)
+            if (result == null || result.Count == 0)
             {
                 throw new NoGiftsForUserException($"There are no gifts for given user id: {userId}");
             }

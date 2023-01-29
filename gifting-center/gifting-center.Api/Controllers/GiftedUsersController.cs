@@ -1,10 +1,10 @@
-﻿using System;
+﻿using gifting_center.Data.ViewModels;
+using gifting_center.Logic.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using gifting_center.Logic.Services.Interfaces;
-using gifting_center.Data.ViewModels;
 
 namespace gifting_center.Api.Controllers
 {
@@ -31,7 +31,7 @@ namespace gifting_center.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<GiftedUser>> Add([FromBody] GiftedUser giftedUser)
+        public async Task<ActionResult<GiftedUserAdd>> Add([FromBody] GiftedUserAdd giftedUser)
         {
             return Ok(await _giftedUsersService.Add(giftedUser));
         }
