@@ -22,9 +22,9 @@ namespace gifting_center.Logic.Services
             return await _giftsRepository.Add(gift);
         }
 
-        public async Task<bool> Delete(string id)
+        public async Task<bool> Delete(int id)
         {
-            return await _giftsRepository.Delete(id.ParseId());
+            return await _giftsRepository.Delete(id);
         }
 
         public async Task<Gift> Edit(Gift gift)
@@ -32,14 +32,14 @@ namespace gifting_center.Logic.Services
             return await _giftsRepository.Edit(gift);
         }
 
-        public async Task<Gift> GetById(string id)
+        public async Task<Gift> GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<List<Gift>> GetByUserId(string userId)
+        public async Task<List<Gift>> GetByUserId(int userId)
         {
-            var result = await _giftsRepository.GetGiftsByUserId(userId.ParseId());
+            var result = await _giftsRepository.GetGiftsByUserId(userId);
 
             if(result == null || result.Count == 0)
             {

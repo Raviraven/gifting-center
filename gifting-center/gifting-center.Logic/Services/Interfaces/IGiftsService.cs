@@ -7,13 +7,13 @@ namespace gifting_center.Logic.Services.Interfaces
 	{
 		Task<Gift> Add(Gift gift);
 
-		Task<bool> Delete(string id);
+		Task<bool> Delete(int id);
 
 		Task<Gift> Edit(Gift gift);
 
-		Task<Gift> GetById(string id);
+		Task<Gift> GetById(int id);
 
-		Task<List<Gift>> GetByUserId(string userId);
+		Task<List<Gift>> GetByUserId(int userId);
 	}
 }
 

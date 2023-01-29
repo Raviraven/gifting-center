@@ -15,11 +15,11 @@ namespace gifting_center.Api.Controllers
             _giftsService = giftsService;
         }
 
-        //[HttpGet("{giftId}")]
-        //public ActionResult GetById()
-        //{
-        //    return null;
-        //}
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Gift>> GetById(int id)
+        {
+            return Ok(await _giftsService.GetById(id));
+        }
 
         //[HttpGet]
         //public ActionResult GetAll()
@@ -28,7 +28,7 @@ namespace gifting_center.Api.Controllers
         //}
 
         [HttpGet("/user/{userId}")]
-        public async Task<ActionResult<List<Gift>>> GetGiftsForUser(string userId)
+        public async Task<ActionResult<List<Gift>>> GetGiftsForUser(int userId)
         {
             return Ok(await _giftsService.GetByUserId(userId));
         }
@@ -43,6 +43,12 @@ namespace gifting_center.Api.Controllers
         public async Task<ActionResult<Gift>> Edit(Gift gift)
         {
             return Ok(await _giftsService.Edit(gift));
+        }
+
+        [HttpPost("{id}")]
+        public async Task<ActionResult<bool>> Delete(int id)
+        {
+            return Ok(await _giftsService.Delete(id));
         }
     }
 }
