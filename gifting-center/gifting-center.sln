@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6CFACFBE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gifting-center.Logic.unit-tests", "gifting-center.Logic.unit-tests\gifting-center.Logic.unit-tests.csproj", "{320C40B5-A729-4950-B271-6CE7940683A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gifting-center.Data.unit-tests", "gifting-center.Data.unit-tests\gifting-center.Data.unit-tests.csproj", "{7C969096-DF5C-49BA-9D76-E429998F73BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{320C40B5-A729-4950-B271-6CE7940683A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{320C40B5-A729-4950-B271-6CE7940683A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{320C40B5-A729-4950-B271-6CE7940683A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C969096-DF5C-49BA-9D76-E429998F73BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C969096-DF5C-49BA-9D76-E429998F73BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C969096-DF5C-49BA-9D76-E429998F73BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C969096-DF5C-49BA-9D76-E429998F73BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,5 +50,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{320C40B5-A729-4950-B271-6CE7940683A7} = {6CFACFBE-BFF8-4D67-877C-E8C6C2092BB9}
+		{7C969096-DF5C-49BA-9D76-E429998F73BB} = {6CFACFBE-BFF8-4D67-877C-E8C6C2092BB9}
 	EndGlobalSection
 EndGlobal
