@@ -43,7 +43,7 @@ namespace gifting_center.Data.Repositories
 
         public async Task<Gift> Edit(Gift gift)
         {
-            var currentGift = _context.Gifts.Single(n => n.Id == gift.Id);
+            var currentGift = await _context.Gifts.SingleAsync(n => n.Id == gift.Id);
 
             currentGift.Name = gift.Name;
             currentGift.Price = gift.Price;

@@ -34,12 +34,26 @@ namespace gifting_center.Logic.Services
 
         public async Task<List<Gift>> Get()
         {
-            return await _giftsRepository.Get();
+            var result = await _giftsRepository.Get();
+
+            if (result == null || result.Count == 0)
+            {
+                throw new NoGiftException("No gifts found");
+            }
+
+            return result;
         }
 
         public async Task<Gift> GetById(int id)
         {
-            return await _giftsRepository.GetById(id);
+            var result = await _giftsRepository.GetById(id);
+
+            if (result == null)
+            {
+                throw new NoGiftException($"There is no gift with id: {id}");
+            }
+
+            return result;
         }
 
         public async Task<List<Gift>> GetByUserId(int userId)
@@ -48,7 +62,7 @@ namespace gifting_center.Logic.Services
 
             if (result == null || result.Count == 0)
             {
-                throw new NoGiftsForUserException($"There are no gifts for given user id: {userId}");
+                throw new NoGiftException($"There are no gifts for given user id: {userId}");
             }
 
             return result;

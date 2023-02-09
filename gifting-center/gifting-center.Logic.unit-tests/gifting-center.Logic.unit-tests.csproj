@@ -29,7 +29,9 @@
     <None Remove="FluentAssertions" />
     <None Remove="Services\" />
   </ItemGroup>
+
   <ItemGroup>
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\gifting-center.Data\gifting-center.Data.csproj" />
+    <ProjectReference Include="..\gifting-center.Logic\gifting-center.Logic.csproj" />
   </ItemGroup>
 </Project>

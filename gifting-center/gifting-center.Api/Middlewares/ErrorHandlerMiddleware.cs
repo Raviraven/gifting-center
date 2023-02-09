@@ -1,7 +1,7 @@
-﻿using System;
+﻿using gifting_center.Logic.Exceptions;
+using System;
 using System.Net;
 using System.Text.Json;
-using gifting_center.Logic.Exceptions;
 
 namespace gifting_center.Api.Middlewares
 {
@@ -35,7 +35,7 @@ namespace gifting_center.Api.Middlewares
                     //    response.StatusCode = (int)HttpStatusCode.BadRequest;
                     //    break;
 
-                    case NoGiftsForUserException:
+                    case NoGiftException:
                         response.StatusCode = (int)HttpStatusCode.NotFound;
                         break;
 
