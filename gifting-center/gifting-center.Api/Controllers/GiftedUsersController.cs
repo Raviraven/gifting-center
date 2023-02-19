@@ -1,10 +1,6 @@
 ﻿using gifting_center.Data.ViewModels;
 using gifting_center.Logic.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace gifting_center.Api.Controllers
 {
@@ -25,7 +21,7 @@ namespace gifting_center.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<GiftedUser>> Get(string id)
+        public async Task<ActionResult<GiftedUser>> Get(int id)
         {
             return Ok(await _giftedUsersService.GetById(id));
         }

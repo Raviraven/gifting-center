@@ -1,9 +1,7 @@
-﻿using gifting_center.Data.Extensions;
-using gifting_center.Data.Repositories.Interfaces;
+﻿using gifting_center.Data.Repositories.Interfaces;
 using gifting_center.Data.ViewModels;
 using gifting_center.Logic.Exceptions;
 using gifting_center.Logic.Services.Interfaces;
-using System;
 
 
 namespace gifting_center.Logic.Services
@@ -17,7 +15,7 @@ namespace gifting_center.Logic.Services
             _giftsRepository = giftsRepository;
         }
 
-        public async Task<Gift> Add(Gift gift)
+        public async Task<GiftAdd> Add(GiftAdd gift)
         {
             return await _giftsRepository.Add(gift);
         }
@@ -27,7 +25,7 @@ namespace gifting_center.Logic.Services
             return await _giftsRepository.Delete(id);
         }
 
-        public async Task<Gift> Edit(Gift gift)
+        public async Task<GiftEdit> Edit(GiftEdit gift)
         {
             return await _giftsRepository.Edit(gift);
         }
@@ -46,14 +44,14 @@ namespace gifting_center.Logic.Services
 
         public async Task<Gift> GetById(int id)
         {
-            var result = await _giftsRepository.GetById(id);
-
-            if (result == null)
+            try
+            {
+                return await _giftsRepository.GetById(id);
+            }
+            catch (InvalidOperationException)
             {
                 throw new NoGiftException($"There is no gift with id: {id}");
             }
-
-            return result;
         }
 
         public async Task<List<Gift>> GetByUserId(int userId)

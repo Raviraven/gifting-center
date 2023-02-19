@@ -34,13 +34,13 @@ namespace gifting_center.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Gift>> AddGift(Gift gift)
+        public async Task<ActionResult<GiftAdd>> AddGift(GiftAdd gift)
         {
             return Ok(await _giftsService.Add(gift));
         }
 
         [HttpPut]
-        public async Task<ActionResult<Gift>> Edit(Gift gift)
+        public async Task<ActionResult<GiftEdit>> Edit(GiftEdit gift)
         {
             return Ok(await _giftsService.Edit(gift));
         }

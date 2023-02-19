@@ -4,11 +4,11 @@ namespace gifting_center.Data.Repositories.Interfaces
 {
 	public interface IGiftsRepository
 	{
-		Task<Gift> Add(Gift gift);
+		Task<GiftAdd> Add(GiftAdd gift);
 
 		Task<bool> Delete(int id);
 
-		Task<Gift> Edit(Gift gift);
+		Task<GiftEdit> Edit(GiftEdit gift);
 
 		Task<List<Gift>> Get();
 

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using gifting_center.Data.ViewModels;
 using gifting_center.Logic.Services.Interfaces;
-using gifting_center.Data.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace gifting_center.Api.Controllers
 {
@@ -28,13 +24,13 @@ namespace gifting_center.Api.Controllers
 
         [HttpGet("{id}")]
         [AllowAnonymous]
-        public async Task<ActionResult<Category>> Get(string id)
+        public async Task<ActionResult<Category>> Get(int id)
         {
             return Ok(await _categoriesService.GetById(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<Category>> Add([FromBody] Category category)
+        public async Task<ActionResult<CategoryAdd>> Add([FromBody] CategoryAdd category)
         {
             return Ok(await _categoriesService.Add(category));
         }

@@ -15,7 +15,7 @@ namespace gifting_center.Data.Repositories
             _context = context;
         }
 
-        public async Task<Gift> Add(Gift gift)
+        public async Task<GiftAdd> Add(GiftAdd gift)
         {
             await _context.Gifts.AddAsync(new GiftDb()
             {
@@ -41,7 +41,7 @@ namespace gifting_center.Data.Repositories
             return await Task.FromResult(true);
         }
 
-        public async Task<Gift> Edit(Gift gift)
+        public async Task<GiftEdit> Edit(GiftEdit gift)
         {
             var currentGift = await _context.Gifts.SingleAsync(n => n.Id == gift.Id);
 

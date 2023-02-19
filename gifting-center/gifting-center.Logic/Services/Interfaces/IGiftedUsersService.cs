@@ -13,7 +13,7 @@ namespace gifting_center.Logic.Services.Interfaces
 
         Task<List<GiftedUser>> Get();
 
-        Task<GiftedUser> GetById(string id);
+        Task<GiftedUser> GetById(int id);
     }
 }
 

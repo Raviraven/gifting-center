@@ -2,9 +2,9 @@
 
 namespace gifting_center.Data.Repositories.Interfaces
 {
-	public interface ICategoriesRepository
-	{
-        Task<Category> Add(Category category);
+    public interface ICategoriesRepository
+    {
+        Task<CategoryAdd> Add(CategoryAdd category);
 
         Task<bool> Delete(int id);
 

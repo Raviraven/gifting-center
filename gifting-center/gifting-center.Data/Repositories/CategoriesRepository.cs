@@ -1,12 +1,11 @@
-﻿using System;
-using gifting_center.Data.Database;
+﻿using gifting_center.Data.Database;
 using gifting_center.Data.Repositories.Interfaces;
 using gifting_center.Data.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace gifting_center.Data.Repositories
 {
-	public class CategoriesRepository : ICategoriesRepository
+    public class CategoriesRepository : ICategoriesRepository
     {
         protected readonly PostgresSqlContext _context;
 
@@ -15,10 +14,10 @@ namespace gifting_center.Data.Repositories
             _context = context;
         }
 
-        public async Task<Category> Add(Category category)
+        public async Task<CategoryAdd> Add(CategoryAdd category)
         {
-            await _context.GiftCategories.AddAsync(new() {
-                 Id = category.Id,
+            await _context.GiftCategories.AddAsync(new()
+            {
                 Name = category.Name
             });
             await _context.SaveChangesAsync();

@@ -5,11 +5,11 @@ namespace gifting_center.Logic.Services.Interfaces
 {
     public interface IGiftsService
     {
-        Task<Gift> Add(Gift gift);
+        Task<GiftAdd> Add(GiftAdd gift);
 
         Task<bool> Delete(int id);
 
-        Task<Gift> Edit(Gift gift);
+        Task<GiftEdit> Edit(GiftEdit gift);
 
         Task<List<Gift>> Get();
 

@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Helpers\**" />
+    <EmbeddedResource Remove="Helpers\**" />
+    <None Remove="Helpers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Database\" />
     <None Remove="Database\Models\" />
     <None Remove="Npgsql.EntityFrameworkCore.PostgreSQL" />
@@ -22,7 +28,6 @@
     <Folder Include="Database\Models\" />
     <Folder Include="Enums\" />
     <Folder Include="Repositories\Interfaces\" />
-    <Folder Include="Helpers\" />
     <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>

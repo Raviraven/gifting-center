@@ -1,4 +1,5 @@
-﻿using gifting_center.Data.Database;
+﻿using gifting_center.Api.Middlewares;
+using gifting_center.Data.Database;
 using gifting_center.Data.Repositories;
 using gifting_center.Data.Repositories.Interfaces;
 using gifting_center.Logic.Services;
@@ -26,8 +27,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-
 var app = builder.Build();
 
 using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
@@ -46,6 +45,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.Run();
 

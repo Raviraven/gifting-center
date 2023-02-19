@@ -49,7 +49,7 @@ namespace gifting_center.Logic.unit_tests.Services
         {
             Gift giftFromDb = null;
 
-            _giftsRepository.Setup(n => n.GetById(3)).ReturnsAsync(giftFromDb);
+            _giftsRepository.Setup(n => n.GetById(3)).ThrowsAsync(new InvalidOperationException());
 
             await _sut.Invoking(n => n.GetById(3)).Should().ThrowAsync<NoGiftException>().WithMessage("There is no gift with id: 3");
         }

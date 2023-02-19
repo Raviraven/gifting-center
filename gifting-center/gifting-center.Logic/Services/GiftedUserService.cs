@@ -1,6 +1,7 @@
 ﻿using gifting_center.Data.Extensions;
 using gifting_center.Data.Repositories.Interfaces;
 using gifting_center.Data.ViewModels;
+using gifting_center.Logic.Exceptions;
 using gifting_center.Logic.Services.Interfaces;
 using System;
 
@@ -32,12 +33,24 @@ namespace gifting_center.Logic.Services
 
         public async Task<List<GiftedUser>> Get()
         {
-            return await _giftedUsersRepository.GetAll();
+            var result = await _giftedUsersRepository.GetAll();
+            if (result == null || result.Count == 0)
+            {
+                throw new NoGiftedUserException("No gifted users found");
+            }
+            return result;
         }
 
-        public async Task<GiftedUser> GetById(string id)
+        public async Task<GiftedUser> GetById(int id)
         {
-            return await _giftedUsersRepository.GetById(id.ParseId());
+            try
+            {
+                return await _giftedUsersRepository.GetById(id);
+            }
+            catch (InvalidOperationException)
+            {
+                throw new NoGiftedUserException($"There is no gifted user with id: {id}");
+            }
         }
     }
 }
