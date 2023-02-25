@@ -1,0 +1,27 @@
+name: .NET unit tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  run_net_tests:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./gifting-center
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 7.0.x
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore
+      - name: Test
+        run: dotnet test --no-build
+        working-directory: ./gifting-center/gifting-center.Logic.unit-tests
