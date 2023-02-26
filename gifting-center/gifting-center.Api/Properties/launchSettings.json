@@ -4,16 +4,16 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:53691",
-      "sslPort": 44343
+      "applicationUrl": "http://localhost:50026",
+      "sslPort": 44302
     }
   },
   "profiles": {
-    "gifting_center": {
+    "gifting_center.Api": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7057;http://localhost:5203",
+      "applicationUrl": "https://localhost:7181;http://localhost:5024",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
