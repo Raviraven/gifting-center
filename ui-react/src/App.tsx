@@ -9,7 +9,7 @@ export const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<GiftsList />} />
+        <Route index element={<GiftsList userId={1} />} />
       </Route>
     </Routes>
   );
