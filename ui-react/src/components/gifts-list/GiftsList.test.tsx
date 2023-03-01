@@ -21,4 +21,12 @@ describe('GiftsList tests', () => {
 
     expect(screen.getByText('Loading...')).toBeInTheDocument();
   });
+
+  test('should show list of fetched gifts for user from api', async () => {
+    expect(true).toBe(false);
+  });
+
+  test('should update reserve field for gift when reserve button clicked', async () => {
+    expect(true).toBe(false);
+  });
 });

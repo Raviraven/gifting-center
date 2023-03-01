@@ -1,6 +1,10 @@
-import { useQuery } from 'react-query';
+import { Formik, Form } from 'formik';
+import { useCallback } from 'react';
+import { useQuery, useQueryClient } from 'react-query';
 
-import { getGiftsForUser } from '../../api/services/gifts';
+import { GiftEdit } from '../../api/models/gift';
+
+import { getGiftsForUser, updateGift } from '../../api/services/gifts';
 
 interface GiftsListProps {
   userId: number;
@@ -30,6 +34,7 @@ export const GiftsList = (props: GiftsListProps) => {
           price={gift.price}
           reserved={gift.reserved}
           url={gift.url}
+          giftedUserId={gift.giftedUserId}
         />
       ))}
     </>
@@ -44,7 +49,7 @@ interface SingleGiftProps {
   reserved: boolean;
   deleted: boolean;
   categoryId: number;
-  //giftedUserId: number;
+  giftedUserId: number;
 }
 
 const SingleGift = ({
@@ -55,7 +60,29 @@ const SingleGift = ({
   price,
   reserved,
   url,
+  giftedUserId,
 }: SingleGiftProps) => {
+  const queryClient = useQueryClient();
+
+  const gift: GiftEdit = {
+    categoryId: categoryId,
+    deleted: deleted,
+    giftedUserId: giftedUserId,
+    id: id,
+    name: name,
+    price: price,
+    reserved: true,
+    url: url,
+  };
+
+  const onSubmit = useCallback(
+    async (editedGift: GiftEdit) => {
+      await updateGift(editedGift.id, editedGift);
+      await queryClient.invalidateQueries('gifts-list');
+    },
+    [queryClient]
+  );
+
   return (
     <section>
       <header>
@@ -64,8 +91,18 @@ const SingleGift = ({
       </header>
       <main>
         <div>{url}</div>
-        <div>{reserved ? '✅' : '⛔'}</div>
-        <form></form>
+        <div>
+          Reserved?
+          {reserved ? (
+            '✅'
+          ) : (
+            <Formik<GiftEdit> initialValues={gift} onSubmit={onSubmit}>
+              <Form>
+                <button type="submit">Reserve</button>
+              </Form>
+            </Formik>
+          )}
+        </div>
       </main>
     </section>
   );

@@ -1,11 +1,13 @@
 import ReactDOM from 'react-dom/client';
 
-import './index.css';
+import './index.scss';
 import { StrictMode } from 'react';
 
 import { BrowserRouter } from 'react-router-dom';
 
 import { QueryClient, QueryClientProvider } from 'react-query';
+
+import { ToastContainer } from 'react-toastify';
 
 import { App } from './App';
 import { reportWebVitals } from './reportWebVitals';
@@ -21,6 +23,7 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <App />
+        <ToastContainer pauseOnFocusLoss={true} theme={'colored'} />
       </BrowserRouter>
     </QueryClientProvider>
   </StrictMode>
