@@ -10,11 +10,11 @@ namespace gifting_center.Data.Repositories.Interfaces
 
 		Task<GiftEdit> Edit(GiftEdit gift);
 
-		Task<List<Gift>> Get();
+		Task<List<GiftList>> Get();
 
-		Task<Gift> GetById(int id);
+		Task<GiftList> GetById(int id);
 
-		Task<List<Gift>> GetGiftsByUserId(int id);
+		Task<List<GiftList>> GetGiftsByUserId(int id);
 	}
 }
 

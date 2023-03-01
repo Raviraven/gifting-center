@@ -30,7 +30,7 @@ namespace gifting_center.Logic.Services
             return await _giftsRepository.Edit(gift);
         }
 
-        public async Task<List<Gift>> Get()
+        public async Task<List<GiftList>> Get()
         {
             var result = await _giftsRepository.Get();
 
@@ -42,7 +42,7 @@ namespace gifting_center.Logic.Services
             return result;
         }
 
-        public async Task<Gift> GetById(int id)
+        public async Task<GiftList> GetById(int id)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace gifting_center.Logic.Services
             }
         }
 
-        public async Task<List<Gift>> GetByUserId(int userId)
+        public async Task<List<GiftList>> GetByUserId(int userId)
         {
             var result = await _giftsRepository.GetGiftsByUserId(userId);
 

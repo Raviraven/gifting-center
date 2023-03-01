@@ -11,7 +11,7 @@ namespace gifting_center.Logic.unit_tests.Services
 
         private GiftsService _sut;
 
-        private Gift defaultGift;
+        private GiftList defaultGift;
 
         public GiftServiceTests()
         {
@@ -19,13 +19,13 @@ namespace gifting_center.Logic.unit_tests.Services
 
             _sut = new GiftsService(_giftsRepository.Object);
 
-            defaultGift = new Gift(12, "test gift", 100.12f, "url to gift", true, false, 1, 1);
+            defaultGift = new GiftList(12, "test gift", 100.12f, "url to gift", true, false, 1, 1);
         }
 
         [Fact]
         public async void get_should_throw_no_gift_exception_when_no_gifts_found()
         {
-            List<Gift> giftsFromDb = new();
+            List<GiftList> giftsFromDb = new();
 
             _giftsRepository.Setup(n => n.Get()).ReturnsAsync(giftsFromDb);
 
@@ -35,13 +35,13 @@ namespace gifting_center.Logic.unit_tests.Services
         [Fact]
         public async void get_should_return_gifts()
         {
-            List<Gift> giftsFromDb = new() { defaultGift };
+            List<GiftList> giftsFromDb = new() { defaultGift };
 
             _giftsRepository.Setup(n => n.Get()).ReturnsAsync(giftsFromDb);
 
             var result = await _sut.Get();
 
-            result.Should().BeEquivalentTo(new List<Gift>() { new Gift(12, "test gift", 100.12f, "url to gift", true, false, 1, 1) });
+            result.Should().BeEquivalentTo(new List<GiftList>() { new GiftList(12, "test gift", 100.12f, "url to gift", true, false, 1, 1) });
         }
 
         [Fact]
@@ -60,13 +60,13 @@ namespace gifting_center.Logic.unit_tests.Services
             _giftsRepository.Setup(n => n.GetById(3)).ReturnsAsync(defaultGift);
 
             var result = await _sut.GetById(3);
-            result.Should().BeEquivalentTo(new Gift(12, "test gift", 100.12f, "url to gift", true, false, 1, 1));
+            result.Should().BeEquivalentTo(new GiftList(12, "test gift", 100.12f, "url to gift", true, false, 1, 1));
         }
 
         [Fact]
         public async void getByUserId_should_throw_no_gift_exception_when_no_gifts_for_current_user_found()
         {
-            List<Gift> giftsFromDb = null;
+            List<GiftList> giftsFromDb = null;
 
             _giftsRepository.Setup(n => n.GetGiftsByUserId(-3)).ReturnsAsync(giftsFromDb);
 
@@ -77,13 +77,13 @@ namespace gifting_center.Logic.unit_tests.Services
         [Fact]
         public async void getByUserId_should_return_gifts_for_current_user()
         {
-            List<Gift> giftsFromDb = new() { defaultGift };
+            List<GiftList> giftsFromDb = new() { defaultGift };
 
             _giftsRepository.Setup(n => n.GetGiftsByUserId(-3)).ReturnsAsync(giftsFromDb);
 
             var result = await _sut.GetByUserId(-3);
 
-            result.Should().BeEquivalentTo(new List<Gift> { new Gift(12, "test gift", 100.12f, "url to gift", true, false, 1, 1) });
+            result.Should().BeEquivalentTo(new List<GiftList> { new GiftList(12, "test gift", 100.12f, "url to gift", true, false, 1, 1) });
         }
     }
 }

@@ -11,11 +11,11 @@ namespace gifting_center.Logic.Services.Interfaces
 
         Task<GiftEdit> Edit(GiftEdit gift);
 
-        Task<List<Gift>> Get();
+        Task<List<GiftList>> Get();
 
-        Task<Gift> GetById(int id);
+        Task<GiftList> GetById(int id);
 
-        Task<List<Gift>> GetByUserId(int userId);
+        Task<List<GiftList>> GetByUserId(int userId);
     }
 }
 
