@@ -1,109 +1,100 @@
-import { Formik, Form } from 'formik';
-import { useCallback } from 'react';
-import { useQuery, useQueryClient } from 'react-query';
+import './GiftsList.scss';
 
-import { GiftEdit } from '../../api/models/gift';
+import { useCallback, useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 
-import { getGiftsForUser, updateGift } from '../../api/services/gifts';
+import { GiftList as GiftListModel } from '../../api/models/gift';
+
+import { getGiftsForUser } from '../../api/services/gifts';
+import { getCategories } from '../../api/services/categories';
+
+import { SingleGift } from './SingleGift';
 
 interface GiftsListProps {
   userId: number;
 }
 
+interface GiftsByCategory {
+  categoryName: string;
+  gifts: GiftListModel[];
+}
+
 export const GiftsList = (props: GiftsListProps) => {
   const { userId } = props;
+  const [giftsByCategory, setGiftsByCategory] = useState<GiftsByCategory[]>([]);
 
   // const queryClient = useQueryClient();
-  const { isLoading, data } = useQuery('gifts-list', () => {
-    return getGiftsForUser(userId);
-  });
-
   //queryClient.invalidateQueries('gifts-list');
 
-  return isLoading ? (
+  const { isLoading: areGiftsLoading, data: giftsData } = useQuery(
+    'gifts-list',
+    () => {
+      return getGiftsForUser(userId);
+    }
+  );
+
+  const { isLoading: areCategoriesLoading, data: categoriesData } = useQuery(
+    'categories',
+    getCategories
+  );
+
+  const getGiftsByCategory = useCallback(() => {
+    if (!giftsData || !categoriesData) return;
+
+    const tempGiftsByCategory: GiftsByCategory[] = [];
+
+    giftsData.forEach((gift) => {
+      const currentCategory = categoriesData.filter(
+        (category) => category.id === gift.categoryId
+      )[0];
+      const currentGiftsForCategory = tempGiftsByCategory.filter(
+        (g) => g.categoryName === currentCategory.name
+      )[0];
+
+      if (currentGiftsForCategory) {
+        currentGiftsForCategory.gifts.push(gift);
+        return;
+      }
+
+      tempGiftsByCategory.push({
+        categoryName: currentCategory.name,
+        gifts: [gift],
+      });
+    });
+
+    setGiftsByCategory(tempGiftsByCategory);
+  }, [categoriesData, giftsData]);
+
+  useEffect(() => {
+    if (!areCategoriesLoading && !areGiftsLoading) {
+      getGiftsByCategory();
+    }
+  }, [areCategoriesLoading, areGiftsLoading, getGiftsByCategory]);
+
+  return areGiftsLoading && areCategoriesLoading ? (
     <p>Loading... </p>
   ) : (
     <>
-      {data?.map((gift, i) => (
-        <SingleGift
-          key={`key-${gift.id}-${i}`}
-          categoryId={gift.categoryId}
-          deleted={gift.deleted}
-          id={gift.id}
-          name={gift.name}
-          price={gift.price}
-          reserved={gift.reserved}
-          url={gift.url}
-          giftedUserId={gift.giftedUserId}
-        />
+      {giftsByCategory.map((giftCategory, gci) => (
+        <section key={`gift-category-${giftCategory.categoryName}-${gci}`}>
+          <header>{giftCategory.categoryName}</header>
+          <main>
+            {giftCategory.gifts.map((gift, gi) => (
+              <SingleGift
+                key={`key-${gift.id}-${gi}`}
+                categoryId={gift.categoryId}
+                deleted={gift.deleted}
+                id={gift.id}
+                name={gift.name}
+                price={gift.price}
+                reserved={gift.reserved}
+                url={gift.url}
+                giftedUserId={gift.giftedUserId}
+              />
+            ))}
+          </main>
+        </section>
       ))}
     </>
-  );
-};
-
-interface SingleGiftProps {
-  id: number;
-  name: string;
-  price: number;
-  url: string;
-  reserved: boolean;
-  deleted: boolean;
-  categoryId: number;
-  giftedUserId: number;
-}
-
-const SingleGift = ({
-  categoryId,
-  deleted,
-  id,
-  name,
-  price,
-  reserved,
-  url,
-  giftedUserId,
-}: SingleGiftProps) => {
-  const queryClient = useQueryClient();
-
-  const gift: GiftEdit = {
-    categoryId: categoryId,
-    deleted: deleted,
-    giftedUserId: giftedUserId,
-    id: id,
-    name: name,
-    price: price,
-    reserved: true,
-    url: url,
-  };
-
-  const onSubmit = useCallback(
-    async (editedGift: GiftEdit) => {
-      await updateGift(editedGift.id, editedGift);
-      await queryClient.invalidateQueries('gifts-list');
-    },
-    [queryClient]
-  );
-
-  return (
-    <section>
-      <header>
-        <p>{name}</p>
-        <p>{price}</p>
-      </header>
-      <main>
-        <div>{url}</div>
-        <div>
-          Reserved?
-          {reserved ? (
-            '✅'
-          ) : (
-            <Formik<GiftEdit> initialValues={gift} onSubmit={onSubmit}>
-              <Form>
-                <button type="submit">Reserve</button>
-              </Form>
-            </Formik>
-          )}
-        </div>
-      </main>
-    </section>
   );
 };

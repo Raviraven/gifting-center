@@ -1,0 +1,14 @@
+.gift {
+  display: flex;
+  flex-direction: column;
+
+  border: solid 1px aliceblue;
+  padding: 1rem;
+
+  & > .header {
+    display: flex;
+  }
+
+  & > .main {
+  }
+}
