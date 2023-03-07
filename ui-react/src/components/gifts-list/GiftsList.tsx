@@ -6,7 +6,8 @@ import { useQuery } from 'react-query';
 import { GiftList as GiftListModel } from '../../api/models/gift';
 
 import { getGiftsForUser } from '../../api/services/gifts';
-import { getCategories } from '../../api/services/categories';
+
+import { useCategories } from '../../api/hooks/categories';
 
 import { SingleGift } from './SingleGift';
 
@@ -33,10 +34,12 @@ export const GiftsList = (props: GiftsListProps) => {
     }
   );
 
-  const { isLoading: areCategoriesLoading, data: categoriesData } = useQuery(
-    'categories',
-    getCategories
-  );
+  const { isLoading: areCategoriesLoading, data: categoriesData } =
+    useCategories();
+  // useQuery(
+  //   'categories',
+  //   getCategories
+  // );
 
   const getGiftsByCategory = useCallback(() => {
     if (!giftsData || !categoriesData) return;
