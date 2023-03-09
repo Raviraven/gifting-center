@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify';
 
 import { App } from './App';
 import { reportWebVitals } from './reportWebVitals';
+import { LanguageContextProvider } from './context/LanguageContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -21,10 +22,12 @@ const queryClient = new QueryClient();
 root.render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <App />
-        <ToastContainer pauseOnFocusLoss={true} theme={'colored'} />
-      </BrowserRouter>
+      <LanguageContextProvider>
+        <BrowserRouter>
+          <App />
+          <ToastContainer pauseOnFocusLoss={true} theme={'colored'} />
+        </BrowserRouter>
+      </LanguageContextProvider>
     </QueryClientProvider>
   </StrictMode>
 );

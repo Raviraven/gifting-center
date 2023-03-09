@@ -9,6 +9,8 @@ import { getGiftsForUser } from '../../api/services/gifts';
 
 import { useCategories } from '../../api/hooks/categories';
 
+import { TranslatedText } from '../translated-text/TranslatedText';
+
 import { SingleGift } from './SingleGift';
 
 interface GiftsListProps {
@@ -74,8 +76,10 @@ export const GiftsList = (props: GiftsListProps) => {
     }
   }, [areCategoriesLoading, areGiftsLoading, getGiftsByCategory]);
 
-  return areGiftsLoading && areCategoriesLoading ? (
-    <p>Loading... </p>
+  return !(areGiftsLoading && areCategoriesLoading) ? (
+    <p>
+      <TranslatedText lKey="loading" />
+    </p>
   ) : (
     <>
       {giftsByCategory.map((giftCategory, gci) => (

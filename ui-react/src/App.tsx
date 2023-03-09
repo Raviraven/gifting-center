@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
 import './App.css';
+import './i18n';
 import { AdminLayout } from './components/layout/AdminLayout';
 
 import { Layout } from './components/layout/Layout';
