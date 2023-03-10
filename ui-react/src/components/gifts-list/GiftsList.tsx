@@ -71,7 +71,6 @@ export const GiftsList = (props: GiftsListProps) => {
       getGiftsByCategory();
     }
   }, [areCategoriesLoading, areGiftsLoading, getGiftsByCategory]);
-  console.log('elo');
 
   return areGiftsLoading && areCategoriesLoading ? (
     <p>

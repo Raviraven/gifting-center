@@ -32,7 +32,6 @@ export const UserGiftsManagement = () => {
   const handleSubmit = useCallback(
     ({ giftedUserId }: { giftedUserId: number }) => {
       setGiftedUser(giftedUserId);
-      console.log('poszedł submit');
     },
     []
   );

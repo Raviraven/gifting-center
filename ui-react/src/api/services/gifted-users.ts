@@ -10,8 +10,8 @@ export const GetGiftedUsers = async () => {
 
     return result.data;
   } catch (error) {
-    const err = error as AxiosError;
-    toast.error(err.response?.statusText);
+    const err = error as { message: string };
+    toast.error(err.message);
   }
 };
 

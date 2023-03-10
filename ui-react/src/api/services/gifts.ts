@@ -19,8 +19,9 @@ export const getGiftsForUser = async (userId: number) => {
     const result = await axiosInstance.get<GiftList[]>(`/gifts/user/${userId}`);
     return result.data;
   } catch (error) {
+    console.log(error);
     const err = error as AxiosError;
-    toast.error(err.response?.statusText);
+    toast.error((err.response?.data as { message: string }).message);
   }
 };
 
