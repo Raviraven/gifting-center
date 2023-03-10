@@ -1,24 +1,35 @@
+import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 
 import { axiosInstance } from '../axios';
-import { GiftEdit, GiftList } from '../models/gift';
+import { GiftAdd, GiftEdit, GiftList } from '../models/gift';
+
+export const AddGift = async (gift: GiftAdd) => {
+  try {
+    const result = await axiosInstance.post<GiftAdd>('gifts', gift);
+    return result.data;
+  } catch (error) {
+    const err = error as AxiosError;
+    toast.error(err.response?.statusText);
+  }
+};
 
 export const getGiftsForUser = async (userId: number) => {
-  const result = await axiosInstance.get<GiftList[]>(`/gifts/user/${userId}`);
-
-  if (result.status === 200) {
+  try {
+    const result = await axiosInstance.get<GiftList[]>(`/gifts/user/${userId}`);
     return result.data;
-  } else {
-    toast.error(result.statusText);
+  } catch (error) {
+    const err = error as AxiosError;
+    toast.error(err.response?.statusText);
   }
 };
 
 export const updateGift = async (giftId: number, gift: GiftEdit) => {
-  const result = await axiosInstance.put<GiftEdit>('/gifts', gift);
-
-  if (result.status === 200) {
+  try {
+    const result = await axiosInstance.put<GiftEdit>('/gifts', gift);
     return result.data;
-  } else {
-    toast.error(result.statusText);
+  } catch (error) {
+    const err = error as AxiosError;
+    toast.error(err.response?.statusText);
   }
 };

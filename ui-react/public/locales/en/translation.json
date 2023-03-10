@@ -1,4 +1,12 @@
 {
+  "add": "Add",
+  "category": "Category",
   "chooseLanguage": "Choose language",
-  "loading": "Loading2..."
+  "giftName": "Name",
+  "giftPrice": "Price",
+  "giftUrl": "Link to the gift",
+  "giftedUser": "Gifted User",
+  "loading": "Loading...",
+  "reserve": "Reserve",
+  "reserved": "Reserved"
 }

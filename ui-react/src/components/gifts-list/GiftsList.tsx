@@ -38,10 +38,6 @@ export const GiftsList = (props: GiftsListProps) => {
 
   const { isLoading: areCategoriesLoading, data: categoriesData } =
     useCategories();
-  // useQuery(
-  //   'categories',
-  //   getCategories
-  // );
 
   const getGiftsByCategory = useCallback(() => {
     if (!giftsData || !categoriesData) return;
@@ -75,8 +71,9 @@ export const GiftsList = (props: GiftsListProps) => {
       getGiftsByCategory();
     }
   }, [areCategoriesLoading, areGiftsLoading, getGiftsByCategory]);
+  console.log('elo');
 
-  return !(areGiftsLoading && areCategoriesLoading) ? (
+  return areGiftsLoading && areCategoriesLoading ? (
     <p>
       <TranslatedText lKey="loading" />
     </p>

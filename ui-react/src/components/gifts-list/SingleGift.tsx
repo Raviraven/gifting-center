@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 import { GiftEdit } from '../../api/models/gift';
 import { updateGift } from '../../api/services/gifts';
+import { TranslatedText } from '../translated-text/TranslatedText';
 
 interface SingleGiftProps {
   id: number;
@@ -64,11 +65,15 @@ export const SingleGift = ({
         </div>
         <div>
           {reserved ? (
-            '✅ Reserved'
+            <>
+              ✅ <TranslatedText lKey="reserved" />
+            </>
           ) : (
             <Formik<GiftEdit> initialValues={gift} onSubmit={onSubmit}>
               <Form>
-                <button type="submit">Reserve</button>
+                <button type="submit">
+                  <TranslatedText lKey="reserve" />
+                </button>
               </Form>
             </Formik>
           )}
