@@ -1,8 +1,10 @@
 import { Form, Formik } from 'formik';
 import { useCallback, useEffect, useState } from 'react';
+import { useQueryClient } from 'react-query';
 
 import { useCategories } from '../../api/hooks/categories';
 import { useGiftedUsers } from '../../api/hooks/gifted-users';
+import { useAddGift } from '../../api/hooks/gifts';
 
 import { GiftAdd as GiftAddModel } from '../../api/models/gift';
 import { SelectField, SelectFieldOption } from '../material/SelectField';
@@ -16,6 +18,8 @@ export const GiftAdd = () => {
   const [giftedUsersDropdownOptions, setGiftedUsersDropdownOptions] = useState<
     SelectFieldOption[]
   >([]);
+
+  const queryClient = useQueryClient();
 
   const initialValue: GiftAddModel = {
     name: '',
@@ -32,6 +36,8 @@ export const GiftAdd = () => {
 
   const { isLoading: areGiftedUsersLoading, data: giftedUsersData } =
     useGiftedUsers();
+
+  const addGiftMutation = useAddGift();
 
   useEffect(() => {
     if (!areCategoriesLoading && categoriesData) {
@@ -53,10 +59,16 @@ export const GiftAdd = () => {
     }
   }, [areGiftedUsersLoading, giftedUsersData]);
 
-  const submitForm = useCallback((values: GiftAddModel) => {
-    // eslint-disable-next-line no-console
-    console.log(values);
-  }, []);
+  const submitForm = useCallback(
+    async (values: GiftAddModel) => {
+      // eslint-disable-next-line no-console
+      console.log(values);
+      addGiftMutation.mutate(values);
+
+      await queryClient.invalidateQueries('gifts-list');
+    },
+    [addGiftMutation, queryClient]
+  );
 
   return areCategoriesLoading ? (
     <>

@@ -1,5 +1,5 @@
 import { Formik, Form, FormikProps } from 'formik';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { useGiftedUsers } from '../../api/hooks/gifted-users';
 import { GiftAdd } from '../../components/gift-add/GiftAdd';
@@ -14,8 +14,7 @@ export const UserGiftsManagement = () => {
   const [giftedUsersDropdownOptions, setGiftedUsersDropdownOptions] = useState<
     SelectFieldOption[]
   >([]);
-  const [giftedUser, setGiftedUser] = useState<number>();
-  const form = useRef<HTMLFormElement>(null);
+  const [giftedUserId, setGiftedUserId] = useState<number>(0);
 
   const { isLoading, data } = useGiftedUsers();
 
@@ -31,7 +30,7 @@ export const UserGiftsManagement = () => {
 
   const handleSubmit = useCallback(
     ({ giftedUserId }: { giftedUserId: number }) => {
-      setGiftedUser(giftedUserId);
+      setGiftedUserId(giftedUserId);
     },
     []
   );
@@ -71,13 +70,7 @@ export const UserGiftsManagement = () => {
             )}
           </Formik>
 
-          {giftedUser && giftedUser !== 0 ? (
-            <>
-              <GiftsList userId={giftedUser} />{' '}
-            </>
-          ) : (
-            <></>
-          )}
+          <GiftsList userId={giftedUserId} adminActions={true} />
         </main>
       </section>
     </>

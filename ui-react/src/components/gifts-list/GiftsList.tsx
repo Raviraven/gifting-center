@@ -1,20 +1,20 @@
 import './GiftsList.scss';
 
 import { useCallback, useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
 
 import { GiftList as GiftListModel } from '../../api/models/gift';
-
-import { getGiftsForUser } from '../../api/services/gifts';
 
 import { useCategories } from '../../api/hooks/categories';
 
 import { TranslatedText } from '../translated-text/TranslatedText';
+import { useGiftsForUser } from '../../api/hooks/gifts';
 
 import { SingleGift } from './SingleGift';
 
 interface GiftsListProps {
   userId: number;
+  adminActions?: boolean;
+  showDeleted?: boolean;
 }
 
 interface GiftsByCategory {
@@ -23,18 +23,12 @@ interface GiftsByCategory {
 }
 
 export const GiftsList = (props: GiftsListProps) => {
-  const { userId } = props;
+  const { userId, adminActions = false, showDeleted = false } = props;
   const [giftsByCategory, setGiftsByCategory] = useState<GiftsByCategory[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
-  // const queryClient = useQueryClient();
-  //queryClient.invalidateQueries('gifts-list');
-
-  const { isLoading: areGiftsLoading, data: giftsData } = useQuery(
-    'gifts-list',
-    () => {
-      return getGiftsForUser(userId);
-    }
-  );
+  const { isLoading: areGiftsLoading, data: giftsData } =
+    useGiftsForUser(userId);
 
   const { isLoading: areCategoriesLoading, data: categoriesData } =
     useCategories();
@@ -45,9 +39,12 @@ export const GiftsList = (props: GiftsListProps) => {
     const tempGiftsByCategory: GiftsByCategory[] = [];
 
     giftsData.forEach((gift) => {
+      if (!showDeleted && gift.deleted) return;
+
       const currentCategory = categoriesData.filter(
         (category) => category.id === gift.categoryId
       )[0];
+
       const currentGiftsForCategory = tempGiftsByCategory.filter(
         (g) => g.categoryName === currentCategory.name
       )[0];
@@ -61,10 +58,12 @@ export const GiftsList = (props: GiftsListProps) => {
         categoryName: currentCategory.name,
         gifts: [gift],
       });
+
+      setLoading(false);
     });
 
     setGiftsByCategory(tempGiftsByCategory);
-  }, [categoriesData, giftsData]);
+  }, [categoriesData, giftsData, showDeleted]);
 
   useEffect(() => {
     if (!areCategoriesLoading && !areGiftsLoading) {
@@ -72,7 +71,13 @@ export const GiftsList = (props: GiftsListProps) => {
     }
   }, [areCategoriesLoading, areGiftsLoading, getGiftsByCategory]);
 
-  return areGiftsLoading && areCategoriesLoading ? (
+  useEffect(() => {
+    if (areCategoriesLoading || areGiftsLoading) {
+      setLoading(true);
+    }
+  }, [areCategoriesLoading, areGiftsLoading]);
+
+  return loading ? (
     <p>
       <TranslatedText lKey="loading" />
     </p>
@@ -93,6 +98,7 @@ export const GiftsList = (props: GiftsListProps) => {
                 reserved={gift.reserved}
                 url={gift.url}
                 giftedUserId={gift.giftedUserId}
+                adminActions={adminActions}
               />
             ))}
           </main>

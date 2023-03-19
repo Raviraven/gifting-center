@@ -6,8 +6,8 @@ import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
 
 import { GiftEdit } from '../../api/models/gift';
-import { updateGift } from '../../api/services/gifts';
 import { TranslatedText } from '../translated-text/TranslatedText';
+import { useDeleteGift, useUpdateGift } from '../../api/hooks/gifts';
 
 interface SingleGiftProps {
   id: number;
@@ -18,6 +18,8 @@ interface SingleGiftProps {
   deleted: boolean;
   categoryId: number;
   giftedUserId: number;
+
+  adminActions?: boolean;
 }
 
 export const SingleGift = ({
@@ -29,8 +31,11 @@ export const SingleGift = ({
   reserved,
   url,
   giftedUserId,
+  adminActions = false,
 }: SingleGiftProps) => {
   const queryClient = useQueryClient();
+  const { mutate: deleteGiftMutate } = useDeleteGift();
+  const { mutate: updateGiftMutate } = useUpdateGift();
 
   const gift: GiftEdit = {
     categoryId: categoryId,
@@ -45,10 +50,18 @@ export const SingleGift = ({
 
   const onSubmit = useCallback(
     async (editedGift: GiftEdit) => {
-      await updateGift(editedGift.id, editedGift);
+      updateGiftMutate(editedGift);
       await queryClient.invalidateQueries('gifts-list');
     },
-    [queryClient]
+    [queryClient, updateGiftMutate]
+  );
+
+  const onDeleteSubmit = useCallback(
+    async ({ id }: { id: number }) => {
+      deleteGiftMutate(id);
+      await queryClient.invalidateQueries('gifts-list');
+    },
+    [deleteGiftMutate, queryClient]
   );
 
   return (
@@ -76,6 +89,18 @@ export const SingleGift = ({
                 </button>
               </Form>
             </Formik>
+          )}
+
+          {adminActions && !deleted ? (
+            <Formik initialValues={{ id: id }} onSubmit={onDeleteSubmit}>
+              <Form>
+                <button type="submit">
+                  ❌ <TranslatedText lKey="delete" />
+                </button>
+              </Form>
+            </Formik>
+          ) : (
+            <></>
           )}
         </div>
       </main>
