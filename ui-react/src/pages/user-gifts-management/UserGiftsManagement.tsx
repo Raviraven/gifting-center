@@ -1,3 +1,4 @@
+import { SelectChangeEvent } from '@mui/material/Select';
 import { Formik, Form, FormikProps } from 'formik';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -5,9 +6,10 @@ import { useGiftedUsers } from '../../api/hooks/gifted-users';
 import { GiftAdd } from '../../components/gift-add/GiftAdd';
 import { GiftsList } from '../../components/gifts-list/GiftsList';
 import {
-  SelectField,
+  SelectFieldFormik,
   SelectFieldOption,
-} from '../../components/material/SelectField';
+} from '../../components/material/formik/SelectFieldFormik';
+import { SelectField } from '../../components/material/SelectField';
 import { TranslatedText } from '../../components/translated-text/TranslatedText';
 
 export const UserGiftsManagement = () => {
@@ -42,6 +44,10 @@ export const UserGiftsManagement = () => {
     []
   );
 
+  const handleOnChange = useCallback((event: SelectChangeEvent<string>) => {
+    setGiftedUserId(Number(event.target.value) ?? 0);
+  }, []);
+
   return isLoading ? (
     <>
       <TranslatedText lKey="loading" />
@@ -56,7 +62,7 @@ export const UserGiftsManagement = () => {
           </h2>
         </header>
         <main>
-          <Formik initialValues={{ giftedUserId: 0 }} onSubmit={handleSubmit}>
+          {/* <Formik initialValues={{ giftedUserId: 0 }} onSubmit={handleSubmit}>
             {(props) => (
               <Form>
                 <SelectField
@@ -68,7 +74,14 @@ export const UserGiftsManagement = () => {
                 />
               </Form>
             )}
-          </Formik>
+          </Formik> */}
+
+          <SelectField
+            label="giftedUser"
+            name="giftedUserId"
+            options={giftedUsersDropdownOptions}
+            onChange={handleOnChange}
+          />
 
           <GiftsList userId={giftedUserId} adminActions={true} />
         </main>
@@ -76,3 +89,5 @@ export const UserGiftsManagement = () => {
     </>
   );
 };
+
+//const GiftedUserSelect = () => {};

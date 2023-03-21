@@ -2,7 +2,7 @@ import { useField } from 'formik';
 import { HTMLInputTypeAttribute } from 'react';
 import MuiTextField from '@mui/material/TextField';
 
-import { TranslatedText } from '../translated-text/TranslatedText';
+import { TranslatedText } from '../../translated-text/TranslatedText';
 
 interface MuiTextFieldProps {
   name: string;
@@ -13,7 +13,7 @@ interface MuiTextFieldProps {
   disabled?: boolean;
 }
 
-export const TextField = (props: MuiTextFieldProps) => {
+export const TextFieldFormik = (props: MuiTextFieldProps) => {
   const [field, meta] = useField(props.name);
 
   const error: boolean = meta.touched && !!meta.error;

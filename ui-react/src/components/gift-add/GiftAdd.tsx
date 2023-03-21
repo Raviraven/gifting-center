@@ -7,8 +7,11 @@ import { useGiftedUsers } from '../../api/hooks/gifted-users';
 import { useAddGift } from '../../api/hooks/gifts';
 
 import { GiftAdd as GiftAddModel } from '../../api/models/gift';
-import { SelectField, SelectFieldOption } from '../material/SelectField';
-import { TextField } from '../material/TextField';
+import {
+  SelectFieldFormik,
+  SelectFieldOption,
+} from '../material/formik/SelectFieldFormik';
+import { TextFieldFormik } from '../material/formik/TextField';
 import { TranslatedText } from '../translated-text/TranslatedText';
 
 export const GiftAdd = () => {
@@ -78,17 +81,17 @@ export const GiftAdd = () => {
     <section>
       <Formik<GiftAddModel> initialValues={initialValue} onSubmit={submitForm}>
         <Form>
-          <TextField label="giftName" name="name" type={'text'} />
-          <TextField label="giftPrice" name="price" type={'text'} />
-          <TextField label="giftUrl" name="url" type={'url'} />
+          <TextFieldFormik label="giftName" name="name" type={'text'} />
+          <TextFieldFormik label="giftPrice" name="price" type={'text'} />
+          <TextFieldFormik label="giftUrl" name="url" type={'url'} />
 
-          <SelectField
+          <SelectFieldFormik
             label="category"
             name="categoryId"
             options={categoriesDropdownOptions}
           />
 
-          <SelectField
+          <SelectFieldFormik
             label="giftedUser"
             name="giftedUserId"
             options={giftedUsersDropdownOptions}

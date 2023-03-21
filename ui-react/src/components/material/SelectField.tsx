@@ -1,6 +1,4 @@
 import { InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
-import { useField } from 'formik';
-import { ChangeEvent, useCallback } from 'react';
 
 import { TranslatedText } from '../translated-text/TranslatedText';
 
@@ -9,7 +7,8 @@ export interface SelectFieldProps {
   name: string;
   placeholder?: string;
   options: SelectFieldOption[];
-  onSelect?: () => void;
+  value?: string;
+  onChange?: (event: SelectChangeEvent<string>) => void;
 }
 
 export interface SelectFieldOption {
@@ -18,24 +17,7 @@ export interface SelectFieldOption {
 }
 
 export const SelectField = (props: SelectFieldProps) => {
-  const { label, name, placeholder, options, onSelect } = props;
-
-  const [field, meta] = useField(name);
-
-  const handleOnChange = useCallback(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (event: SelectChangeEvent<any>) => {
-      field.onChange(event);
-
-      if (onSelect) {
-        onSelect();
-      }
-    },
-    [field, onSelect]
-  );
-
-  //   const error: boolean = meta.touched && !!meta.error;
-  //   const errorMessage: string | undefined = error ? meta.error : undefined;
+  const { label, name, placeholder, options, value, onChange } = props;
 
   return (
     <>
@@ -45,12 +27,12 @@ export const SelectField = (props: SelectFieldProps) => {
       <Select
         labelId={`label-${name}`}
         placeholder={placeholder}
-        error={meta.touched && !!meta.error}
-        name={field.name}
+        //error={meta.touched && !!meta.error}
+        name={name}
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        value={field.value}
-        onChange={handleOnChange}
-        onBlur={field.onBlur}
+        value={value}
+        onChange={onChange}
+        //onBlur={field.onBlur}
         fullWidth
         variant="standard"
         margin="dense"
