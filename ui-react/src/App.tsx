@@ -8,6 +8,7 @@ import { Layout } from './components/layout/Layout';
 import { UserGifts } from './pages/user-gifts/UserGifts';
 import { GiftAdd } from './components/gift-add/GiftAdd';
 import { UserGiftsManagement } from './pages/user-gifts-management/UserGiftsManagement';
+import { GiftedUserAdd } from './components/gifted-user-add/GiftedUserAdd';
 
 export const App = () => {
   return (
@@ -18,6 +19,7 @@ export const App = () => {
       <Route path="/admin-panel" element={<AdminLayout />}>
         <Route index element={<UserGiftsManagement />} />
         <Route path="gift-add" element={<GiftAdd />} />
+        <Route path="gifted-user-add" element={<GiftedUserAdd />} />
       </Route>
     </Routes>
   );

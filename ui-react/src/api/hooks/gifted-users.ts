@@ -1,5 +1,13 @@
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 
-import { GetGiftedUsers } from '../services/gifted-users';
+import { AddGiftedUser, GetGiftedUsers } from '../services/gifted-users';
 
-export const useGiftedUsers = () => useQuery('gifted-users', GetGiftedUsers);
+export enum GiftedUsersQueryKeys {
+  giftedUsers = 'gifted-users',
+}
+
+export const useAddGiftedUser = () =>
+  useMutation(({ name }: { name: string }) => AddGiftedUser({ name }));
+
+export const useGiftedUsers = () =>
+  useQuery(GiftedUsersQueryKeys.giftedUsers, GetGiftedUsers);

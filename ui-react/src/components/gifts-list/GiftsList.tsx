@@ -58,11 +58,10 @@ export const GiftsList = (props: GiftsListProps) => {
         categoryName: currentCategory.name,
         gifts: [gift],
       });
-
-      setLoading(false);
     });
 
     setGiftsByCategory(tempGiftsByCategory);
+    setLoading(false);
   }, [categoriesData, giftsData, showDeleted]);
 
   useEffect(() => {
@@ -71,17 +70,11 @@ export const GiftsList = (props: GiftsListProps) => {
     }
   }, [areCategoriesLoading, areGiftsLoading, getGiftsByCategory]);
 
-  useEffect(() => {
-    if (areCategoriesLoading || areGiftsLoading) {
-      setLoading(true);
-    }
-  }, [areCategoriesLoading, areGiftsLoading]);
-
-  return loading ? (
+  return areCategoriesLoading || areCategoriesLoading ? (
     <p>
       <TranslatedText lKey="loading" />
     </p>
-  ) : (
+  ) : giftsData ? (
     <>
       {giftsByCategory.map((giftCategory, gci) => (
         <section key={`gift-category-${giftCategory.categoryName}-${gci}`}>
@@ -105,5 +98,7 @@ export const GiftsList = (props: GiftsListProps) => {
         </section>
       ))}
     </>
+  ) : (
+    <TranslatedText lKey="noGiftsForSelectedUser" />
   );
 };

@@ -1,6 +1,7 @@
 import { SelectChangeEvent } from '@mui/material/Select';
 import { Formik, Form, FormikProps } from 'formik';
 import { useCallback, useEffect, useState } from 'react';
+import { useQueryClient } from 'react-query';
 
 import { useGiftedUsers } from '../../api/hooks/gifted-users';
 import { GiftAdd } from '../../components/gift-add/GiftAdd';
@@ -17,6 +18,7 @@ export const UserGiftsManagement = () => {
     SelectFieldOption[]
   >([]);
   const [giftedUserId, setGiftedUserId] = useState<number>(0);
+  const queryClient = useQueryClient();
 
   const { isLoading, data } = useGiftedUsers();
 
@@ -46,6 +48,7 @@ export const UserGiftsManagement = () => {
 
   const handleOnChange = useCallback((event: SelectChangeEvent<string>) => {
     setGiftedUserId(Number(event.target.value) ?? 0);
+    //void queryClient.invalidateQueries('gifts-list');
   }, []);
 
   return isLoading ? (
@@ -83,7 +86,11 @@ export const UserGiftsManagement = () => {
             onChange={handleOnChange}
           />
 
-          <GiftsList userId={giftedUserId} adminActions={true} />
+          {giftedUserId !== 0 ? (
+            <GiftsList userId={giftedUserId} adminActions={true} />
+          ) : (
+            <></>
+          )}
         </main>
       </section>
     </>

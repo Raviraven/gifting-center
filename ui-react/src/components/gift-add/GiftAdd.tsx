@@ -63,12 +63,12 @@ export const GiftAdd = () => {
   }, [areGiftedUsersLoading, giftedUsersData]);
 
   const submitForm = useCallback(
-    async (values: GiftAddModel) => {
-      // eslint-disable-next-line no-console
-      console.log(values);
-      addGiftMutation.mutate(values);
+    (values: GiftAddModel) => {
+      addGiftMutation.mutate(values, {
+        onSuccess: () => queryClient.invalidateQueries('gifts-list'),
+      });
 
-      await queryClient.invalidateQueries('gifts-list');
+      //await queryClient.invalidateQueries('gifts-list');
     },
     [addGiftMutation, queryClient]
   );
