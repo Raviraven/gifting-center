@@ -14,6 +14,16 @@ export const addCategory = async (category: { name: string }) => {
   }
 };
 
+export const EditCategory = async (category: { name: string }) => {
+  try {
+    const result = await axiosInstance.put<Category>('/categories', category);
+    return result.data;
+  } catch (error) {
+    const err = error as AxiosError;
+    toast.error(err.response?.statusText);
+  }
+};
+
 export const getCategories = async () => {
   const result = await axiosInstance.get<Category[]>('/categories');
 
@@ -24,7 +34,7 @@ export const getCategories = async () => {
   }
 };
 
-export const getCategoryById = async (categoryId: number) => {
+export const GetCategoryById = async (categoryId: number) => {
   const result = await axiosInstance.get<Category>(`/categories/${categoryId}`);
 
   if (result.status === 200) {
