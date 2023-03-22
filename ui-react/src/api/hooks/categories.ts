@@ -1,7 +1,15 @@
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 
-import { getCategories } from '../services/categories';
+import { addCategory, getCategories } from '../services/categories';
+
+export enum CategoriesQueryKeys {
+  categories = 'categories',
+}
 
 //export const useCategory = (categoryId: number) => useQuery
 
-export const useCategories = () => useQuery('categories', getCategories);
+export const useAddCategory = () =>
+  useMutation((category: { name: string }) => addCategory(category));
+
+export const useCategories = () =>
+  useQuery(CategoriesQueryKeys.categories, getCategories);

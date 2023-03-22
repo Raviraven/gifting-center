@@ -6,7 +6,7 @@ import { AdminLayout } from './components/layout/AdminLayout';
 
 import { Layout } from './components/layout/Layout';
 import { UserGifts } from './pages/user-gifts/UserGifts';
-import { GiftAdd } from './components/gift-add/GiftAdd';
+import { GiftAdd } from './components/gift/GiftAdd';
 import { UserGiftsManagement } from './pages/user-gifts-management/UserGiftsManagement';
 import { GiftedUserAdd } from './components/gifted-user-add/GiftedUserAdd';
 

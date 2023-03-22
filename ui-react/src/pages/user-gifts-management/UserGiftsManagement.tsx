@@ -4,7 +4,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { useQueryClient } from 'react-query';
 
 import { useGiftedUsers } from '../../api/hooks/gifted-users';
-import { GiftAdd } from '../../components/gift-add/GiftAdd';
+import { GiftAdd } from '../../components/gift/GiftAdd';
+import { GiftEdit } from '../../components/gift/GiftEdit';
 import { GiftsList } from '../../components/gifts-list/GiftsList';
 import {
   SelectFieldFormik,
@@ -18,6 +19,7 @@ export const UserGiftsManagement = () => {
     SelectFieldOption[]
   >([]);
   const [giftedUserId, setGiftedUserId] = useState<number>(0);
+  const [editedGiftId, setEditedGiftId] = useState<number | null>();
   const queryClient = useQueryClient();
 
   const { isLoading, data } = useGiftedUsers();
@@ -57,7 +59,11 @@ export const UserGiftsManagement = () => {
     </>
   ) : (
     <>
-      <GiftAdd />
+      {editedGiftId ? (
+        <GiftEdit id={editedGiftId} onSubmit={() => setEditedGiftId(null)} />
+      ) : (
+        <GiftAdd />
+      )}
       <section>
         <header>
           <h2>
@@ -87,7 +93,11 @@ export const UserGiftsManagement = () => {
           />
 
           {giftedUserId !== 0 ? (
-            <GiftsList userId={giftedUserId} adminActions={true} />
+            <GiftsList
+              userId={giftedUserId}
+              adminActions={true}
+              editGift={(id: number) => setEditedGiftId(id)}
+            />
           ) : (
             <></>
           )}

@@ -14,6 +14,16 @@ export const AddGift = async (gift: GiftAdd) => {
   }
 };
 
+export const GetGiftById = async (id: number) => {
+  try {
+    const result = await axiosInstance.get<GiftList>(`/gifts/${id}`);
+    return result.data;
+  } catch (error) {
+    const err = error as AxiosError;
+    toast.error((err.response?.data as { message: string }).message);
+  }
+};
+
 export const GetGiftsForUser = async (userId: number) => {
   try {
     const result = await axiosInstance.get<GiftList[]>(`/gifts/user/${userId}`);

@@ -2,7 +2,7 @@ import './GiftsList.scss';
 
 import { useCallback, useEffect, useState } from 'react';
 
-import { GiftList as GiftListModel } from '../../api/models/gift';
+import { GiftList, GiftList as GiftListModel } from '../../api/models/gift';
 
 import { useCategories } from '../../api/hooks/categories';
 
@@ -15,6 +15,7 @@ interface GiftsListProps {
   userId: number;
   adminActions?: boolean;
   showDeleted?: boolean;
+  editGift?: (giftId: number) => void;
 }
 
 interface GiftsByCategory {
@@ -23,7 +24,7 @@ interface GiftsByCategory {
 }
 
 export const GiftsList = (props: GiftsListProps) => {
-  const { userId, adminActions = false, showDeleted = false } = props;
+  const { userId, editGift, adminActions = false, showDeleted = false } = props;
   const [giftsByCategory, setGiftsByCategory] = useState<GiftsByCategory[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -92,6 +93,7 @@ export const GiftsList = (props: GiftsListProps) => {
                 url={gift.url}
                 giftedUserId={gift.giftedUserId}
                 adminActions={adminActions}
+                editGift={editGift}
               />
             ))}
           </main>

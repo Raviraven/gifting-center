@@ -20,6 +20,7 @@ interface SingleGiftProps {
   giftedUserId: number;
 
   adminActions?: boolean;
+  editGift?: (giftId: number) => void;
 }
 
 export const SingleGift = ({
@@ -31,6 +32,7 @@ export const SingleGift = ({
   reserved,
   url,
   giftedUserId,
+  editGift,
   adminActions = false,
 }: SingleGiftProps) => {
   const queryClient = useQueryClient();
@@ -64,6 +66,15 @@ export const SingleGift = ({
     [deleteGiftMutate, queryClient]
   );
 
+  const handleEdit = useCallback(
+    (id: number) => {
+      if (editGift) {
+        editGift(id);
+      }
+    },
+    [editGift]
+  );
+
   return (
     <section className="gift">
       <header className="header">
@@ -91,14 +102,23 @@ export const SingleGift = ({
             </Formik>
           )}
 
-          {adminActions && !deleted ? (
-            <Formik initialValues={{ id: id }} onSubmit={onDeleteSubmit}>
-              <Form>
-                <button type="submit">
-                  ❌ <TranslatedText lKey="delete" />
-                </button>
-              </Form>
-            </Formik>
+          {adminActions ? (
+            <>
+              {!deleted ? (
+                <Formik initialValues={{ id: id }} onSubmit={onDeleteSubmit}>
+                  <Form>
+                    <button type="submit">
+                      ❌ <TranslatedText lKey="delete" />
+                    </button>
+                  </Form>
+                </Formik>
+              ) : (
+                <></>
+              )}
+              <button type="submit" onClick={() => handleEdit(id)}>
+                <TranslatedText lKey="edit" />
+              </button>
+            </>
           ) : (
             <></>
           )}

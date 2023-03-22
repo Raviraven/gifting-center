@@ -1,20 +1,22 @@
+import { useEffect, useState } from 'react';
+
 import { Form, Formik } from 'formik';
-import { useCallback, useEffect, useState } from 'react';
-import { useQueryClient } from 'react-query';
+
+import { GiftList } from '../../api/models/gift';
+import { SelectFieldOption } from '../material/SelectField';
 
 import { useCategories } from '../../api/hooks/categories';
 import { useGiftedUsers } from '../../api/hooks/gifted-users';
-import { useAddGift } from '../../api/hooks/gifts';
-
-import { GiftAdd as GiftAddModel } from '../../api/models/gift';
-import {
-  SelectFieldFormik,
-  SelectFieldOption,
-} from '../material/formik/SelectFieldFormik';
-import { TextFieldFormik } from '../material/formik/TextField';
 import { TranslatedText } from '../translated-text/TranslatedText';
+import { TextFieldFormik } from '../material/formik/TextField';
+import { SelectFieldFormik } from '../material/formik/SelectFieldFormik';
 
-export const GiftAdd = () => {
+interface GiftFormProps {
+  gift?: GiftList;
+  handleSubmit: (values: GiftList) => void;
+}
+
+export const GiftForm = ({ gift, handleSubmit }: GiftFormProps) => {
   const [categoriesDropdownOptions, setCategoriesDropdownOptions] = useState<
     SelectFieldOption[]
   >([]);
@@ -22,9 +24,8 @@ export const GiftAdd = () => {
     SelectFieldOption[]
   >([]);
 
-  const queryClient = useQueryClient();
-
-  const initialValue: GiftAddModel = {
+  const initialValue: GiftList = {
+    id: 0,
     name: '',
     price: 0,
     url: '',
@@ -39,8 +40,6 @@ export const GiftAdd = () => {
 
   const { isLoading: areGiftedUsersLoading, data: giftedUsersData } =
     useGiftedUsers();
-
-  const addGiftMutation = useAddGift();
 
   useEffect(() => {
     if (!areCategoriesLoading && categoriesData) {
@@ -62,24 +61,16 @@ export const GiftAdd = () => {
     }
   }, [areGiftedUsersLoading, giftedUsersData]);
 
-  const submitForm = useCallback(
-    (values: GiftAddModel) => {
-      addGiftMutation.mutate(values, {
-        onSuccess: () => queryClient.invalidateQueries('gifts-list'),
-      });
-
-      //await queryClient.invalidateQueries('gifts-list');
-    },
-    [addGiftMutation, queryClient]
-  );
-
   return areCategoriesLoading ? (
     <>
       <TranslatedText lKey="loading" />
     </>
   ) : (
     <section>
-      <Formik<GiftAddModel> initialValues={initialValue} onSubmit={submitForm}>
+      <Formik<GiftList>
+        initialValues={gift ?? initialValue}
+        onSubmit={handleSubmit}
+      >
         <Form>
           <TextFieldFormik label="giftName" name="name" type={'text'} />
           <TextFieldFormik label="giftPrice" name="price" type={'text'} />
