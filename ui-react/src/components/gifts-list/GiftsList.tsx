@@ -10,6 +10,7 @@ import { TranslatedText } from '../translated-text/TranslatedText';
 import { useGiftsForUser } from '../../api/hooks/gifts';
 
 import { SingleGift } from './SingleGift';
+import { Grid } from '@mui/material';
 
 interface GiftsListProps {
   userId: number;
@@ -76,14 +77,18 @@ export const GiftsList = (props: GiftsListProps) => {
       <TranslatedText lKey="loading" />
     </p>
   ) : giftsData ? (
-    <>
+    <Grid container>
       {giftsByCategory.map((giftCategory, gci) => (
-        <section key={`gift-category-${giftCategory.categoryName}-${gci}`}>
+        <Grid
+          item
+          key={`gift-category-${giftCategory.categoryName}-${gci}`}
+          xs={12}
+        >
+          {/* <section> */}
           <header>{giftCategory.categoryName}</header>
           <main>
             {giftCategory.gifts.map((gift, gi) => (
               <SingleGift
-                key={`key-${gift.id}-${gi}`}
                 categoryId={gift.categoryId}
                 deleted={gift.deleted}
                 id={gift.id}
@@ -94,12 +99,14 @@ export const GiftsList = (props: GiftsListProps) => {
                 giftedUserId={gift.giftedUserId}
                 adminActions={adminActions}
                 editGift={editGift}
+                key={`key-${gift.id}-${gi}`}
               />
             ))}
           </main>
-        </section>
+          {/* </section> */}
+        </Grid>
       ))}
-    </>
+    </Grid>
   ) : (
     <TranslatedText lKey="noGiftsForSelectedUser" />
   );

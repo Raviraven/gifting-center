@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { GiftEdit } from '../../api/models/gift';
 import { TranslatedText } from '../translated-text/TranslatedText';
 import { useDeleteGift, useUpdateGift } from '../../api/hooks/gifts';
+import Card from '@mui/material/Card';
 
 interface SingleGiftProps {
   id: number;
@@ -76,7 +77,8 @@ export const SingleGift = ({
   );
 
   return (
-    <section className="gift">
+    //<section className="gift">
+    <Card>
       <header className="header">
         <p>{name}</p>
         <p>{price}</p>
@@ -124,6 +126,7 @@ export const SingleGift = ({
           )}
         </div>
       </main>
-    </section>
+      {/* </section> */}
+    </Card>
   );
 };
