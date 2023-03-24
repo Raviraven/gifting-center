@@ -2,7 +2,9 @@ import './GiftsList.scss';
 
 import { useCallback, useEffect, useState } from 'react';
 
-import { GiftList, GiftList as GiftListModel } from '../../api/models/gift';
+import { Grid, Typography } from '@mui/material';
+
+import { GiftList as GiftListModel } from '../../api/models/gift';
 
 import { useCategories } from '../../api/hooks/categories';
 
@@ -10,7 +12,6 @@ import { TranslatedText } from '../translated-text/TranslatedText';
 import { useGiftsForUser } from '../../api/hooks/gifts';
 
 import { SingleGift } from './SingleGift';
-import { Grid } from '@mui/material';
 
 interface GiftsListProps {
   userId: number;
@@ -85,7 +86,9 @@ export const GiftsList = (props: GiftsListProps) => {
           xs={12}
         >
           {/* <section> */}
-          <header>{giftCategory.categoryName}</header>
+          <Typography variant="h3" component="header">
+            {giftCategory.categoryName}
+          </Typography>
           <main>
             {giftCategory.gifts.map((gift, gi) => (
               <SingleGift

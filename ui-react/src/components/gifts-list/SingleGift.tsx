@@ -5,10 +5,13 @@ import { useCallback } from 'react';
 import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
 
+import { Button, Card, Typography, Link as LinkMaterial } from '@mui/material';
+
+import Grid from '@mui/material/Grid/Grid';
+
 import { GiftEdit } from '../../api/models/gift';
 import { TranslatedText } from '../translated-text/TranslatedText';
 import { useDeleteGift, useUpdateGift } from '../../api/hooks/gifts';
-import Card from '@mui/material/Card';
 
 interface SingleGiftProps {
   id: number;
@@ -77,56 +80,88 @@ export const SingleGift = ({
   );
 
   return (
-    //<section className="gift">
     <Card>
-      <header className="header">
-        <p>{name}</p>
-        <p>{price}</p>
-      </header>
-      <main className="main">
-        <div>
-          <Link to={url} target="_blank" rel="noopener noreferrer">
-            Link
-          </Link>
-        </div>
-        <div>
-          {reserved ? (
-            <>
-              ✅ <TranslatedText lKey="reserved" />
-            </>
-          ) : (
-            <Formik<GiftEdit> initialValues={gift} onSubmit={onSubmit}>
-              <Form>
-                <button type="submit">
-                  <TranslatedText lKey="reserve" />
-                </button>
-              </Form>
-            </Formik>
-          )}
+      <Grid container padding="0.5rem">
+        <Grid
+          item
+          xs={12}
+          component="header"
+          container
+          justifyContent={'space-between'}
+        >
+          <Typography variant="h5" component="p" align="left">
+            {name}
+          </Typography>
+          <Typography variant="h6" component="p">
+            {price}zł
+          </Typography>
+        </Grid>
+        <Grid container component="main" spacing={1} justifyContent="center">
+          <Grid
+            item
+            xs={12}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <LinkMaterial
+              component={Link}
+              target="_blank"
+              rel="noopener noreferrer"
+              to={url}
+            >
+              <TranslatedText lKey="linkToTheGift" />
+            </LinkMaterial>
+          </Grid>
+          <Grid item xs={4}>
+            {reserved ? (
+              <>
+                ✅ <TranslatedText lKey="reserved" />
+              </>
+            ) : (
+              <Formik<GiftEdit> initialValues={gift} onSubmit={onSubmit}>
+                <Form>
+                  <Button variant="outlined" type="submit" fullWidth>
+                    <TranslatedText lKey="reserve" />
+                  </Button>
+                </Form>
+              </Formik>
+            )}
+          </Grid>
 
           {adminActions ? (
             <>
               {!deleted ? (
-                <Formik initialValues={{ id: id }} onSubmit={onDeleteSubmit}>
-                  <Form>
-                    <button type="submit">
-                      ❌ <TranslatedText lKey="delete" />
-                    </button>
-                  </Form>
-                </Formik>
+                <Grid item xs={4}>
+                  <Formik initialValues={{ id: id }} onSubmit={onDeleteSubmit}>
+                    <Form>
+                      <Button variant="outlined" type="submit" fullWidth>
+                        ❌ <TranslatedText lKey="delete" />
+                      </Button>
+                    </Form>
+                  </Formik>
+                </Grid>
               ) : (
                 <></>
               )}
-              <button type="submit" onClick={() => handleEdit(id)}>
-                <TranslatedText lKey="edit" />
-              </button>
+              <Grid item xs={4}>
+                <Button
+                  variant="outlined"
+                  type="submit"
+                  onClick={() => handleEdit(id)}
+                  fullWidth
+                >
+                  <TranslatedText lKey="edit" />
+                </Button>
+              </Grid>
             </>
           ) : (
             <></>
           )}
-        </div>
-      </main>
-      {/* </section> */}
+        </Grid>
+      </Grid>
     </Card>
   );
 };
