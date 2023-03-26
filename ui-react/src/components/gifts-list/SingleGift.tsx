@@ -5,9 +5,19 @@ import { useCallback } from 'react';
 import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
 
-import { Button, Card, Typography, Link as LinkMaterial } from '@mui/material';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardActions,
+  Typography,
+  Link as LinkMaterial,
+} from '@mui/material';
 
 import Grid from '@mui/material/Grid/Grid';
+
+import { CheckCircle } from '@mui/icons-material';
 
 import { GiftEdit } from '../../api/models/gift';
 import { TranslatedText } from '../translated-text/TranslatedText';
@@ -81,7 +91,8 @@ export const SingleGift = ({
 
   return (
     <Card>
-      <Grid container padding="0.5rem">
+      {/* <Grid container padding="0.5rem"> */}
+      <CardContent>
         <Grid
           item
           xs={12}
@@ -115,11 +126,30 @@ export const SingleGift = ({
               <TranslatedText lKey="linkToTheGift" />
             </LinkMaterial>
           </Grid>
-          <Grid item xs={4}>
+        </Grid>
+      </CardContent>
+      <CardActions>
+        <Grid container spacing={1}>
+          <Grid item xs={12}>
             {reserved ? (
-              <>
-                ✅ <TranslatedText lKey="reserved" />
-              </>
+              <Box
+                component="div"
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <CheckCircle color="success" />
+                <Typography
+                  component="p"
+                  variant="body1"
+                  align="center"
+                  paddingLeft="0.25rem"
+                >
+                  <TranslatedText lKey="reserved" />
+                </Typography>
+              </Box>
             ) : (
               <Formik<GiftEdit> initialValues={gift} onSubmit={onSubmit}>
                 <Form>
@@ -133,20 +163,16 @@ export const SingleGift = ({
 
           {adminActions ? (
             <>
-              {!deleted ? (
-                <Grid item xs={4}>
-                  <Formik initialValues={{ id: id }} onSubmit={onDeleteSubmit}>
-                    <Form>
-                      <Button variant="outlined" type="submit" fullWidth>
-                        ❌ <TranslatedText lKey="delete" />
-                      </Button>
-                    </Form>
-                  </Formik>
-                </Grid>
-              ) : (
-                <></>
-              )}
-              <Grid item xs={4}>
+              <Grid item xs={6}>
+                <Formik initialValues={{ id: id }} onSubmit={onDeleteSubmit}>
+                  <Form>
+                    <Button variant="outlined" type="submit" fullWidth>
+                      ❌ <TranslatedText lKey="delete" />
+                    </Button>
+                  </Form>
+                </Formik>
+              </Grid>
+              <Grid item xs={6}>
                 <Button
                   variant="outlined"
                   type="submit"
@@ -161,7 +187,8 @@ export const SingleGift = ({
             <></>
           )}
         </Grid>
-      </Grid>
+      </CardActions>
+      {/* </Grid> */}
     </Card>
   );
 };

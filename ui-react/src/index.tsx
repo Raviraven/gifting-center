@@ -9,9 +9,12 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { ToastContainer } from 'react-toastify';
 
+import { CssBaseline } from '@mui/material';
+
 import { App } from './App';
 import { reportWebVitals } from './reportWebVitals';
 import { LanguageContextProvider } from './context/LanguageContext';
+import { ColorModeContextProvider } from './context/ColorModeContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -23,10 +26,13 @@ root.render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <LanguageContextProvider>
-        <BrowserRouter>
-          <App />
-          <ToastContainer pauseOnFocusLoss={true} theme={'colored'} />
-        </BrowserRouter>
+        <ColorModeContextProvider>
+          <BrowserRouter>
+            <CssBaseline />
+            <App />
+            <ToastContainer pauseOnFocusLoss={true} theme={'colored'} />
+          </BrowserRouter>
+        </ColorModeContextProvider>
       </LanguageContextProvider>
     </QueryClientProvider>
   </StrictMode>

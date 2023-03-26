@@ -85,28 +85,27 @@ export const GiftsList = (props: GiftsListProps) => {
           key={`gift-category-${giftCategory.categoryName}-${gci}`}
           xs={12}
         >
-          {/* <section> */}
           <Typography variant="h3" component="header">
             {giftCategory.categoryName}
           </Typography>
-          <main>
+          <Grid container spacing={1} component="main">
             {giftCategory.gifts.map((gift, gi) => (
-              <SingleGift
-                categoryId={gift.categoryId}
-                deleted={gift.deleted}
-                id={gift.id}
-                name={gift.name}
-                price={gift.price}
-                reserved={gift.reserved}
-                url={gift.url}
-                giftedUserId={gift.giftedUserId}
-                adminActions={adminActions}
-                editGift={editGift}
-                key={`key-${gift.id}-${gi}`}
-              />
+              <Grid item xs={12} md={12} key={`key-${gift.id}-${gi}`}>
+                <SingleGift
+                  categoryId={gift.categoryId}
+                  deleted={gift.deleted}
+                  id={gift.id}
+                  name={gift.name}
+                  price={gift.price}
+                  reserved={gift.reserved}
+                  url={gift.url}
+                  giftedUserId={gift.giftedUserId}
+                  adminActions={adminActions}
+                  editGift={editGift}
+                />
+              </Grid>
             ))}
-          </main>
-          {/* </section> */}
+          </Grid>
         </Grid>
       ))}
     </Grid>
