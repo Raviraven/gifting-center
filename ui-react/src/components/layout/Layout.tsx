@@ -4,6 +4,7 @@ import {
   Container,
   Divider,
   Grid,
+  Link,
   List,
   ListItem,
   ListItemButton,
@@ -13,20 +14,27 @@ import {
   Typography,
 } from '@mui/material';
 import { useCallback, useContext, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Link as RouterLink, Outlet, useLocation } from 'react-router-dom';
 
-import { Brightness4, Brightness7, Menu } from '@mui/icons-material';
+import {
+  Brightness4,
+  Brightness7,
+  CheckCircle,
+  Menu,
+} from '@mui/icons-material';
 
 import { useTheme } from '@emotion/react';
 
 import { AppLanguage, LanguageContext } from '../../context/LanguageContext';
 import { ColorModeContext } from '../../context/ColorModeContext';
+import { TranslatedText } from '../translated-text/TranslatedText';
 
 export const Layout = () => {
-  const { changeLanguage } = useContext(LanguageContext);
+  const { language, changeLanguage } = useContext(LanguageContext);
   const [drawerOpened, setDrawerOpened] = useState(false);
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
+  const { pathname } = useLocation();
 
   const changeLang = useCallback(
     (lng: string) => {
@@ -53,11 +61,27 @@ export const Layout = () => {
   );
 
   return (
-    <Container maxWidth="sm" component="section">
-      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="body1" component="nav" fontWeight={800}>
-          Hej Franek!
-        </Typography>
+    <Container
+      maxWidth="sm"
+      component="section"
+      sx={{
+        height: '100%',
+        backgroundColor:
+          (theme as Theme).palette.mode === 'dark' ? '#121212' : '#f3cf7d',
+      }}
+    >
+      <Box
+        paddingTop="1rem"
+        height="10rem"
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+        }}
+      >
+        <Link component={RouterLink} to="/" height="100%">
+          <img src="logo.png" alt="Application logo" height="100%" />
+        </Link>
 
         <Button onClick={toggleDrawer(true)}>
           <Menu />
@@ -76,22 +100,30 @@ export const Layout = () => {
       >
         <Box role="presentation" sx={{ width: 250 }}>
           <List>
-            {/* <Typography variant="body2" align="center">
-              Lang
-                          <TranslatedText lKey="chooseLanguage" />
-
-            </Typography> */}
+            <Typography variant="body2" align="center">
+              <TranslatedText lKey="chooseLanguage" />
+            </Typography>
             <ListItem>
               <ListItemButton
                 onClick={() => changeLang('en')}
                 sx={{ display: 'flex', justifyContent: 'center' }}
               >
+                {language === 'en' ? (
+                  <CheckCircle color="success" sx={{ marginRight: '0.5rem' }} />
+                ) : (
+                  <></>
+                )}{' '}
                 ENG
               </ListItemButton>
               <ListItemButton
                 onClick={() => changeLang('pl')}
                 sx={{ display: 'flex', justifyContent: 'center' }}
               >
+                {language === 'pl' ? (
+                  <CheckCircle color="success" sx={{ marginRight: '0.5rem' }} />
+                ) : (
+                  <></>
+                )}{' '}
                 PL
               </ListItemButton>
             </ListItem>
@@ -113,6 +145,12 @@ export const Layout = () => {
               </ListItemButton>
             </ListItem>
             <Divider />
+
+            {pathname.includes('admin-panel') ? (
+              <ListItem>Tu bedo admin actions</ListItem>
+            ) : (
+              <></>
+            )}
           </List>
         </Box>
       </SwipeableDrawer>

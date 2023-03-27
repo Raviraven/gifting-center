@@ -27,6 +27,10 @@ export const ColorModeContextProvider = ({
       createTheme({
         palette: {
           mode,
+          background: {
+            default: mode === 'dark' ? '#121212' : '#a2d4bf',
+            paper: mode === 'dark' ? '#121212' : '#f2d799',
+          },
         },
       }),
     [mode]
