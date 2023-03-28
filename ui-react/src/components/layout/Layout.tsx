@@ -68,6 +68,7 @@ export const Layout = () => {
         height: '100%',
         backgroundColor:
           (theme as Theme).palette.mode === 'dark' ? '#121212' : '#f3cf7d',
+        position: 'relative',
       }}
     >
       <Box
@@ -75,7 +76,7 @@ export const Layout = () => {
         height="10rem"
         sx={{
           display: 'flex',
-          justifyContent: 'space-between',
+          justifyContent: 'center',
           alignItems: 'flex-start',
         }}
       >
@@ -83,7 +84,10 @@ export const Layout = () => {
           <img src="logo.png" alt="Application logo" height="100%" />
         </Link>
 
-        <Button onClick={toggleDrawer(true)}>
+        <Button
+          onClick={toggleDrawer(true)}
+          sx={{ position: 'absolute', right: '1rem' }}
+        >
           <Menu />
         </Button>
       </Box>

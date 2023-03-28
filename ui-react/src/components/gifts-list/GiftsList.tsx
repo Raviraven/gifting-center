@@ -28,7 +28,6 @@ interface GiftsByCategory {
 export const GiftsList = (props: GiftsListProps) => {
   const { userId, editGift, adminActions = false, showDeleted = false } = props;
   const [giftsByCategory, setGiftsByCategory] = useState<GiftsByCategory[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
 
   const { isLoading: areGiftsLoading, data: giftsData } =
     useGiftsForUser(userId);
@@ -64,7 +63,6 @@ export const GiftsList = (props: GiftsListProps) => {
     });
 
     setGiftsByCategory(tempGiftsByCategory);
-    setLoading(false);
   }, [categoriesData, giftsData, showDeleted]);
 
   useEffect(() => {
@@ -77,7 +75,7 @@ export const GiftsList = (props: GiftsListProps) => {
     <p>
       <TranslatedText lKey="loading" />
     </p>
-  ) : giftsData ? (
+  ) : giftsData && giftsData.length > 0 ? (
     <Grid container>
       {giftsByCategory.map((giftCategory, gci) => (
         <Grid
@@ -92,14 +90,7 @@ export const GiftsList = (props: GiftsListProps) => {
             {giftCategory.gifts.map((gift, gi) => (
               <Grid item xs={12} md={12} key={`key-${gift.id}-${gi}`}>
                 <SingleGift
-                  categoryId={gift.categoryId}
-                  deleted={gift.deleted}
-                  id={gift.id}
-                  name={gift.name}
-                  price={gift.price}
-                  reserved={gift.reserved}
-                  url={gift.url}
-                  giftedUserId={gift.giftedUserId}
+                  gift={gift}
                   adminActions={adminActions}
                   editGift={editGift}
                 />

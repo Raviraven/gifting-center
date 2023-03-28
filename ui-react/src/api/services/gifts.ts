@@ -31,6 +31,7 @@ export const GetGiftsForUser = async (userId: number) => {
   } catch (error) {
     const err = error as AxiosError;
     toast.error((err.response?.data as { message: string }).message);
+    return [];
   }
 };
 

@@ -1,6 +1,7 @@
 {
   "add": "Add",
   "category": "Category",
+  "delete": "Delete",
   "chooseLanguage": "Choose language",
   "giftName": "Name",
   "giftPrice": "Price",

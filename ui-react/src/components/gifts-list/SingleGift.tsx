@@ -11,41 +11,30 @@ import {
   Card,
   CardContent,
   CardActions,
+  Grid,
   Typography,
   Link as LinkMaterial,
 } from '@mui/material';
 
-import Grid from '@mui/material/Grid/Grid';
+import { CheckCircle, RemoveCircle, EditOutlined } from '@mui/icons-material';
 
-import { CheckCircle } from '@mui/icons-material';
-
-import { GiftEdit } from '../../api/models/gift';
+import { GiftEdit, GiftList } from '../../api/models/gift';
 import { TranslatedText } from '../translated-text/TranslatedText';
-import { useDeleteGift, useUpdateGift } from '../../api/hooks/gifts';
+import {
+  GiftsQueryKeys,
+  useDeleteGift,
+  useUpdateGift,
+} from '../../api/hooks/gifts';
 
 interface SingleGiftProps {
-  id: number;
-  name: string;
-  price: number;
-  url: string;
-  reserved: boolean;
-  deleted: boolean;
-  categoryId: number;
-  giftedUserId: number;
+  gift: GiftList;
 
   adminActions?: boolean;
   editGift?: (giftId: number) => void;
 }
 
 export const SingleGift = ({
-  categoryId,
-  deleted,
-  id,
-  name,
-  price,
-  reserved,
-  url,
-  giftedUserId,
+  gift,
   editGift,
   adminActions = false,
 }: SingleGiftProps) => {
@@ -53,7 +42,10 @@ export const SingleGift = ({
   const { mutate: deleteGiftMutate } = useDeleteGift();
   const { mutate: updateGiftMutate } = useUpdateGift();
 
-  const gift: GiftEdit = {
+  const { categoryId, deleted, giftedUserId, id, name, price, reserved, url } =
+    gift;
+
+  const initialGiftValues: GiftEdit = {
     categoryId: categoryId,
     deleted: deleted,
     giftedUserId: giftedUserId,
@@ -65,9 +57,11 @@ export const SingleGift = ({
   };
 
   const onSubmit = useCallback(
-    async (editedGift: GiftEdit) => {
-      updateGiftMutate(editedGift);
-      await queryClient.invalidateQueries('gifts-list');
+    (editedGift: GiftEdit) => {
+      updateGiftMutate(editedGift, {
+        onSuccess: () =>
+          queryClient.invalidateQueries(GiftsQueryKeys.giftsList),
+      });
     },
     [queryClient, updateGiftMutate]
   );
@@ -75,7 +69,7 @@ export const SingleGift = ({
   const onDeleteSubmit = useCallback(
     async ({ id }: { id: number }) => {
       deleteGiftMutate(id);
-      await queryClient.invalidateQueries('gifts-list');
+      await queryClient.invalidateQueries(GiftsQueryKeys.giftsList);
     },
     [deleteGiftMutate, queryClient]
   );
@@ -91,7 +85,6 @@ export const SingleGift = ({
 
   return (
     <Card>
-      {/* <Grid container padding="0.5rem"> */}
       <CardContent>
         <Grid
           item
@@ -104,7 +97,7 @@ export const SingleGift = ({
             {name}
           </Typography>
           <Typography variant="h6" component="p">
-            {price}zł
+            {`${price.toFixed(2)} zł`}
           </Typography>
         </Grid>
         <Grid container component="main" spacing={1} justifyContent="center">
@@ -151,7 +144,10 @@ export const SingleGift = ({
                 </Typography>
               </Box>
             ) : (
-              <Formik<GiftEdit> initialValues={gift} onSubmit={onSubmit}>
+              <Formik<GiftEdit>
+                initialValues={initialGiftValues}
+                onSubmit={onSubmit}
+              >
                 <Form>
                   <Button variant="outlined" type="submit" fullWidth>
                     <TranslatedText lKey="reserve" />
@@ -166,8 +162,21 @@ export const SingleGift = ({
               <Grid item xs={6}>
                 <Formik initialValues={{ id: id }} onSubmit={onDeleteSubmit}>
                   <Form>
-                    <Button variant="outlined" type="submit" fullWidth>
-                      ❌ <TranslatedText lKey="delete" />
+                    <Button
+                      variant="outlined"
+                      type="submit"
+                      fullWidth
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <RemoveCircle
+                        color="error"
+                        sx={{ marginRight: '0.25rem' }}
+                      />
+                      <TranslatedText lKey="delete" />
                     </Button>
                   </Form>
                 </Formik>
@@ -179,6 +188,7 @@ export const SingleGift = ({
                   onClick={() => handleEdit(id)}
                   fullWidth
                 >
+                  <EditOutlined sx={{ marginRight: '0.25rem' }} />
                   <TranslatedText lKey="edit" />
                 </Button>
               </Grid>
@@ -188,7 +198,6 @@ export const SingleGift = ({
           )}
         </Grid>
       </CardActions>
-      {/* </Grid> */}
     </Card>
   );
 };

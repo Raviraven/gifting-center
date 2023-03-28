@@ -24,13 +24,15 @@ export const EditCategory = async (category: { name: string }) => {
   }
 };
 
-export const getCategories = async () => {
+export const GetCategories = async () => {
   const result = await axiosInstance.get<Category[]>('/categories');
 
   if (result.status === 200) {
     return result.data;
   } else {
+    // what about other statuses? should that be handled by try catch or ... ?
     toast.error(result.statusText);
+    // return []
   }
 };
 

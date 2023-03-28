@@ -3,7 +3,7 @@ import { useMutation, useQuery } from 'react-query';
 import {
   addCategory,
   EditCategory,
-  getCategories,
+  GetCategories,
   GetCategoryById,
 } from '../services/categories';
 
@@ -24,4 +24,4 @@ export const useCategory = (id: number) =>
   useQuery([CategoriesQueryKeys.category, id], () => GetCategoryById(id));
 
 export const useCategories = () =>
-  useQuery(CategoriesQueryKeys.categories, getCategories);
+  useQuery(CategoriesQueryKeys.categories, GetCategories);
