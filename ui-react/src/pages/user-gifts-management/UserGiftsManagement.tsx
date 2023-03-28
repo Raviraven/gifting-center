@@ -103,5 +103,3 @@ export const UserGiftsManagement = () => {
     </>
   );
 };
-
-//const GiftedUserSelect = () => {};
