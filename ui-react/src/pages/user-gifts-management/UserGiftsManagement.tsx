@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { SelectChangeEvent } from '@mui/material/Select';
 import { FormikProps } from 'formik';
 import { useCallback, useEffect, useState } from 'react';

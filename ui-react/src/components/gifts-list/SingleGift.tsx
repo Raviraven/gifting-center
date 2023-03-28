@@ -67,9 +67,11 @@ export const SingleGift = ({
   );
 
   const onDeleteSubmit = useCallback(
-    async ({ id }: { id: number }) => {
-      deleteGiftMutate(id);
-      await queryClient.invalidateQueries(GiftsQueryKeys.giftsList);
+    ({ id }: { id: number }) => {
+      deleteGiftMutate(id, {
+        onSuccess: () =>
+          queryClient.invalidateQueries(GiftsQueryKeys.giftsList),
+      });
     },
     [deleteGiftMutate, queryClient]
   );
