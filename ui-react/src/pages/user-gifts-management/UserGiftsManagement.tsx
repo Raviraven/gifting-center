@@ -1,5 +1,5 @@
 import { SelectChangeEvent } from '@mui/material/Select';
-import { Formik, Form, FormikProps } from 'formik';
+import { FormikProps } from 'formik';
 import { useCallback, useEffect, useState } from 'react';
 import { useQueryClient } from 'react-query';
 
@@ -7,10 +7,7 @@ import { useGiftedUsers } from '../../api/hooks/gifted-users';
 import { GiftAdd } from '../../components/gift/GiftAdd';
 import { GiftEdit } from '../../components/gift/GiftEdit';
 import { GiftsList } from '../../components/gifts-list/GiftsList';
-import {
-  SelectFieldFormik,
-  SelectFieldOption,
-} from '../../components/material/formik/SelectFieldFormik';
+import { SelectFieldOption } from '../../components/material/formik/SelectFieldFormik';
 import { SelectField } from '../../components/material/SelectField';
 import { TranslatedText } from '../../components/translated-text/TranslatedText';
 
