@@ -17,7 +17,6 @@ export const GiftedUserAdd = () => {
 
   const handleSubmit = useCallback(
     ({ name }: { name: string }) => {
-      console.log(name);
       mutate(
         { name },
         {
