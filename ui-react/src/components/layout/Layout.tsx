@@ -14,7 +14,12 @@ import {
   Typography,
 } from '@mui/material';
 import { useCallback, useContext, useState } from 'react';
-import { Link as RouterLink, Outlet, useLocation } from 'react-router-dom';
+import {
+  Link as RouterLink,
+  Outlet,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 
 import {
   Brightness4,
@@ -35,6 +40,7 @@ export const Layout = () => {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   const changeLang = useCallback(
     (lng: string) => {
@@ -58,6 +64,23 @@ export const Layout = () => {
       setDrawerOpened(open);
     },
     []
+  );
+
+  const adminMenuNavigateTo = useCallback(
+    (url: string) => {
+      setDrawerOpened(false);
+      navigate('/admin-panel/' + url);
+    },
+    [navigate]
+  );
+
+  const calculateSelectedDrawerButton = useCallback(
+    (url: string) => {
+      if (pathname === '/admin-panel/' + url) return true;
+
+      return false;
+    },
+    [pathname]
   );
 
   return (
@@ -86,7 +109,7 @@ export const Layout = () => {
 
         <Button
           onClick={toggleDrawer(true)}
-          sx={{ position: 'absolute', right: '1rem' }}
+          sx={{ position: 'absolute', left: '1rem' }}
         >
           <Menu />
         </Button>
@@ -151,7 +174,40 @@ export const Layout = () => {
             <Divider />
 
             {pathname.includes('admin-panel') ? (
-              <ListItem>Tu bedo admin actions</ListItem>
+              <>
+                <ListItem>
+                  <ListItemButton
+                    selected={calculateSelectedDrawerButton('')}
+                    onClick={() => adminMenuNavigateTo('')}
+                  >
+                    <TranslatedText lKey="adminPanel" />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem>
+                  <ListItemButton
+                    selected={calculateSelectedDrawerButton('gifts')}
+                    onClick={() => adminMenuNavigateTo('gifts')}
+                  >
+                    <TranslatedText lKey="giftsforUserAdminTab" />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem>
+                  <ListItemButton
+                    selected={calculateSelectedDrawerButton('categories')}
+                    onClick={() => adminMenuNavigateTo('categories')}
+                  >
+                    <TranslatedText lKey="categoriesAdminTab" />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem>
+                  <ListItemButton
+                    selected={calculateSelectedDrawerButton('gifted-users')}
+                    onClick={() => adminMenuNavigateTo('gifted-users')}
+                  >
+                    <TranslatedText lKey="giftedUsersAdminTab" />
+                  </ListItemButton>
+                </ListItem>
+              </>
             ) : (
               <></>
             )}

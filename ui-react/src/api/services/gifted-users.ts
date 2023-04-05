@@ -2,6 +2,7 @@ import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 
 import { axiosInstance } from '../axios';
+import { ApiHandledError } from '../models/api-handled-error';
 import { GiftedUser } from '../models/gifted-user';
 
 export const AddGiftedUser = async ({ name }: { name: string }) => {
@@ -22,8 +23,8 @@ export const GetGiftedUsers = async () => {
 
     return result.data;
   } catch (error) {
-    const err = error as { message: string };
-    toast.error(err.message);
+    const err = error as AxiosError;
+    toast.error((err.response?.data as ApiHandledError).message);
   }
 };
 

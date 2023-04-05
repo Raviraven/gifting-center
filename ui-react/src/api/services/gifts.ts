@@ -2,6 +2,7 @@ import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 
 import { axiosInstance } from '../axios';
+import { ApiHandledError } from '../models/api-handled-error';
 import { GiftAdd, GiftEdit, GiftList } from '../models/gift';
 
 export const AddGift = async (gift: GiftAdd) => {
@@ -20,7 +21,7 @@ export const GetGiftById = async (id: number) => {
     return result.data;
   } catch (error) {
     const err = error as AxiosError;
-    toast.error((err.response?.data as { message: string }).message);
+    toast.error((err.response?.data as ApiHandledError).message);
   }
 };
 
@@ -30,7 +31,9 @@ export const GetGiftsForUser = async (userId: number) => {
     return result.data;
   } catch (error) {
     const err = error as AxiosError;
-    toast.error((err.response?.data as { message: string }).message);
+    if (err.response?.status !== 404) {
+      toast.error((err.response?.data as ApiHandledError).message);
+    }
     return [];
   }
 };
