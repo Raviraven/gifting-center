@@ -24,7 +24,7 @@ export const CategoriesManagement = () => {
             <Box>
               <List>
                 <LinkListItemButton to="" exact>
-                  <ListItemText primary={t('categoriesforUserAdminTab')} />
+                  <ListItemText primary={t('categoriesForUserAdminTab')} />
                 </LinkListItemButton>
                 <LinkListItemButton to="category-add" exact>
                   <ListItemText primary={t('categoriesAddAdminTab')} />

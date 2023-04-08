@@ -2,6 +2,8 @@ import { Form, Formik } from 'formik';
 import { useCallback } from 'react';
 import { useQueryClient } from 'react-query';
 
+import { Button } from '@mui/material';
+
 import {
   CategoriesQueryKeys,
   useAddCategory,
@@ -32,9 +34,9 @@ export const CategoryAdd = () => {
         <Form>
           <TextFieldFormik label="categoryName" name="name" type={'text'} />
 
-          <button type="submit">
+          <Button variant="outlined" type="submit" fullWidth>
             <TranslatedText lKey="add" />
-          </button>
+          </Button>
         </Form>
       </Formik>
     </section>
