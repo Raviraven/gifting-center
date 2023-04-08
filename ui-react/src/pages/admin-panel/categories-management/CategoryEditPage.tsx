@@ -4,7 +4,7 @@ import { Typography } from '@mui/material';
 
 import { useCallback } from 'react';
 
-import { CategoryEdit } from '../../../components/category-edit/CategoryEdit';
+import { CategoryEdit } from '../../../components/category/CategoryEdit';
 
 export const CategoryEditPage = () => {
   const params = useParams();

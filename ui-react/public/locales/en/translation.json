@@ -27,5 +27,6 @@
   "loading": "Loading...",
   "noGiftsForSelectedUser": "There are no gifts for selected user",
   "reserve": "Reserve",
-  "reserved": "Reserved"
+  "reserved": "Reserved",
+  "wrongDataReceivedFromServer": "Wrong data received from server"
 }

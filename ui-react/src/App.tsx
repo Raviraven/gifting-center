@@ -10,7 +10,7 @@ import { UserGifts } from './pages/user-gifts/UserGifts';
 import { GiftAdd } from './components/gift/GiftAdd';
 import { UserGiftsManagement } from './pages/admin-panel/user-gifts-management/UserGiftsManagement';
 import { GiftedUserAdd } from './components/gifted-user-add/GiftedUserAdd';
-import { CategoryAdd } from './components/category-add/CategoryAdd';
+import { CategoryAdd } from './components/category/CategoryAdd';
 import { GiftsPerSelectedUser } from './pages/admin-panel/user-gifts-management/GiftsPerSelectedUser';
 import { GiftedUsersManagement } from './pages/admin-panel/gifted-users-management/GiftedUsersManagement';
 import { CategoriesManagement } from './pages/admin-panel/categories-management/CategoriesManagement';

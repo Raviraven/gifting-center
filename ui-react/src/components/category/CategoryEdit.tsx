@@ -1,21 +1,20 @@
-import { Form, Formik } from 'formik';
 import { useCallback } from 'react';
 import { useQueryClient } from 'react-query';
 
-import { Button } from '@mui/material';
+import { Typography } from '@mui/material';
 
 import {
   CategoriesQueryKeys,
   useCategory,
   useEditCategory,
 } from '../../api/hooks/categories';
-import { Category } from '../../api/models/categories';
-import { TextFieldFormik } from '../material/formik/TextField';
 import { TranslatedText } from '../translated-text/TranslatedText';
+
+import { CategoryForm } from './CategoryForm';
 
 interface CategoryEditProps {
   id: number;
-  onSubmitClick: () => void;
+  onSubmitClick?: () => void;
 }
 
 export const CategoryEdit = ({ id, onSubmitClick }: CategoryEditProps) => {
@@ -33,7 +32,10 @@ export const CategoryEdit = ({ id, onSubmitClick }: CategoryEditProps) => {
       queryKey: [CategoriesQueryKeys.category, id],
       exact: true,
     });
-    onSubmitClick();
+
+    if (onSubmitClick) {
+      onSubmitClick();
+    }
   }, [id, onSubmitClick, queryClient]);
 
   const handleSubmit = useCallback(
@@ -46,23 +48,18 @@ export const CategoryEdit = ({ id, onSubmitClick }: CategoryEditProps) => {
   );
 
   return isLoading ? (
-    <p>
+    <Typography variant="body2">
       <TranslatedText lKey="loading" />
-    </p>
+    </Typography>
+  ) : data ? (
+    <CategoryForm
+      category={data}
+      handleSubmit={handleSubmit}
+      lKeySubmitButton="save"
+    />
   ) : (
-    <section>
-      <Formik<Category>
-        initialValues={{ id: data?.id ?? 0, name: data?.name ?? '' }}
-        onSubmit={handleSubmit}
-      >
-        <Form>
-          <TextFieldFormik label="categoryName" name="name" type={'text'} />
-
-          <Button type="submit" variant="outlined" fullWidth>
-            <TranslatedText lKey="save" />
-          </Button>
-        </Form>
-      </Formik>
-    </section>
+    <Typography variant="body2">
+      <TranslatedText lKey="wrongDataReceivedFromServer" />
+    </Typography>
   );
 };

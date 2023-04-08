@@ -34,11 +34,12 @@ export const GetCategories = async () => {
 };
 
 export const GetCategoryById = async (categoryId: number) => {
-  const result = await axiosInstance.get<Category>(`/categories/${categoryId}`);
-
-  if (result.status === 200) {
+  try {
+    const result = await axiosInstance.get<Category>(
+      `/categories/${categoryId}`
+    );
     return result.data;
-  } else {
-    toast.error(result.statusText);
+  } catch {
+    return null;
   }
 };

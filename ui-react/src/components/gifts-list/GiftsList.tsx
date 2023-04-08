@@ -39,7 +39,6 @@ export const GiftsList = (props: GiftsListProps) => {
     if (!giftsData || !categoriesData) return;
 
     const tempGiftsByCategory: GiftsByCategory[] = [];
-    console.log(giftsData);
 
     giftsData.forEach((gift) => {
       if (!showDeleted && gift.deleted) return;

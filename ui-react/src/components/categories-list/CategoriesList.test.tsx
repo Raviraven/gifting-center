@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import { MemoryRouter } from 'react-router-dom';
 
@@ -34,7 +34,7 @@ describe('CategoriesList tests', () => {
     });
   });
 
-  test('should show loading while fetching categories', () => {
+  test('should show loading while fetching categories', async () => {
     render(
       <TestQueryClientProvider>
         <MemoryRouter>
@@ -43,7 +43,9 @@ describe('CategoriesList tests', () => {
       </TestQueryClientProvider>
     );
 
-    expect(screen.getByText('loading')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('loading')).toBeInTheDocument();
+    });
   });
 
   test('should show no categories info when no categories in db', async () => {
