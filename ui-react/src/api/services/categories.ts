@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { axiosInstance } from '../axios';
 import { Category } from '../models/categories';
 
-export const addCategory = async (category: { name: string }) => {
+export const AddCategory = async (category: { name: string }) => {
   try {
     const result = await axiosInstance.post<Category>('/categories', category);
     return result.data;

@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from 'react-query';
 
 import {
-  addCategory,
+  AddCategory,
   EditCategory,
   GetCategories,
   GetCategoryById,
@@ -15,7 +15,7 @@ export enum CategoriesQueryKeys {
 //export const useCategory = (categoryId: number) => useQuery
 
 export const useAddCategory = () =>
-  useMutation((category: { name: string }) => addCategory(category));
+  useMutation((category: { name: string }) => AddCategory(category));
 
 export const useEditCategory = () =>
   useMutation((category: { name: string }) => EditCategory(category));
