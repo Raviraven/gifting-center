@@ -1,7 +1,7 @@
 export interface GiftList {
   id: number;
   name: string;
-  price: number;
+  price: string;
   url: string;
   reserved: boolean;
   deleted: boolean;

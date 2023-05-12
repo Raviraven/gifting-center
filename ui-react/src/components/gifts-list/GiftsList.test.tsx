@@ -27,7 +27,7 @@ const defaultUsersGifts: GiftList[] = [
     giftedUserId: 1,
     id: 1,
     name: 'first gift',
-    price: -20.92,
+    price: '-20.92',
     reserved: false,
     url: '',
   },
@@ -93,7 +93,7 @@ describe('GiftsList tests', () => {
       </MemoryRouter>
     );
 
-    // mb adjust a lil'
+    // mb adjust a lil' - add more categories and check whether gifts are shown for proper category
     await waitFor(() => {
       expect(screen.getByText('Books')).toBeInTheDocument();
       expect(screen.getByText('first gift')).toBeInTheDocument();

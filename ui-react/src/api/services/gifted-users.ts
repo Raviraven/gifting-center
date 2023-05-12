@@ -2,7 +2,6 @@ import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 
 import { axiosInstance } from '../axios';
-import { ApiHandledError } from '../models/api-handled-error';
 import { GiftedUser } from '../models/gifted-user';
 
 export const AddGiftedUser = async ({ name }: { name: string }) => {
@@ -17,24 +16,20 @@ export const AddGiftedUser = async ({ name }: { name: string }) => {
   }
 };
 
-export const GetGiftedUsers = async () => {
-  try {
-    const result = await axiosInstance.get<GiftedUser[]>('giftedusers');
+export const EditGiftedUser = async (user: GiftedUser) => {
+  const result = await axiosInstance.put<GiftedUser>(
+    `giftedusers/${user.id}`,
+    user
+  );
+  return result.data;
+};
 
-    return result.data;
-  } catch (error) {
-    const err = error as AxiosError;
-    toast.error((err.response?.data as ApiHandledError).message);
-  }
+export const GetGiftedUsers = async () => {
+  const result = await axiosInstance.get<GiftedUser[]>('giftedusers');
+  return result.data;
 };
 
 export const GetGiftedUserById = async (userId: number) => {
-  try {
-    const result = await axiosInstance.get<GiftedUser>(`giftedusers/${userId}`);
-
-    return result.data;
-  } catch (error) {
-    const err = error as AxiosError;
-    toast.error(err.response?.statusText);
-  }
+  const result = await axiosInstance.get<GiftedUser>(`giftedusers/${userId}`);
+  return result.data;
 };

@@ -34,6 +34,6 @@ export const GiftEdit = ({ id, onSubmit }: GiftEditProps) => {
   return isLoading ? (
     <TranslatedText lKey="loading" />
   ) : (
-    <GiftForm handleSubmit={handleSubmit} gift={data} />
+    <GiftForm handleSubmit={handleSubmit} gift={data} submitButtonLKey="save" />
   );
 };

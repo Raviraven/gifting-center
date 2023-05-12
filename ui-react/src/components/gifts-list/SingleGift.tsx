@@ -1,7 +1,7 @@
 import './SingleGift.scss';
 
 import { Formik, Form } from 'formik';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
 
@@ -45,6 +45,8 @@ export const SingleGift = ({
   const { categoryId, deleted, giftedUserId, id, name, price, reserved, url } =
     gift;
 
+  const [priceNumber, setPriceNumber] = useState<number>(0);
+
   const initialGiftValues: GiftEdit = {
     categoryId: categoryId,
     deleted: deleted,
@@ -85,6 +87,10 @@ export const SingleGift = ({
     [editGift]
   );
 
+  useEffect(() => {
+    setPriceNumber(Number(price));
+  }, [price]);
+
   return (
     <Card>
       <CardContent>
@@ -99,7 +105,7 @@ export const SingleGift = ({
             {name}
           </Typography>
           <Typography variant="h6" component="p">
-            {`${price.toFixed(2)} zł`}
+            {`${priceNumber.toFixed(2)} zł`}
           </Typography>
         </Grid>
         <Grid container component="main" spacing={1} justifyContent="center">

@@ -1,10 +1,8 @@
 import './GiftsList.scss';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Grid, Typography } from '@mui/material';
-
-import { GiftList as GiftListModel } from '../../api/models/gift';
 
 import { useCategories } from '../../api/hooks/categories';
 
@@ -12,17 +10,13 @@ import { TranslatedText } from '../translated-text/TranslatedText';
 import { useGiftsForUser } from '../../api/hooks/gifts';
 
 import { SingleGift } from './SingleGift';
+import { GetGiftsByCategory, GiftsByCategory } from './GiftsList.Utils';
 
 interface GiftsListProps {
   userId: number;
   adminActions?: boolean;
   showDeleted?: boolean;
   editGift?: (giftId: number) => void;
-}
-
-interface GiftsByCategory {
-  categoryName: string;
-  gifts: GiftListModel[];
 }
 
 export const GiftsList = (props: GiftsListProps) => {
@@ -35,41 +29,19 @@ export const GiftsList = (props: GiftsListProps) => {
   const { isLoading: areCategoriesLoading, data: categoriesData } =
     useCategories();
 
-  const getGiftsByCategory = useCallback(() => {
-    if (!giftsData || !categoriesData) return;
-
-    const tempGiftsByCategory: GiftsByCategory[] = [];
-
-    giftsData.forEach((gift) => {
-      if (!showDeleted && gift.deleted) return;
-
-      const currentCategory = categoriesData.filter(
-        (category) => category.id === gift.categoryId
-      )[0];
-
-      const currentGiftsForCategory = tempGiftsByCategory.filter(
-        (g) => g.categoryName === currentCategory.name
-      )[0];
-
-      if (currentGiftsForCategory) {
-        currentGiftsForCategory.gifts.push(gift);
-        return;
-      }
-
-      tempGiftsByCategory.push({
-        categoryName: currentCategory.name,
-        gifts: [gift],
-      });
-    });
-
-    setGiftsByCategory(tempGiftsByCategory);
-  }, [categoriesData, giftsData, showDeleted]);
-
   useEffect(() => {
     if (!areCategoriesLoading && !areGiftsLoading) {
-      getGiftsByCategory();
+      setGiftsByCategory(
+        GetGiftsByCategory(giftsData, categoriesData, showDeleted)
+      );
     }
-  }, [areCategoriesLoading, areGiftsLoading, getGiftsByCategory]);
+  }, [
+    areCategoriesLoading,
+    areGiftsLoading,
+    categoriesData,
+    giftsData,
+    showDeleted,
+  ]);
 
   return areCategoriesLoading || areCategoriesLoading ? (
     <p>

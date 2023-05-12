@@ -28,5 +28,7 @@
   "noGiftsForSelectedUser": "There are no gifts for selected user",
   "reserve": "Reserve",
   "reserved": "Reserved",
+  "validationNameFieldRequired": "Name field required",
+  "validationIdCannotBeLowerThanZero": "Id field cannot be lower than 0",
   "wrongDataReceivedFromServer": "Wrong data received from server"
 }

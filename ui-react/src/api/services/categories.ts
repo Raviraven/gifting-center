@@ -25,12 +25,8 @@ export const EditCategory = async (category: { name: string }) => {
 };
 
 export const GetCategories = async () => {
-  try {
-    const result = await axiosInstance.get<Category[]>('/categories');
-    return result.data;
-  } catch {
-    return [];
-  }
+  const result = await axiosInstance.get<Category[]>('/categories');
+  return result.data;
 };
 
 export const GetCategoryById = async (categoryId: number) => {

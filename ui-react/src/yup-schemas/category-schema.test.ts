@@ -6,7 +6,7 @@ import { CategorySchema } from './category-schema';
 
 describe('category-schema tests', () => {
   test.each([{ id: null }, { id: 'test id' }])(
-    'should show id required message',
+    'should show id must be a number message',
     async ({ id }) => {
       const test = {
         id: id,
@@ -33,7 +33,7 @@ describe('category-schema tests', () => {
     await expect(CategorySchema.validate(test)).rejects.toThrow(
       expect.objectContaining({
         name: 'ValidationError',
-        message: expect.stringContaining('Id field cannot be lower than 0'),
+        message: expect.stringContaining('validationIdCannotBeLowerThanZero'),
       })
     );
   });
@@ -47,7 +47,7 @@ describe('category-schema tests', () => {
     await expect(CategorySchema.validate(test)).rejects.toThrow(
       expect.objectContaining({
         name: 'ValidationError',
-        message: expect.stringContaining('Name field required'),
+        message: expect.stringContaining('validationNameFieldRequired'),
       })
     );
   });

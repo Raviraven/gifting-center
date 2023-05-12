@@ -20,7 +20,7 @@ const Wrapper = ({ children }: { children: ReactNode }) => {
 const defaultGift: GiftList = {
   id: -3,
   name: 'test gift name',
-  price: -342.1,
+  price: '-342.1',
   url: 'http://test-gift.com',
   reserved: false,
   deleted: false,
@@ -80,7 +80,7 @@ describe('SingleGift tests', () => {
         giftedUserId: 0,
         id: -3,
         name: 'test gift name',
-        price: -342.1,
+        price: '-342.1',
         reserved: true,
         url: 'http://test-gift.com',
       });

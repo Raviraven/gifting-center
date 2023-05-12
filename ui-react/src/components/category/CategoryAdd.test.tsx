@@ -49,6 +49,8 @@ describe('CategoryAdd tests', () => {
 
     fireEvent.click(screen.getByText('add'));
 
-    expect(await screen.findByText('Name field required')).toBeInTheDocument();
+    expect(
+      await screen.findByText('validationNameFieldRequired')
+    ).toBeInTheDocument();
   });
 });

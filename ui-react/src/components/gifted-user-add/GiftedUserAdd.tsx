@@ -1,4 +1,3 @@
-import { Form, Formik } from 'formik';
 import { useCallback } from 'react';
 import { useQueryClient } from 'react-query';
 
@@ -7,8 +6,7 @@ import {
   useAddGiftedUser,
 } from '../../api/hooks/gifted-users';
 
-import { TextFieldFormik } from '../material/formik/TextField';
-import { TranslatedText } from '../translated-text/TranslatedText';
+import { GiftedUserForm } from './GiftedUserForm';
 
 export const GiftedUserAdd = () => {
   const queryClient = useQueryClient();
@@ -28,20 +26,5 @@ export const GiftedUserAdd = () => {
     [mutate, queryClient]
   );
 
-  return (
-    <section>
-      <Formik<{ name: string }>
-        initialValues={{ name: '' }}
-        onSubmit={handleSubmit}
-      >
-        <Form>
-          <TextFieldFormik label="giftedUserName" name="name" type={'text'} />
-
-          <button type="submit">
-            <TranslatedText lKey="add" />
-          </button>
-        </Form>
-      </Formik>
-    </section>
-  );
+  return <GiftedUserForm handleSubmit={handleSubmit} submitButtonLKey="add" />;
 };

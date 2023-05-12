@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 
 import { Form, Formik } from 'formik';
 
+import { Typography } from '@mui/material';
+
 import { GiftList } from '../../api/models/gift';
 import { SelectFieldOption } from '../material/SelectField';
 
@@ -10,13 +12,19 @@ import { useGiftedUsers } from '../../api/hooks/gifted-users';
 import { TranslatedText } from '../translated-text/TranslatedText';
 import { TextFieldFormik } from '../material/formik/TextField';
 import { SelectFieldFormik } from '../material/formik/SelectFieldFormik';
+import { GiftSchema } from '../../yup-schemas/gift-schema';
 
 interface GiftFormProps {
   gift?: GiftList;
+  submitButtonLKey?: string;
   handleSubmit: (values: GiftList) => void;
 }
 
-export const GiftForm = ({ gift, handleSubmit }: GiftFormProps) => {
+export const GiftForm = ({
+  gift,
+  submitButtonLKey = 'add',
+  handleSubmit,
+}: GiftFormProps) => {
   const [categoriesDropdownOptions, setCategoriesDropdownOptions] = useState<
     SelectFieldOption[]
   >([]);
@@ -27,7 +35,7 @@ export const GiftForm = ({ gift, handleSubmit }: GiftFormProps) => {
   const initialValue: GiftList = {
     id: 0,
     name: '',
-    price: 0,
+    price: '0',
     url: '',
     reserved: false,
     deleted: false,
@@ -35,14 +43,26 @@ export const GiftForm = ({ gift, handleSubmit }: GiftFormProps) => {
     giftedUserId: 0,
   };
 
-  const { isLoading: areCategoriesLoading, data: categoriesData } =
-    useCategories();
+  const {
+    isLoading: areCategoriesLoading,
+    data: categoriesData,
+    isError: categoriesIsError,
+    //error: categoriesError,
+  } = useCategories();
 
-  const { isLoading: areGiftedUsersLoading, data: giftedUsersData } =
-    useGiftedUsers();
+  const {
+    isLoading: areGiftedUsersLoading,
+    data: giftedUsersData,
+    isError: giftedUsersIsError,
+    //error: giftedUsersError,
+  } = useGiftedUsers();
 
   useEffect(() => {
-    if (!areCategoriesLoading && categoriesData) {
+    if (
+      !areCategoriesLoading &&
+      categoriesData &&
+      Array.isArray(categoriesData)
+    ) {
       setCategoriesDropdownOptions([
         ...categoriesData.map((c) => {
           return { key: c.id, value: c.name };
@@ -52,7 +72,11 @@ export const GiftForm = ({ gift, handleSubmit }: GiftFormProps) => {
   }, [areCategoriesLoading, categoriesData]);
 
   useEffect(() => {
-    if (!areGiftedUsersLoading && giftedUsersData) {
+    if (
+      !areGiftedUsersLoading &&
+      giftedUsersData &&
+      Array.isArray(giftedUsersData)
+    ) {
       setGiftedUsersDropdownOptions([
         ...giftedUsersData.map((gu) => {
           return { key: gu.id, value: gu.name };
@@ -61,7 +85,28 @@ export const GiftForm = ({ gift, handleSubmit }: GiftFormProps) => {
     }
   }, [areGiftedUsersLoading, giftedUsersData]);
 
-  return areCategoriesLoading ? (
+  if (categoriesIsError || giftedUsersIsError) {
+    return (
+      <>
+        {categoriesIsError ? (
+          <Typography variant="body1">
+            <TranslatedText lKey="cannotFetchCategories" />
+          </Typography>
+        ) : (
+          <></>
+        )}
+        {giftedUsersIsError ? (
+          <Typography variant="body1">
+            <TranslatedText lKey="cannotFetchGiftedUsers" />
+          </Typography>
+        ) : (
+          <></>
+        )}
+      </>
+    );
+  }
+
+  return areCategoriesLoading || areGiftedUsersLoading ? (
     <>
       <TranslatedText lKey="loading" />
     </>
@@ -70,6 +115,10 @@ export const GiftForm = ({ gift, handleSubmit }: GiftFormProps) => {
       <Formik<GiftList>
         initialValues={gift ?? initialValue}
         onSubmit={handleSubmit}
+        validationSchema={GiftSchema(
+          categoriesData ?? [],
+          giftedUsersData ?? []
+        )}
       >
         <Form>
           <TextFieldFormik label="giftName" name="name" type={'text'} />
@@ -89,7 +138,7 @@ export const GiftForm = ({ gift, handleSubmit }: GiftFormProps) => {
           />
 
           <button type="submit">
-            <TranslatedText lKey="add" />
+            <TranslatedText lKey={submitButtonLKey} />
           </button>
         </Form>
       </Formik>

@@ -21,5 +21,5 @@ export const GiftAdd = () => {
     [addGiftMutation, queryClient]
   );
 
-  return <GiftForm handleSubmit={submitForm} />;
+  return <GiftForm handleSubmit={submitForm} submitButtonLKey="add" />;
 };
