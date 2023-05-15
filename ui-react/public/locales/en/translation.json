@@ -25,6 +25,7 @@
   "giftsforUserAdminTab": "Gifts",
   "linkToTheGift": "Click here to view the offer",
   "loading": "Loading...",
+  "noGiftedUsers": "There are no gifted users in database",
   "noGiftsForSelectedUser": "There are no gifts for selected user",
   "reserve": "Reserve",
   "reserved": "Reserved",

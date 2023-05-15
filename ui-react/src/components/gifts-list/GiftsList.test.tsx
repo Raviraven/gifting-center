@@ -63,7 +63,9 @@ describe('GiftsList tests', () => {
   test('should show loading while fetching data from api', async () => {
     render(
       <TestQueryClientProvider>
-        <GiftsList userId={-1} />
+        <MemoryRouter>
+          <GiftsList userId={-1} />
+        </MemoryRouter>
       </TestQueryClientProvider>
     );
 
@@ -75,7 +77,9 @@ describe('GiftsList tests', () => {
   test('should show no gifts for selected user message when received 404 from backend', async () => {
     render(
       <TestQueryClientProvider>
-        <GiftsList userId={-1} />
+        <MemoryRouter>
+          <GiftsList userId={-1} />
+        </MemoryRouter>
       </TestQueryClientProvider>
     );
 

@@ -2,6 +2,7 @@ import { useMutation, useQuery } from 'react-query';
 
 import {
   AddGiftedUser,
+  DeteleGiftedUser,
   EditGiftedUser,
   GetGiftedUserById,
   GetGiftedUsers,
@@ -15,6 +16,12 @@ export enum GiftedUsersQueryKeys {
 
 export const useAddGiftedUser = () =>
   useMutation(({ name }: { name: string }) => AddGiftedUser({ name }));
+
+export const useUpdateGiftedUser = () =>
+  useMutation((giftedUser: GiftedUser) => EditGiftedUser(giftedUser));
+
+export const useDeleteGiftedUser = () =>
+  useMutation((giftedUserId: number) => DeteleGiftedUser(giftedUserId));
 
 export const useEditGiftedUser = () =>
   useMutation((user: GiftedUser) => EditGiftedUser(user));

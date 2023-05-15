@@ -16,6 +16,13 @@ export const AddGiftedUser = async ({ name }: { name: string }) => {
   }
 };
 
+export const DeteleGiftedUser = async (giftedUserId: number) => {
+  const result = await axiosInstance.delete<boolean>(
+    `/giftedusers/${giftedUserId}`
+  );
+  return result.data;
+};
+
 export const EditGiftedUser = async (user: GiftedUser) => {
   const result = await axiosInstance.put<GiftedUser>(
     `giftedusers/${user.id}`,

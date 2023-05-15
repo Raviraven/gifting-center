@@ -1,8 +1,10 @@
 import './GiftsList.scss';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { Grid, Typography } from '@mui/material';
+
+import { useNavigate } from 'react-router-dom';
 
 import { useCategories } from '../../api/hooks/categories';
 
@@ -16,18 +18,25 @@ interface GiftsListProps {
   userId: number;
   adminActions?: boolean;
   showDeleted?: boolean;
-  editGift?: (giftId: number) => void;
 }
 
 export const GiftsList = (props: GiftsListProps) => {
-  const { userId, editGift, adminActions = false, showDeleted = false } = props;
+  const { userId, adminActions = false, showDeleted = false } = props;
   const [giftsByCategory, setGiftsByCategory] = useState<GiftsByCategory[]>([]);
+  const navigate = useNavigate();
 
   const { isLoading: areGiftsLoading, data: giftsData } =
     useGiftsForUser(userId);
 
   const { isLoading: areCategoriesLoading, data: categoriesData } =
     useCategories();
+
+  const editGift = useCallback(
+    (giftId: number) => {
+      navigate(`gift-edit/${giftId}`);
+    },
+    [navigate]
+  );
 
   useEffect(() => {
     if (!areCategoriesLoading && !areGiftsLoading) {
@@ -64,7 +73,7 @@ export const GiftsList = (props: GiftsListProps) => {
                 <SingleGift
                   gift={gift}
                   adminActions={adminActions}
-                  editGift={editGift}
+                  editGift={() => editGift(gift.id)}
                 />
               </Grid>
             ))}

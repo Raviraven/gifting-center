@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { Form, Formik } from 'formik';
 
-import { Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 
 import { GiftList } from '../../api/models/gift';
 import { SelectFieldOption } from '../material/SelectField';
@@ -137,9 +137,9 @@ export const GiftForm = ({
             options={giftedUsersDropdownOptions}
           />
 
-          <button type="submit">
+          <Button variant="outlined" type="submit" fullWidth>
             <TranslatedText lKey={submitButtonLKey} />
-          </button>
+          </Button>
         </Form>
       </Formik>
     </section>

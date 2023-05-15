@@ -12,6 +12,7 @@ import {
 import { useGiftedUsers } from '../../../api/hooks/gifted-users';
 
 import { TranslatedText } from '../../../components/translated-text/TranslatedText';
+import { GiftsQueryKeys } from '../../../api/hooks/gifts';
 
 export const GiftsPerSelectedUser = () => {
   const [giftedUsersDropdownOptions, setGiftedUsersDropdownOptions] = useState<
@@ -19,15 +20,9 @@ export const GiftsPerSelectedUser = () => {
   >([]);
   const [giftedUserIdString, setGiftedUserIdString] = useState<string>('0');
   const [id, setId] = useState<number>(0);
-
-  const [editedGiftId, setEditedGiftId] = useState<number | null>();
   const queryClient = useQueryClient();
 
   const { isLoading, data } = useGiftedUsers();
-
-  useEffect(() => {
-    setId(Number(giftedUserIdString) ?? 0);
-  }, [giftedUserIdString]);
 
   useEffect(() => {
     if (!isLoading && data && data.length > 0) {
@@ -42,11 +37,14 @@ export const GiftsPerSelectedUser = () => {
   const handleOnChange = useCallback(
     (event: SelectChangeEvent<string>) => {
       setGiftedUserIdString(event.target.value);
-
-      void queryClient.invalidateQueries('gifts-list');
+      void queryClient.invalidateQueries([GiftsQueryKeys.giftsList, id]);
     },
-    [queryClient]
+    [id, queryClient]
   );
+
+  useEffect(() => {
+    setId(Number(giftedUserIdString) ?? 0);
+  }, [giftedUserIdString]);
 
   return isLoading ? (
     <>
@@ -61,11 +59,7 @@ export const GiftsPerSelectedUser = () => {
         onChange={handleOnChange}
         value={giftedUserIdString}
       />
-      <GiftsList
-        userId={id}
-        adminActions={true}
-        editGift={(id: number) => setEditedGiftId(id)}
-      />
+      <GiftsList userId={id} adminActions={true} />
     </>
   );
 };

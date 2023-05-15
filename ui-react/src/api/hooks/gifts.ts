@@ -23,7 +23,7 @@ export const useGift = (id: number) =>
   useQuery([GiftsQueryKeys.gift, id], () => GetGiftById(id));
 
 export const useGiftsForUser = (userId: number) =>
-  useQuery(GiftsQueryKeys.giftsList, () => GetGiftsForUser(userId));
+  useQuery([GiftsQueryKeys.giftsList, userId], () => GetGiftsForUser(userId));
 
 export const useUpdateGift = () =>
   useMutation((gift: GiftEdit) => UpdateGift(gift.id, gift));

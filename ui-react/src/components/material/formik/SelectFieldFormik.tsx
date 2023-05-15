@@ -65,6 +65,7 @@ export const SelectFieldFormik = (props: SelectFieldFormikProps) => {
         variant="standard"
         margin="dense"
         defaultValue={''}
+        sx={{ marginBottom: '4px' }}
       >
         <MenuItem value="0"></MenuItem>
 
