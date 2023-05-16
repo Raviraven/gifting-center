@@ -60,28 +60,28 @@ namespace gifting_center.Data.Repositories
             return gift;
         }
 
-        public async Task<List<Gift>> Get()
+        public async Task<List<GiftList>> Get()
         {
-            var result = new List<Gift>();
+            var result = new List<GiftList>();
             var giftsDb = await _context.Gifts.ToListAsync();
-            giftsDb.ForEach(n => result.Add(new Gift(n.Id, n.Name, n.Price, n.Url, n.Reserved, n.Deleted, n.CategoryId, n.GiftedUserId)));
+            giftsDb.ForEach(n => result.Add(new GiftList(n.Id, n.Name, n.Price, n.Url, n.Reserved, n.Deleted, n.CategoryId, n.GiftedUserId)));
             return result;
         }
 
-        public async Task<Gift> GetById(int id)
+        public async Task<GiftList> GetById(int id)
         {
             var giftDb = await _context.Gifts.SingleAsync(n => n.Id == id);
 
-            return new Gift(giftDb.Id, giftDb.Name, giftDb.Price, giftDb.Url, giftDb.Reserved, giftDb.Deleted, giftDb.CategoryId, giftDb.GiftedUserId);
+            return new GiftList(giftDb.Id, giftDb.Name, giftDb.Price, giftDb.Url, giftDb.Reserved, giftDb.Deleted, giftDb.CategoryId, giftDb.GiftedUserId);
         }
 
-        public async Task<List<Gift>> GetGiftsByUserId(int id)
+        public async Task<List<GiftList>> GetGiftsByUserId(int id)
         {
             var giftsDb = await _context.Gifts
                 .Where(n => n.GiftedUserId == id)
                 .ToListAsync();
 
-            List<Gift> result = new();
+            List<GiftList> result = new();
             giftsDb.ForEach(gift =>
             {
                 result.Add(new(gift.Id, gift.Name, gift.Price, gift.Url, gift.Reserved, gift.Deleted, gift.CategoryId, gift.GiftedUserId));

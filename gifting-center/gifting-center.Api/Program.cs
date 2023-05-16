@@ -27,6 +27,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors();
+
 var app = builder.Build();
 
 using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
@@ -47,6 +49,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseMiddleware<ErrorHandlerMiddleware>();
+
+app.UseCors((opts) => opts.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
 app.Run();
 

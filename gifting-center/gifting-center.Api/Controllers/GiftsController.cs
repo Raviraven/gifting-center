@@ -27,8 +27,8 @@ namespace gifting_center.Api.Controllers
             return Ok(await _giftsService.Get());
         }
 
-        [HttpGet("/user/{userId}")]
-        public async Task<ActionResult<List<Gift>>> GetGiftsForUser(int userId)
+        [HttpGet("user/{userId}")]
+        public async Task<ActionResult<List<GiftList>>> GetGiftsForUser(int userId)
         {
             return Ok(await _giftsService.GetByUserId(userId));
         }
