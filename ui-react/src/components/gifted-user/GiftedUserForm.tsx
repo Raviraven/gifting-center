@@ -1,5 +1,7 @@
 import { Form, Formik } from 'formik';
 
+import { Button } from '@mui/material';
+
 import { TextFieldFormik } from '../material/formik/TextField';
 import { TranslatedText } from '../translated-text/TranslatedText';
 import { GiftedUser } from '../../api/models/gifted-user';
@@ -31,9 +33,9 @@ export const GiftedUserForm = ({
         <Form>
           <TextFieldFormik label="giftedUserName" name="name" type={'text'} />
 
-          <button type="submit">
+          <Button variant="outlined" type="submit" fullWidth>
             <TranslatedText lKey={submitButtonLKey} />
-          </button>
+          </Button>
         </Form>
       </Formik>
     </section>

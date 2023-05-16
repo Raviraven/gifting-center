@@ -18,6 +18,8 @@ import { CategoriesList } from './components/categories-list/CategoriesList';
 import { CategoryEditPage } from './pages/admin-panel/categories-management/CategoryEditPage';
 import { AdminLayout } from './components/layout/AdminLayout';
 import { GiftedUserList } from './components/gifted-user-list/GiftedUserList';
+import { GiftedUserEditPage } from './pages/admin-panel/gifted-users-management/GiftedUserEditPage';
+import { GiftEditPage } from './pages/admin-panel/user-gifts-management/GiftEditPage';
 
 export const App = () => {
   return (
@@ -32,7 +34,7 @@ export const App = () => {
             <Route path="gifts" element={<UserGiftsManagement />}>
               <Route index element={<GiftsPerSelectedUser />} />
               <Route path="gift-add" element={<GiftAdd />} />
-              <Route path="gift-edit/:id?" element={<p> gift edit</p>} />
+              <Route path="gift-edit/:id?" element={<GiftEditPage />} />
             </Route>
 
             <Route path="gifted-users" element={<GiftedUsersManagement />}>
@@ -40,7 +42,7 @@ export const App = () => {
               <Route path="gifted-user-add" element={<GiftedUserAdd />} />
               <Route
                 path="gifted-user-edit/:id?"
-                element={<p>gifted user edit</p>}
+                element={<GiftedUserEditPage />}
               />
             </Route>
 
