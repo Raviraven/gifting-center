@@ -53,9 +53,9 @@ export const GiftsList = (props: GiftsListProps) => {
   ]);
 
   return areCategoriesLoading || areCategoriesLoading ? (
-    <p>
+    <Typography variant="body2">
       <TranslatedText lKey="loading" />
-    </p>
+    </Typography>
   ) : giftsData && giftsData.length > 0 ? (
     <Grid container>
       {giftsByCategory.map((giftCategory, gci) => (

@@ -45,9 +45,9 @@ export const GiftedUserList = () => {
   );
 
   return isLoading ? (
-    <p>
+    <Typography variant="body2">
       <TranslatedText lKey="loading" />
-    </p>
+    </Typography>
   ) : data && data.length > 0 ? (
     <Grid container>
       {data.map((gUser, gUi) => (

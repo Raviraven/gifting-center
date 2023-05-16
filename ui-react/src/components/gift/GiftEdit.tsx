@@ -1,6 +1,8 @@
 import { useCallback } from 'react';
 import { useQueryClient } from 'react-query';
 
+import { Typography } from '@mui/material';
+
 import { useGift, useUpdateGift, GiftsQueryKeys } from '../../api/hooks/gifts';
 import { GiftEdit as GiftEditModel } from '../../api/models/gift';
 import { TranslatedText } from '../translated-text/TranslatedText';
@@ -32,7 +34,9 @@ export const GiftEdit = ({ id, onSubmit }: GiftEditProps) => {
   );
 
   return isLoading ? (
-    <TranslatedText lKey="loading" />
+    <Typography variant="body2">
+      <TranslatedText lKey="loading" />
+    </Typography>
   ) : (
     <GiftForm handleSubmit={handleSubmit} gift={data} submitButtonLKey="save" />
   );

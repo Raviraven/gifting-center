@@ -107,9 +107,9 @@ export const GiftForm = ({
   }
 
   return areCategoriesLoading || areGiftedUsersLoading ? (
-    <>
+    <Typography variant="body2">
       <TranslatedText lKey="loading" />
-    </>
+    </Typography>
   ) : (
     <section>
       <Formik<GiftList>
