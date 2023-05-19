@@ -24,4 +24,4 @@ jobs:
         run: dotnet build --no-restore
       - name: Test
         run: dotnet test --no-build
-        working-directory: ./gifting-center/gifting-center.Logic.unit-tests
+        working-directory: ./gifting-center/tests/gifting-center.Logic.unit-tests
