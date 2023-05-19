@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <RootNamespace>gifting_center.Logic.unit_tests</RootNamespace>
+    <RootNamespace>tests/gifting_center.Logic.unit_tests</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\gifting-center.Data\gifting-center.Data.csproj" />
-    <ProjectReference Include="..\gifting-center.Logic\gifting-center.Logic.csproj" />
+    <ProjectReference Include="..\..\gifting-center.Data\gifting-center.Data.csproj" />
+    <ProjectReference Include="..\..\gifting-center.Logic\gifting-center.Logic.csproj" />
   </ItemGroup>
 </Project>
