@@ -36,7 +36,7 @@ var context = scope.ServiceProvider.GetService<PostgresSqlContext>();
 context?.MigrateDatabase();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Development-Docker"))
 {
     app.UseSwagger();
     app.UseSwaggerUI();

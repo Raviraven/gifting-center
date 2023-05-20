@@ -11,9 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gifting-center.Logic", "gif
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6CFACFBE-BFF8-4D67-877C-E8C6C2092BB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gifting-center.Logic.unit-tests", "gifting-center.Logic.unit-tests\gifting-center.Logic.unit-tests.csproj", "{320C40B5-A729-4950-B271-6CE7940683A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gifting-center.Logic.unit-tests", "tests\gifting-center.Logic.unit-tests\gifting-center.Logic.unit-tests.csproj", "{320C40B5-A729-4950-B271-6CE7940683A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gifting-center.Data.unit-tests", "gifting-center.Data.unit-tests\gifting-center.Data.unit-tests.csproj", "{7C969096-DF5C-49BA-9D76-E429998F73BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gifting-center.Data.unit-tests", "tests\gifting-center.Data.unit-tests\gifting-center.Data.unit-tests.csproj", "{7C969096-DF5C-49BA-9D76-E429998F73BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
