@@ -20,15 +20,21 @@ services:
     build:
       context: ./gifting-center
       dockerfile: Dockerfile.pi
+      args:
+        - CERT_NAME=${HTTPS_CERTIFICATE_NAME}
     container_name: gifting-center-api
     restart: unless-stopped
     environment:
       - ASPNETCORE_ENVIRONMENT=${ENVIRONMENT}
       - ConnectionStrings__DefaultConnection=Server=db;Port=5432;Database=${DB};User Id=${DB_USER};Password=${DB_PASSWORD};
+      - ASPNETCORE_URLS=https://+;http://+
+      - HTTPS_CERTIFICATE_NAME=${HTTPS_CERTIFICATE_NAME}
+      - HTTPS_CERTIFICATE_PASSWORD=${HTTPS_CERTIFICATE_PASSWORD}
     depends_on:
       - db
     ports:
       - 8090:80
+      - 9090:443
     networks:
       - backend-network
 
