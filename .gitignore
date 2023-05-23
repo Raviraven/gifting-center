@@ -353,3 +353,11 @@ MigrationBackup/
 .idea
 .env.local
 .env.pi
+
+
+#certificates 
+.certs/
+*.pem
+*.crt
+*.key
+*.pfx
