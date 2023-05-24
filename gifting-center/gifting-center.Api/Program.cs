@@ -20,7 +20,11 @@ builder.Services.AddTransient<IGiftsRepository, GiftsRepository>();
 
 builder.Services.AddDbContext<PostgresSqlContext>(opts => opts.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
+builder.WebHost.ConfigureKestrel(c => c.ConfigureEndpointDefaults(opts =>
+{
+    opts.UseHttps(Environment.GetEnvironmentVariable("HTTPS_CERTIFICATE_NAME") ?? "", 
+        Environment.GetEnvironmentVariable("HTTPS_CERTIFICATE_PASSWORD") ?? "");
+}));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -36,7 +40,7 @@ var context = scope.ServiceProvider.GetService<PostgresSqlContext>();
 context?.MigrateDatabase();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Development-Docker"))
 {
     app.UseSwagger();
     app.UseSwaggerUI();
