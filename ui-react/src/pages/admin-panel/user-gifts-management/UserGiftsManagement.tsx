@@ -4,32 +4,12 @@ import { Box, Divider, List, ListItemText } from '@mui/material';
 
 import { Outlet } from 'react-router-dom';
 
-// import { GiftAdd } from '../../components/gift/GiftAdd';
-// import { GiftEdit } from '../../components/gift/GiftEdit';
 import { TranslatedText } from '../../../components/translated-text/TranslatedText';
 
 import { LinkListItemButton } from '../../../components/material/LinkListItemButton';
 
 export const UserGiftsManagement = () => {
   const { t } = useTranslation();
-
-  // const handleChangeTab = (event: SyntheticEvent, newTab: number) => {
-  //   setActiveTab(newTab);
-  // };
-
-  // const handleSubmit = useCallback(
-  //   ({ giftedUserId }: { giftedUserId: number }) => {
-  //     setGiftedUserIdString(giftedUserId.toString());
-  //   },
-  //   []
-  // );
-
-  // const handleSelect = useCallback(
-  //   (props: FormikProps<{ giftedUserId: number }>) => {
-  //     void props.submitForm();
-  //   },
-  //   []
-  // );
 
   return (
     <>

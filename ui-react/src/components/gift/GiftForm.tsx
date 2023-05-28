@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikHelpers } from 'formik';
 
 import { Button, Typography } from '@mui/material';
 
@@ -17,7 +17,10 @@ import { GiftSchema } from '../../yup-schemas/gift-schema';
 interface GiftFormProps {
   gift?: GiftList;
   submitButtonLKey?: string;
-  handleSubmit: (values: GiftList) => void;
+  handleSubmit: (
+    values: GiftList,
+    formikHelpers: FormikHelpers<GiftList>
+  ) => void;
 }
 
 export const GiftForm = ({
@@ -32,17 +35,6 @@ export const GiftForm = ({
     SelectFieldOption[]
   >([]);
 
-  const initialValue: GiftList = {
-    id: 0,
-    name: '',
-    price: '0',
-    url: '',
-    reserved: false,
-    deleted: false,
-    categoryId: 0,
-    giftedUserId: 0,
-  };
-
   const {
     isLoading: areCategoriesLoading,
     data: categoriesData,
@@ -56,6 +48,17 @@ export const GiftForm = ({
     isError: giftedUsersIsError,
     //error: giftedUsersError,
   } = useGiftedUsers();
+
+  const initialValues: GiftList = {
+    id: 0,
+    name: '',
+    price: '0',
+    url: '',
+    reserved: false,
+    deleted: false,
+    categoryId: 0,
+    giftedUserId: 0,
+  };
 
   useEffect(() => {
     if (
@@ -107,13 +110,13 @@ export const GiftForm = ({
   }
 
   return areCategoriesLoading || areGiftedUsersLoading ? (
-    <>
+    <Typography variant="body2">
       <TranslatedText lKey="loading" />
-    </>
+    </Typography>
   ) : (
     <section>
       <Formik<GiftList>
-        initialValues={gift ?? initialValue}
+        initialValues={gift ?? initialValues}
         onSubmit={handleSubmit}
         validationSchema={GiftSchema(
           categoriesData ?? [],
@@ -123,7 +126,7 @@ export const GiftForm = ({
         <Form>
           <TextFieldFormik label="giftName" name="name" type={'text'} />
           <TextFieldFormik label="giftPrice" name="price" type={'text'} />
-          <TextFieldFormik label="giftUrl" name="url" type={'url'} />
+          <TextFieldFormik label="giftUrl" name="url" type={'text'} />
 
           <SelectFieldFormik
             label="category"

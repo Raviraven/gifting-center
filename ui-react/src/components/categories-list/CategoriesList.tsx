@@ -19,7 +19,7 @@ export const CategoriesList = () => {
   const navigate = useNavigate();
 
   return isLoading ? (
-    <Typography variant="body1">
+    <Typography variant="body2">
       <TranslatedText lKey="loading" />
     </Typography>
   ) : data && data.length > 0 ? (

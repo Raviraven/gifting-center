@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { useQueryClient } from 'react-query';
 
-import { SelectChangeEvent } from '@mui/material';
+import { SelectChangeEvent, Typography } from '@mui/material';
 
 import { GiftsList } from '../../../components/gifts-list/GiftsList';
 import {
@@ -47,9 +47,9 @@ export const GiftsPerSelectedUser = () => {
   }, [giftedUserIdString]);
 
   return isLoading ? (
-    <>
+    <Typography variant="body2">
       <TranslatedText lKey="loading" />
-    </>
+    </Typography>
   ) : (
     <>
       <SelectField

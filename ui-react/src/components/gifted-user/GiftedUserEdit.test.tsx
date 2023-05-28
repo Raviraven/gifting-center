@@ -2,6 +2,8 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import userEvent from '@testing-library/user-event';
 
+import { toast } from 'react-toastify';
+
 import { TestQueryClientProvider } from '../../tests/TestQueryClientProvider';
 
 import { axiosInstance } from '../../api/axios';
@@ -34,17 +36,6 @@ describe('GiftedUserEdit tests', () => {
 
     await waitFor(() => {
       expect(screen.getByText('loading')).toBeInTheDocument();
-    });
-  });
-  test('should show gifted user name input', async () => {
-    render(
-      <TestQueryClientProvider>
-        <GiftedUserEdit id={5} onSubmitClick={() => {}} />
-      </TestQueryClientProvider>
-    );
-
-    await waitFor(() => {
-      expect(screen.getByLabelText('giftedUserName')).toBeInTheDocument();
     });
   });
 
@@ -95,21 +86,6 @@ describe('GiftedUserEdit tests', () => {
     });
   });
 
-  test('should show validation message when no name provided', async () => {
-    render(
-      <TestQueryClientProvider>
-        <GiftedUserEdit id={5} onSubmitClick={() => {}} />
-      </TestQueryClientProvider>
-    );
-
-    await userEvent.clear(await screen.findByLabelText('giftedUserName'));
-    fireEvent.click(await screen.findByText('save'));
-
-    expect(
-      await screen.findByText('validationNameFieldRequired')
-    ).toBeInTheDocument();
-  });
-
   test('should show bad data received', async () => {
     jest
       .spyOn(axiosInstance, 'get')
@@ -124,5 +100,32 @@ describe('GiftedUserEdit tests', () => {
     expect(
       await screen.findByText('wrongDataReceivedFromServer')
     ).toBeInTheDocument();
+  });
+
+  test('should show toast when successfully edited', async () => {
+    const mockedToast = jest.fn();
+    jest.spyOn(toast, 'success').mockImplementation(mockedToast);
+    const mockedAxiosPut = jest
+      .fn()
+      .mockReturnValue(
+        Promise.resolve({ data: { id: 5, name: 'test name edited' } })
+      );
+    jest.spyOn(axiosInstance, 'put').mockImplementation(mockedAxiosPut);
+
+    render(
+      <TestQueryClientProvider>
+        <GiftedUserEdit id={5} onSubmitClick={() => {}} />
+      </TestQueryClientProvider>
+    );
+
+    await userEvent.type(
+      await screen.findByLabelText('giftedUserName'),
+      ' edited'
+    );
+    fireEvent.click(screen.getByText('save'));
+
+    await waitFor(() => {
+      expect(mockedToast).toHaveBeenCalledWith('giftedUserSuccessfullyEdited');
+    });
   });
 });

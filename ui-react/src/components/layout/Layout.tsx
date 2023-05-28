@@ -92,6 +92,8 @@ export const Layout = () => {
         backgroundColor:
           (theme as Theme).palette.mode === 'dark' ? '#121212' : '#f3cf7d',
         position: 'relative',
+        paddingBottom: '1rem',
+        overflowY: 'auto',
       }}
     >
       <Box

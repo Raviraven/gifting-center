@@ -1,4 +1,4 @@
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikHelpers } from 'formik';
 
 import { Button } from '@mui/material';
 
@@ -10,7 +10,10 @@ import { CategorySchema } from '../../yup-schemas/category-schema';
 interface CategoryFormProps {
   lKeySubmitButton: string;
   category: Category;
-  handleSubmit: (values: Category) => void;
+  handleSubmit: (
+    values: Category,
+    formikHelpers: FormikHelpers<Category>
+  ) => void;
 }
 
 export const CategoryForm = (props: CategoryFormProps) => {
