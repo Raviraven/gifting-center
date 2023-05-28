@@ -1,4 +1,4 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/9178eb8b-aac0-499e-b83d-36c52f52542d/deploy-status)](https://app.netlify.com/sites/okruszki/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/9178eb8b-aac0-499e-b83d-36c52f52542d/deploy-status)](https://app.netlify.com/sites/okruszki/deploys)  
 [![.NET unit tests](https://github.com/Raviraven/gifting-center/actions/workflows/dotnet.yml/badge.svg?branch=master)](https://github.com/Raviraven/gifting-center/actions/workflows/dotnet.yml)
 [![react tests](https://github.com/Raviraven/gifting-center/actions/workflows/react.yml/badge.svg?branch=master)](https://github.com/Raviraven/gifting-center/actions/workflows/react.yml)
 
