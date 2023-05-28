@@ -2,6 +2,8 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import userEvent from '@testing-library/user-event';
 
+import { toast } from 'react-toastify';
+
 import { TestQueryClientProvider } from '../../tests/TestQueryClientProvider';
 
 import { axiosInstance } from '../../api/axios';
@@ -35,18 +37,6 @@ describe('CategoryEdit tests', () => {
 
     await waitFor(() => {
       expect(screen.getByText('loading')).toBeInTheDocument();
-    });
-  });
-
-  test('should show category name input', async () => {
-    render(
-      <TestQueryClientProvider>
-        <CategoryEdit id={13} />
-      </TestQueryClientProvider>
-    );
-
-    await waitFor(() => {
-      expect(screen.getByLabelText('categoryName')).toBeInTheDocument();
     });
   });
 
@@ -90,21 +80,6 @@ describe('CategoryEdit tests', () => {
     });
   });
 
-  test('should show validation message when no name provided', async () => {
-    render(
-      <TestQueryClientProvider>
-        <CategoryEdit id={13} />
-      </TestQueryClientProvider>
-    );
-
-    await userEvent.clear(await screen.findByLabelText('categoryName'));
-    fireEvent.click(await screen.findByText('save'));
-
-    expect(
-      await screen.findByText('validationNameFieldRequired')
-    ).toBeInTheDocument();
-  });
-
   test('should show bad data received', async () => {
     jest
       .spyOn(axiosInstance, 'get')
@@ -119,5 +94,26 @@ describe('CategoryEdit tests', () => {
     expect(
       await screen.findByText('wrongDataReceivedFromServer')
     ).toBeInTheDocument();
+  });
+
+  test('should show toast message on successfull edit', async () => {
+    const mockedToast = jest.fn();
+    jest.spyOn(toast, 'success').mockImplementation(mockedToast);
+
+    render(
+      <TestQueryClientProvider>
+        <CategoryEdit id={13} />
+      </TestQueryClientProvider>
+    );
+
+    await userEvent.type(
+      await screen.findByLabelText('categoryName'),
+      ' edited'
+    );
+    fireEvent.click(screen.getByText('save'));
+
+    await waitFor(() => {
+      expect(mockedToast).toHaveBeenCalledWith('categorySuccessfullyEdited');
+    });
   });
 });

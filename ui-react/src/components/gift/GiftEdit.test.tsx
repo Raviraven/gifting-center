@@ -1,5 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
+import { toast } from 'react-toastify';
+
 import { TestQueryClientProvider } from '../../tests/TestQueryClientProvider';
 
 import { GiftList } from '../../api/models/gift';
@@ -98,6 +100,23 @@ describe('GiftEdit tests', () => {
         reserved: false,
         url: 'http://test-gift.name',
       });
+    });
+  });
+
+  test('should show toast when gift successfully edited', async () => {
+    const mockedToast = jest.fn();
+    jest.spyOn(toast, 'success').mockImplementation(mockedToast);
+
+    render(
+      <TestQueryClientProvider>
+        <GiftEdit id={13} />
+      </TestQueryClientProvider>
+    );
+
+    fireEvent.click(screen.getByText('save'));
+
+    await waitFor(() => {
+      expect(mockedToast).toHaveBeenCalledWith('giftSuccessfullyEdited');
     });
   });
 });

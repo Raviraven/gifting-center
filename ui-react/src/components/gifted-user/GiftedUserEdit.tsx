@@ -4,6 +4,10 @@ import { useCallback } from 'react';
 
 import { Typography } from '@mui/material';
 
+import { toast } from 'react-toastify';
+
+import { useTranslation } from 'react-i18next';
+
 import {
   GiftedUsersQueryKeys,
   useEditGiftedUser,
@@ -25,15 +29,18 @@ export const GiftedUserEdit = ({ id, onSubmitClick }: GiftedUserEditProps) => {
 
   const { mutate } = useEditGiftedUser();
   const { data, isLoading } = useGiftedUser(id);
+  const { t } = useTranslation();
 
   const onSuccessSubmit = useCallback(async () => {
     await queryClient.invalidateQueries(GiftedUsersQueryKeys.giftedUsers);
     await queryClient.invalidateQueries([GiftedUsersQueryKeys.giftedUser, id]);
 
+    toast.success(t('giftedUserSuccessfullyEdited'));
+
     if (onSubmitClick) {
       onSubmitClick();
     }
-  }, [id, onSubmitClick, queryClient]);
+  }, [id, onSubmitClick, queryClient, t]);
 
   const handleSubmit = useCallback(
     (user: GiftedUser) => {

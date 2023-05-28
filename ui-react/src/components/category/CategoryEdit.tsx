@@ -3,6 +3,10 @@ import { useQueryClient } from 'react-query';
 
 import { Typography } from '@mui/material';
 
+import { toast } from 'react-toastify';
+
+import { useTranslation } from 'react-i18next';
+
 import {
   CategoriesQueryKeys,
   useCategory,
@@ -19,6 +23,7 @@ interface CategoryEditProps {
 
 export const CategoryEdit = ({ id, onSubmitClick }: CategoryEditProps) => {
   const { mutate } = useEditCategory();
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
 
   const { isLoading, data } = useCategory(id);
@@ -33,10 +38,12 @@ export const CategoryEdit = ({ id, onSubmitClick }: CategoryEditProps) => {
       exact: true,
     });
 
+    toast.success(t('categorySuccessfullyEdited'));
+
     if (onSubmitClick) {
       onSubmitClick();
     }
-  }, [id, onSubmitClick, queryClient]);
+  }, [id, onSubmitClick, queryClient, t]);
 
   const handleSubmit = useCallback(
     (category: { name: string }) => {

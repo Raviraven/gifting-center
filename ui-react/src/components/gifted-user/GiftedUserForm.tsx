@@ -1,4 +1,4 @@
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikHelpers } from 'formik';
 
 import { Button } from '@mui/material';
 
@@ -10,7 +10,10 @@ import { GiftedUserSchema } from '../../yup-schemas/gifted-user-schema';
 interface GiftedUserFormProps {
   giftedUser?: GiftedUser;
   submitButtonLKey: string;
-  handleSubmit: (giftedUser: GiftedUser) => void;
+  handleSubmit: (
+    giftedUser: GiftedUser,
+    formikHelpers: FormikHelpers<GiftedUser>
+  ) => void;
 }
 
 export const GiftedUserForm = ({

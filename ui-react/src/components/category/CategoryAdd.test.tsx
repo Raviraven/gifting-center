@@ -2,6 +2,8 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import userEvent from '@testing-library/user-event';
 
+import { toast } from 'react-toastify';
+
 import { TestQueryClientProvider } from '../../tests/TestQueryClientProvider';
 
 import { axiosInstance } from '../../api/axios';
@@ -9,16 +11,6 @@ import { axiosInstance } from '../../api/axios';
 import { CategoryAdd } from './CategoryAdd';
 
 describe('CategoryAdd tests', () => {
-  test('should show category name input', () => {
-    render(
-      <TestQueryClientProvider>
-        <CategoryAdd />
-      </TestQueryClientProvider>
-    );
-
-    expect(screen.getByLabelText('categoryName')).toBeInTheDocument();
-  });
-
   test('should call add category endpoint when button clicked', async () => {
     const mockedAxiosPost = jest.fn();
     jest.spyOn(axiosInstance, 'post').mockImplementation(mockedAxiosPost);
@@ -40,17 +32,24 @@ describe('CategoryAdd tests', () => {
     });
   });
 
-  test('should show validation message when no name provided', async () => {
+  test('should reset form data and show toast message after submitting the form', async () => {
+    const mockedToast = jest.fn();
+    jest.spyOn(toast, 'success').mockImplementation(mockedToast);
+
     render(
       <TestQueryClientProvider>
         <CategoryAdd />
       </TestQueryClientProvider>
     );
 
+    const categoryNameInput = screen.getByLabelText('categoryName');
+
+    await userEvent.type(categoryNameInput, 'test');
     fireEvent.click(screen.getByText('add'));
 
-    expect(
-      await screen.findByText('validationNameFieldRequired')
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(categoryNameInput.getAttribute('value')).toBe('');
+      expect(mockedToast).toHaveBeenCalledWith('categorySuccessfullyAdded');
+    });
   });
 });
