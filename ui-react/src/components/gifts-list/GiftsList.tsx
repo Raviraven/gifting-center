@@ -41,7 +41,9 @@ export const GiftsList = (props: GiftsListProps) => {
   useEffect(() => {
     if (!areCategoriesLoading && !areGiftsLoading) {
       setGiftsByCategory(
-        GetGiftsByCategory(giftsData, categoriesData, showDeleted)
+        GetGiftsByCategory(giftsData, categoriesData, showDeleted).sort(
+          (a, b) => (a.categoryName > b.categoryName ? -1 : 1)
+        )
       );
     }
   }, [

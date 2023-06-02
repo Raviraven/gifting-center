@@ -131,4 +131,41 @@ describe('SingleGift tests', () => {
 
     expect(editGiftMock).toHaveBeenCalled();
   });
+
+  test('should show button for "un-reserve" action', () => {
+    render(
+      <Wrapper>
+        <SingleGift
+          gift={{ ...defaultGift, reserved: true }}
+          adminActions={true}
+        />
+      </Wrapper>
+    );
+
+    expect(
+      screen.getByRole('button', { name: 'reserved' })
+    ).toBeInTheDocument();
+  });
+
+  test('should call reserve endpoint with reserved = false', async () => {
+    const axiosMocked = jest.fn();
+    jest.spyOn(axiosInstance, 'put').mockImplementation(axiosMocked);
+
+    render(
+      <Wrapper>
+        <SingleGift
+          gift={{ ...defaultGift, reserved: true }}
+          adminActions={true}
+        />
+      </Wrapper>
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'reserved' }));
+
+    await waitFor(() => {
+      expect(axiosMocked).toHaveBeenCalledWith('/gifts', {
+        ...defaultGift,
+      });
+    });
+  });
 });

@@ -63,21 +63,6 @@ describe('GiftsList.Utils tests', () => {
 
     expect(result).toStrictEqual([
       {
-        categoryName: 'General',
-        gifts: [
-          {
-            categoryId: 1,
-            deleted: false,
-            giftedUserId: 1,
-            id: 1,
-            name: 'PC Mouse',
-            price: '12',
-            reserved: false,
-            url: '',
-          },
-        ],
-      },
-      {
         categoryName: 'Books',
         gifts: [
           {
@@ -87,6 +72,21 @@ describe('GiftsList.Utils tests', () => {
             id: 2,
             name: 'Hobbit',
             price: '45',
+            reserved: false,
+            url: '',
+          },
+        ],
+      },
+      {
+        categoryName: 'General',
+        gifts: [
+          {
+            categoryId: 1,
+            deleted: false,
+            giftedUserId: 1,
+            id: 1,
+            name: 'PC Mouse',
+            price: '12',
             reserved: false,
             url: '',
           },
