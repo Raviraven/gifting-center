@@ -37,5 +37,15 @@ export const GetGiftsByCategory = (
     });
   });
 
-  return tempGiftsByCategory;
+  return SortGifts(tempGiftsByCategory);
+};
+
+const SortGifts = (giftsGrouped: GiftsByCategory[]) => {
+  const result = [
+    ...giftsGrouped.sort((a, b) => (a.categoryName > b.categoryName ? 1 : -1)),
+  ];
+  result.forEach(
+    (g) => (g.gifts = [...g.gifts.sort((a, b) => (a.id > b.id ? 1 : -1))])
+  );
+  return result;
 };

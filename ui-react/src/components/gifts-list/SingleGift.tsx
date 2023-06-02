@@ -1,12 +1,11 @@
 import './SingleGift.scss';
 
 import { Formik, Form } from 'formik';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
 
 import {
-  Box,
   Button,
   Card,
   CardContent,
@@ -16,7 +15,7 @@ import {
   Link as LinkMaterial,
 } from '@mui/material';
 
-import { CheckCircle, RemoveCircle, EditOutlined } from '@mui/icons-material';
+import { RemoveCircle, EditOutlined } from '@mui/icons-material';
 
 import { GiftEdit, GiftList } from '../../api/models/gift';
 import { TranslatedText } from '../translated-text/TranslatedText';
@@ -25,6 +24,8 @@ import {
   useDeleteGift,
   useUpdateGift,
 } from '../../api/hooks/gifts';
+
+import { ReserveGiftSection } from './ReserveGiftSection';
 
 interface SingleGiftProps {
   gift: GiftList;
@@ -47,35 +48,45 @@ export const SingleGift = ({
 
   const [priceNumber, setPriceNumber] = useState<number>(0);
 
-  const initialGiftValues: GiftEdit = {
-    categoryId: categoryId,
-    deleted: deleted,
-    giftedUserId: giftedUserId,
-    id: id,
-    name: name,
-    price: price,
-    reserved: true,
-    url: url,
-  };
+  const initialGiftValues: GiftEdit = useMemo(() => {
+    return {
+      categoryId: categoryId,
+      deleted: deleted,
+      giftedUserId: giftedUserId,
+      id: id,
+      name: name,
+      price: price,
+      reserved: reserved,
+      url: url,
+    };
+  }, [categoryId, deleted, giftedUserId, id, name, price, reserved, url]);
 
-  const onSubmit = useCallback(
-    (editedGift: GiftEdit) => {
+  const onReserveClick = useCallback(
+    ({ reserved }: { reserved: boolean }) => {
+      const editedGift = { ...initialGiftValues, reserved: reserved };
+
       updateGiftMutate(editedGift, {
         onSuccess: () =>
-          queryClient.invalidateQueries(GiftsQueryKeys.giftsList),
+          queryClient.invalidateQueries([
+            GiftsQueryKeys.giftsList,
+            giftedUserId,
+          ]),
       });
     },
-    [queryClient, updateGiftMutate]
+    [giftedUserId, initialGiftValues, queryClient, updateGiftMutate]
   );
 
   const onDeleteSubmit = useCallback(
     ({ id }: { id: number }) => {
       deleteGiftMutate(id, {
         onSuccess: () =>
-          queryClient.invalidateQueries(GiftsQueryKeys.giftsList),
+          queryClient.invalidateQueries([
+            GiftsQueryKeys.giftsList,
+            giftedUserId,
+          ]),
       });
     },
-    [deleteGiftMutate, queryClient]
+    [deleteGiftMutate, giftedUserId, queryClient]
   );
 
   const handleEdit = useCallback(
@@ -131,40 +142,11 @@ export const SingleGift = ({
       </CardContent>
       <CardActions>
         <Grid container spacing={1}>
-          <Grid item xs={12}>
-            {reserved ? (
-              <Box
-                component="div"
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <CheckCircle color="success" />
-                <Typography
-                  component="p"
-                  variant="body1"
-                  align="center"
-                  paddingLeft="0.25rem"
-                >
-                  <TranslatedText lKey="reserved" />
-                </Typography>
-              </Box>
-            ) : (
-              <Formik<GiftEdit>
-                initialValues={initialGiftValues}
-                onSubmit={onSubmit}
-              >
-                <Form>
-                  <Button variant="outlined" type="submit" fullWidth>
-                    <TranslatedText lKey="reserve" />
-                  </Button>
-                </Form>
-              </Formik>
-            )}
-          </Grid>
-
+          <ReserveGiftSection
+            reserved={reserved}
+            onSubmit={onReserveClick}
+            adminActions={adminActions}
+          />
           {adminActions ? (
             <>
               <Grid item xs={6}>
