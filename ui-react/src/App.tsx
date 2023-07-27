@@ -31,10 +31,12 @@ export const App = () => {
           <Route path="/admin-panel" element={<AdminLayout />}>
             <Route index element={<Navigate to="gifts" />} />
 
-            <Route path="gifts" element={<UserGiftsManagement />}>
+            <Route path="gifts/:userId?" element={<UserGiftsManagement />}>
               <Route index element={<GiftsPerSelectedUser />} />
+              {/* <Route path=":id?" element={<GiftsPerSelectedUser />}> */}
               <Route path="gift-add" element={<GiftAdd />} />
               <Route path="gift-edit/:id?" element={<GiftEditPage />} />
+              {/* </Route> */}
             </Route>
 
             <Route path="gifted-users" element={<GiftedUsersManagement />}>

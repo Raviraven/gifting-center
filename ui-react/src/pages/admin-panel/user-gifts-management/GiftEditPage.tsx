@@ -2,7 +2,7 @@ import { Typography } from '@mui/material';
 import { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { GiftEdit } from '../../../components/gift/GiftEdit';
+import { GiftEdit } from 'components';
 
 export const GiftEditPage = () => {
   const params = useParams();
@@ -10,8 +10,9 @@ export const GiftEditPage = () => {
   const navigate = useNavigate();
 
   const onSubmitClick = useCallback(() => {
-    navigate('/admin-panel/gifts');
-  }, [navigate]);
+    const userIdParam = params.userId ? `/${params.userId}` : '';
+    navigate('/admin-panel/gifts' + userIdParam);
+  }, [navigate, params.userId]);
 
   return giftId ? (
     <GiftEdit id={giftId} onSubmit={onSubmitClick} />
