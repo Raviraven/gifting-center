@@ -15,6 +15,7 @@ import { GiftForm } from './GiftForm';
 
 interface GiftEditProps {
   id: number;
+  userId: number;
   onSubmit?: () => void;
 }
 
@@ -25,7 +26,7 @@ export const GiftEdit = ({ id, onSubmit }: GiftEditProps) => {
   const queryClient = useQueryClient();
 
   const onSuccessSubmit = useCallback(async () => {
-    await queryClient.invalidateQueries(GiftsQueryKeys.giftsList),
+    await queryClient.invalidateQueries([GiftsQueryKeys.giftsList, ]),
       toast.success(t('giftSuccessfullyEdited'));
   }, [queryClient, t]);
 

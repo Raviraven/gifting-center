@@ -6,14 +6,16 @@ import { SelectChangeEvent, Typography } from '@mui/material';
 
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { GiftsList } from '../../../components/gifts-list/GiftsList';
+import { GiftsList } from 'components/gifts-list/GiftsList';
 import {
   SelectField,
   SelectFieldOption,
-} from '../../../components/material/SelectField';
+} from 'components/material/SelectField';
+
+import { TranslatedText } from 'components/translated-text/TranslatedText';
+
 import { useGiftedUsers } from '../../../api/hooks/gifted-users';
 
-import { TranslatedText } from '../../../components/translated-text/TranslatedText';
 import { GiftsQueryKeys } from '../../../api/hooks/gifts';
 
 export const GiftsPerSelectedUser = () => {
