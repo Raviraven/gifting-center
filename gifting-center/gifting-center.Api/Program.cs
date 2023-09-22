@@ -22,8 +22,11 @@ builder.Services.AddDbContext<PostgresSqlContext>(opts => opts.UseNpgsql(builder
 
 builder.WebHost.ConfigureKestrel(c => c.ConfigureEndpointDefaults(opts =>
 {
-    opts.UseHttps(Environment.GetEnvironmentVariable("HTTPS_CERTIFICATE_NAME") ?? "", 
-        Environment.GetEnvironmentVariable("HTTPS_CERTIFICATE_PASSWORD") ?? "");
+    if (!builder.Environment.IsDevelopment())
+    {
+        opts.UseHttps(Environment.GetEnvironmentVariable("HTTPS_CERTIFICATE_NAME") ?? "", 
+            Environment.GetEnvironmentVariable("HTTPS_CERTIFICATE_PASSWORD") ?? "");
+    }
 }));
 
 builder.Services.AddControllers();

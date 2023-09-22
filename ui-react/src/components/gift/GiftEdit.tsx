@@ -15,19 +15,20 @@ import { GiftForm } from './GiftForm';
 
 interface GiftEditProps {
   id: number;
+  userId: number;
   onSubmit?: () => void;
 }
 
-export const GiftEdit = ({ id, onSubmit }: GiftEditProps) => {
+export const GiftEdit = ({ id, onSubmit, userId }: GiftEditProps) => {
   const { isLoading, data } = useGift(id);
   const { t } = useTranslation();
   const updateGiftMutation = useUpdateGift();
   const queryClient = useQueryClient();
 
   const onSuccessSubmit = useCallback(async () => {
-    await queryClient.invalidateQueries(GiftsQueryKeys.giftsList),
-      toast.success(t('giftSuccessfullyEdited'));
-  }, [queryClient, t]);
+    await queryClient.invalidateQueries([GiftsQueryKeys.giftsList, userId]);
+    toast.success(t('giftSuccessfullyEdited'));
+  }, [queryClient, t, userId]);
 
   const handleSubmit = useCallback(
     (values: GiftEditModel) => {
