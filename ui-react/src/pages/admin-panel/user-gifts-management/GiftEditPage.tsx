@@ -13,7 +13,7 @@ export const GiftEditPage = () => {
   const onSubmitClick = useCallback(() => {
     const userIdParam = userId > 0 ? `/${userId}` : '';
     navigate('/admin-panel/gifts' + userIdParam);
-  }, [navigate, params.userId]);
+  }, [navigate, userId]);
 
   return giftId ? (
     <GiftEdit id={giftId} userId={userId} onSubmit={onSubmitClick} />

@@ -32,6 +32,8 @@ const defaultGiftedUser: GiftedUser = {
   name: 'default user',
 };
 
+const userId = 1;
+
 describe('GiftEdit tests', () => {
   beforeEach(() => {
     jest.spyOn(axiosInstance, 'get').mockImplementation((url: string) => {
@@ -50,7 +52,7 @@ describe('GiftEdit tests', () => {
   test('should show loading when getting edited gift information', async () => {
     render(
       <TestQueryClientProvider>
-        <GiftEdit id={13} />
+        <GiftEdit id={13} userId={userId} />
       </TestQueryClientProvider>
     );
 
@@ -62,7 +64,7 @@ describe('GiftEdit tests', () => {
   test('should fulfill gifts values into input fields', async () => {
     render(
       <TestQueryClientProvider>
-        <GiftEdit id={13} />
+        <GiftEdit id={13} userId={userId} />
       </TestQueryClientProvider>
     );
 
@@ -83,7 +85,7 @@ describe('GiftEdit tests', () => {
 
     render(
       <TestQueryClientProvider>
-        <GiftEdit id={13} />
+        <GiftEdit id={13} userId={userId} />
       </TestQueryClientProvider>
     );
 
@@ -109,7 +111,7 @@ describe('GiftEdit tests', () => {
 
     render(
       <TestQueryClientProvider>
-        <GiftEdit id={13} />
+        <GiftEdit id={13} userId={userId} />
       </TestQueryClientProvider>
     );
 
