@@ -28,7 +28,7 @@ export const GiftEdit = ({ id, onSubmit, userId }: GiftEditProps) => {
   const onSuccessSubmit = useCallback(async () => {
     await queryClient.invalidateQueries([GiftsQueryKeys.giftsList, userId]);
     toast.success(t('giftSuccessfullyEdited'));
-  }, [queryClient, t]);
+  }, [queryClient, t, userId]);
 
   const handleSubmit = useCallback(
     (values: GiftEditModel) => {
