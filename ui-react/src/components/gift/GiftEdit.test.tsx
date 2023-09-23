@@ -2,12 +2,11 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import { toast } from 'react-toastify';
 
-import { TestQueryClientProvider } from '../../tests/TestQueryClientProvider';
+import { TestQueryClientProvider } from 'tests/TestQueryClientProvider';
 
-import { GiftList } from '../../api/models/gift';
-import { Category } from '../../api/models/categories';
-import { GiftedUser } from '../../api/models/gifted-user';
-import { axiosInstance } from '../../api/axios';
+import { GiftList, Category, GiftedUser } from 'api/models';
+
+import { axiosInstance } from 'api/axios';
 
 import { GiftEdit } from './GiftEdit';
 

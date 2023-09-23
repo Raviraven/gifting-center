@@ -7,12 +7,8 @@ import { toast } from 'react-toastify';
 
 import { useTranslation } from 'react-i18next';
 
-import {
-  CategoriesQueryKeys,
-  useCategory,
-  useEditCategory,
-} from '../../api/hooks/categories';
-import { TranslatedText } from '../translated-text/TranslatedText';
+import { CategoriesQueryKeys, useCategory, useEditCategory } from 'api/hooks';
+import { TranslatedText } from 'components';
 
 import { CategoryForm } from './CategoryForm';
 

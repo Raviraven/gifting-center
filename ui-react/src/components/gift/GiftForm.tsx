@@ -4,15 +4,16 @@ import { Form, Formik, FormikHelpers } from 'formik';
 
 import { Button, Typography } from '@mui/material';
 
-import { GiftList } from '../../api/models/gift';
-import { SelectFieldOption } from '../material/SelectField';
+import { GiftList } from 'api/models';
 
-import { useCategories } from '../../api/hooks/categories';
-import { useGiftedUsers } from '../../api/hooks/gifted-users';
-import { TranslatedText } from '../translated-text/TranslatedText';
-import { TextFieldFormik } from '../material/formik/TextField';
-import { SelectFieldFormik } from '../material/formik/SelectFieldFormik';
-import { GiftSchema } from '../../yup-schemas/gift-schema';
+import { useCategories, useGiftedUsers } from 'api/hooks';
+import { TranslatedText } from 'components';
+import {
+  TextFieldFormik,
+  SelectFieldFormik,
+  SelectFieldOption,
+} from 'components/material';
+import { GiftSchema } from 'yup-schemas';
 
 interface GiftFormProps {
   gift?: GiftList;

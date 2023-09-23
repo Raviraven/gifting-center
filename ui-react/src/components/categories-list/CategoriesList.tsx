@@ -11,8 +11,9 @@ import { EditOutlined } from '@mui/icons-material';
 
 import { useNavigate } from 'react-router-dom';
 
-import { useCategories } from '../../api/hooks/categories';
-import { TranslatedText } from '../translated-text/TranslatedText';
+import { TranslatedText } from 'components';
+
+import { useCategories } from 'api/hooks';
 
 export const CategoriesList = () => {
   const { data, isLoading } = useCategories();

@@ -1,3 +1,4 @@
 import { GiftEdit } from './GiftEdit';
+import { GiftAdd } from './GiftAdd';
 
-export { GiftEdit };
+export { GiftEdit, GiftAdd };
