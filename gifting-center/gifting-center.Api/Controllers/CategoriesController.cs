@@ -6,7 +6,7 @@ namespace gifting_center.Api.Controllers
 {
     [Route("api/[controller]")]
     [Authorize]
-    public class CategoriesController : Controller
+    public class CategoriesController : ControllerBase
     {
         private readonly ICategoriesService _categoriesService;
 

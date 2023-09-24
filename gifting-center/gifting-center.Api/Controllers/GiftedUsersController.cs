@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace gifting_center.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class GiftedUsersController : Controller
+    public class GiftedUsersController : ControllerBase
     {
         protected readonly IGiftedUsersService _giftedUsersService;
 
