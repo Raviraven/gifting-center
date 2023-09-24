@@ -29,7 +29,7 @@ export const ColorModeContextProvider = ({
           mode,
           background: {
             default: mode === 'dark' ? '#121212' : '#a2d4bf',
-            paper: mode === 'dark' ? '#121212' : '#f2d799',
+            paper: mode === 'dark' ? '#121212' : '#ffeab4', //'#f2d799',
           },
         },
       }),
