@@ -7,9 +7,9 @@ import { useTranslation } from 'react-i18next';
 
 import { FormikHelpers } from 'formik';
 
-import { GiftsQueryKeys, useAddGift } from '../../api/hooks/gifts';
+import { GiftsQueryKeys, useAddGift } from 'api/hooks';
 
-import { GiftAdd as GiftAddModel, GiftList } from '../../api/models/gift';
+import { GiftAdd as GiftAddModel, GiftList } from 'api/models';
 
 import { GiftForm } from './GiftForm';
 

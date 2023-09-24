@@ -7,9 +7,9 @@ import { useTranslation } from 'react-i18next';
 
 import { toast } from 'react-toastify';
 
-import { useGift, useUpdateGift, GiftsQueryKeys } from '../../api/hooks/gifts';
-import { GiftEdit as GiftEditModel } from '../../api/models/gift';
-import { TranslatedText } from '../translated-text/TranslatedText';
+import { useGift, useUpdateGift, GiftsQueryKeys } from 'api/hooks';
+import { GiftEdit as GiftEditModel } from 'api/models';
+import { TranslatedText } from 'components';
 
 import { GiftForm } from './GiftForm';
 

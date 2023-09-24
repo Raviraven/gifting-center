@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import { useCallback } from 'react';
 
-import { GiftedUserEdit } from 'components/gifted-user/GiftedUserEdit';
+import { GiftedUserEdit } from 'components';
 
 export const GiftedUserEditPage = () => {
   const params = useParams();

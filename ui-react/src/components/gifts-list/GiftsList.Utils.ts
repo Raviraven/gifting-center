@@ -1,5 +1,4 @@
-import { Category } from '../../api/models/categories';
-import { GiftList } from '../../api/models/gift';
+import { Category, GiftList } from 'api/models';
 
 export interface GiftsByCategory {
   categoryName: string;

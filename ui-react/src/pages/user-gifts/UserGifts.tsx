@@ -2,10 +2,9 @@ import { useQuery } from 'react-query';
 
 import { Grid, Typography } from '@mui/material';
 
-import { GiftsList } from 'components/gifts-list/GiftsList';
-import { TranslatedText } from 'components/translated-text/TranslatedText';
+import { GiftsList, TranslatedText } from 'components';
 
-import { GetGiftedUserById } from '../../api/services/gifted-users';
+import { GetGiftedUserById } from 'api/services';
 
 interface UserGiftsProps {
   userId: number;

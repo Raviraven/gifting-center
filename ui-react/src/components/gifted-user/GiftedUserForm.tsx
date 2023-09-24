@@ -2,10 +2,10 @@ import { Form, Formik, FormikHelpers } from 'formik';
 
 import { Button } from '@mui/material';
 
-import { TextFieldFormik } from '../material/formik/TextField';
-import { TranslatedText } from '../translated-text/TranslatedText';
-import { GiftedUser } from '../../api/models/gifted-user';
-import { GiftedUserSchema } from '../../yup-schemas/gifted-user-schema';
+import { TextFieldFormik } from 'components/material';
+import { TranslatedText } from 'components';
+import { GiftedUser } from 'api/models';
+import { GiftedUserSchema } from 'yup-schemas';
 
 interface GiftedUserFormProps {
   giftedUser?: GiftedUser;

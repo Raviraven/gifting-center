@@ -2,10 +2,11 @@ import { Form, Formik, FormikHelpers } from 'formik';
 
 import { Button } from '@mui/material';
 
-import { TextFieldFormik } from '../material/formik/TextField';
-import { TranslatedText } from '../translated-text/TranslatedText';
-import { Category } from '../../api/models/categories';
-import { CategorySchema } from '../../yup-schemas/category-schema';
+import { TextFieldFormik } from 'components/material';
+import { TranslatedText } from 'components';
+import { Category } from 'api/models';
+
+import { CategorySchema } from 'yup-schemas';
 
 interface CategoryFormProps {
   lKeySubmitButton: string;

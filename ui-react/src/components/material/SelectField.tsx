@@ -1,6 +1,6 @@
 import { InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 
-import { TranslatedText } from '../translated-text/TranslatedText';
+import { TranslatedText } from 'components';
 
 export interface SelectFieldProps {
   label: string;

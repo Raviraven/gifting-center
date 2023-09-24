@@ -1,9 +1,8 @@
 import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 
-import { axiosInstance } from '../../api/axios';
-import { Category } from '../../api/models/categories';
-import { GiftedUser } from '../../api/models/gifted-user';
-import { TestQueryClientProvider } from '../../tests/TestQueryClientProvider';
+import { axiosInstance } from 'api/axios';
+import { Category, GiftedUser } from 'api/models';
+import { TestQueryClientProvider } from 'tests/TestQueryClientProvider';
 
 import { GiftForm } from './GiftForm';
 

@@ -1,11 +1,10 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
-import { axiosInstance } from '../../api/axios';
-import { Category } from '../../api/models/categories';
-import { GiftList } from '../../api/models/gift';
+import { axiosInstance } from 'api/axios';
+import { Category, GiftList } from 'api/models';
 
-import { TestQueryClientProvider } from '../../tests/TestQueryClientProvider';
+import { TestQueryClientProvider } from 'tests/TestQueryClientProvider';
 
 import { GiftsList } from './GiftsList';
 

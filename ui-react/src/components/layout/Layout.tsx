@@ -24,8 +24,8 @@ import { CheckCircle, Menu } from '@mui/icons-material';
 
 import { useTheme } from '@emotion/react';
 
-import { AppLanguage, LanguageContext } from '../../context/LanguageContext';
-import { TranslatedText } from '../translated-text/TranslatedText';
+import { AppLanguage, LanguageContext } from 'context/LanguageContext';
+import { TranslatedText } from 'components';
 
 export const Layout = () => {
   const { language, changeLanguage } = useContext(LanguageContext);

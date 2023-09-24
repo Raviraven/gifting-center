@@ -4,11 +4,11 @@ import { MemoryRouter } from 'react-router-dom';
 
 import * as router from 'react-router';
 
-import { TestQueryClientProvider } from '../../tests/TestQueryClientProvider';
+import { TestQueryClientProvider } from 'tests/TestQueryClientProvider';
 
-import { axiosInstance } from '../../api/axios';
+import { axiosInstance } from 'api/axios';
 
-import { Category } from '../../api/models/categories';
+import { Category } from 'api/models';
 
 import { CategoriesList } from './CategoriesList';
 

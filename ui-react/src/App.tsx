@@ -5,21 +5,26 @@ import './i18n';
 
 import { Suspense } from 'react';
 
-import { Layout } from './components/layout/Layout';
-import { UserGifts } from './pages/user-gifts/UserGifts';
-import { GiftAdd } from './components/gift/GiftAdd';
-import { UserGiftsManagement } from './pages/admin-panel/user-gifts-management/UserGiftsManagement';
-import { GiftedUserAdd } from './components/gifted-user/GiftedUserAdd';
-import { CategoryAdd } from './components/category/CategoryAdd';
-import { GiftsPerSelectedUser } from './pages/admin-panel/user-gifts-management/GiftsPerSelectedUser';
-import { GiftedUsersManagement } from './pages/admin-panel/gifted-users-management/GiftedUsersManagement';
-import { CategoriesManagement } from './pages/admin-panel/categories-management/CategoriesManagement';
-import { CategoriesList } from './components/categories-list/CategoriesList';
-import { CategoryEditPage } from './pages/admin-panel/categories-management/CategoryEditPage';
-import { AdminLayout } from './components/layout/AdminLayout';
-import { GiftedUserList } from './components/gifted-user-list/GiftedUserList';
-import { GiftedUserEditPage } from './pages/admin-panel/gifted-users-management/GiftedUserEditPage';
-import { GiftEditPage } from './pages/admin-panel/user-gifts-management/GiftEditPage';
+import {
+  Layout,
+  GiftAdd,
+  GiftedUserAdd,
+  CategoryAdd,
+  CategoriesList,
+  AdminLayout,
+  GiftedUserList,
+} from 'components';
+
+import {
+  CategoryEditPage,
+  CategoriesManagement,
+  UserGiftsManagement,
+  UserGifts,
+  GiftEditPage,
+  GiftedUserEditPage,
+  GiftedUsersManagement,
+  GiftsPerSelectedUser,
+} from 'pages';
 
 export const App = () => {
   return (
