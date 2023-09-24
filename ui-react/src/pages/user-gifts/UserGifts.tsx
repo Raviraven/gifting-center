@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 
-import { Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 
 import { GiftsList, TranslatedText } from 'components';
 
@@ -20,9 +20,15 @@ export const UserGifts = ({ userId }: UserGiftsProps) => {
       <TranslatedText lKey="loading" />
     </Typography>
   ) : (
-    <section>
-      <h2 className="user-name">{data?.name}</h2>
-      <GiftsList userId={userId} />
-    </section>
+    <Grid container spacing={1}>
+      <Grid item xs={12}>
+        <Typography variant="h5" fontWeight="bold">
+          {data?.name}
+        </Typography>
+      </Grid>
+      <Grid item xs={12}>
+        <GiftsList userId={userId} />
+      </Grid>
+    </Grid>
   );
 };

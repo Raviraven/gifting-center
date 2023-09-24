@@ -65,7 +65,7 @@ export const GiftsList = (props: GiftsListProps) => {
           key={`gift-category-${giftCategory.categoryName}-${gci}`}
           xs={12}
         >
-          <Typography variant="h3" component="header">
+          <Typography variant="h5" component="header">
             {giftCategory.categoryName}
           </Typography>
           <Grid container spacing={1} component="main">
