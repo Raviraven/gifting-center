@@ -6,9 +6,23 @@ import {
   useCategory,
 } from './categories';
 
-import { GiftsQueryKeys, useAddGift, useGift, useUpdateGift } from './gifts';
+import {
+  GiftsQueryKeys,
+  useAddGift,
+  useGift,
+  useUpdateGift,
+  useGiftsForUser,
+  useDeleteGift,
+} from './gifts';
 
-import { useGiftedUser, useGiftedUsers } from './gifted-users';
+import {
+  useGiftedUser,
+  useGiftedUsers,
+  useAddGiftedUser,
+  GiftedUsersQueryKeys,
+  useEditGiftedUser,
+  useDeleteGiftedUser,
+} from './gifted-users';
 
 export {
   useCategories,
@@ -22,4 +36,10 @@ export {
   useUpdateGift,
   useGiftedUser,
   useGiftedUsers,
+  useAddGiftedUser,
+  GiftedUsersQueryKeys,
+  useEditGiftedUser,
+  useDeleteGiftedUser,
+  useGiftsForUser,
+  useDeleteGift,
 };

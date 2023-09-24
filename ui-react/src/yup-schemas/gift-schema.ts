@@ -1,7 +1,6 @@
 import * as yup from 'yup';
 
-import { Category } from '../api/models/categories';
-import { GiftedUser } from '../api/models/gifted-user';
+import { Category, GiftedUser } from 'api/models';
 
 export const GiftSchema = (categories: Category[], giftedUsers: GiftedUser[]) =>
   yup.object({

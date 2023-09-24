@@ -4,9 +4,9 @@ import userEvent from '@testing-library/user-event';
 
 import { toast } from 'react-toastify';
 
-import { TestQueryClientProvider } from '../../tests/TestQueryClientProvider';
+import { TestQueryClientProvider } from 'tests/TestQueryClientProvider';
 
-import { axiosInstance } from '../../api/axios';
+import { axiosInstance } from 'api/axios';
 
 import { GiftedUserAdd } from './GiftedUserAdd';
 

@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
-import { TestQueryClientProvider } from '../../tests/TestQueryClientProvider';
+import { TestQueryClientProvider } from 'tests/TestQueryClientProvider';
 
 import { GiftedUserForm } from './GiftedUserForm';
 

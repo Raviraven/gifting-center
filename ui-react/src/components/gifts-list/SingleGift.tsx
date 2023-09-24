@@ -17,13 +17,9 @@ import {
 
 import { RemoveCircle, EditOutlined } from '@mui/icons-material';
 
-import { GiftEdit, GiftList } from '../../api/models/gift';
-import { TranslatedText } from '../translated-text/TranslatedText';
-import {
-  GiftsQueryKeys,
-  useDeleteGift,
-  useUpdateGift,
-} from '../../api/hooks/gifts';
+import { GiftEdit, GiftList } from 'api/models';
+import { TranslatedText } from 'components';
+import { GiftsQueryKeys, useDeleteGift, useUpdateGift } from 'api/hooks';
 
 import { ReserveGiftSection } from './ReserveGiftSection';
 

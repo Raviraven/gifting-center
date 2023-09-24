@@ -2,7 +2,7 @@ import { CheckCircle } from '@mui/icons-material';
 import { Grid, Button, Box, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 
-import { TranslatedText } from '../translated-text/TranslatedText';
+import { TranslatedText } from 'components';
 
 interface IReserveGiftSection {
   reserved: boolean;

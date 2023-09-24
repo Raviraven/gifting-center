@@ -13,8 +13,8 @@ import { CssBaseline } from '@mui/material';
 
 import { App } from './App';
 import { reportWebVitals } from './reportWebVitals';
-import { LanguageContextProvider } from './context/LanguageContext';
-import { ColorModeContextProvider } from './context/ColorModeContext';
+import { LanguageContextProvider } from 'context/LanguageContext';
+import { ColorModeContextProvider } from 'context/ColorModeContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

@@ -8,4 +8,17 @@ import { Layout, AdminLayout } from './layout';
 
 import { TranslatedText } from './translated-text';
 
-export { GiftEdit, GiftAdd, TranslatedText };
+export {
+  GiftEdit,
+  GiftAdd,
+  TranslatedText,
+  CategoryEdit,
+  GiftedUserEdit,
+  GiftsList,
+  Layout,
+  AdminLayout,
+  CategoryAdd,
+  GiftedUserAdd,
+  GiftedUserList,
+  CategoriesList,
+};

@@ -4,7 +4,7 @@ import MuiTextField from '@mui/material/TextField';
 
 import { useTranslation } from 'react-i18next';
 
-import { TranslatedText } from '../../translated-text/TranslatedText';
+import { TranslatedText } from 'components';
 
 interface MuiTextFieldProps {
   name: string;

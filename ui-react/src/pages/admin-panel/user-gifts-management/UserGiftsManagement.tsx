@@ -4,9 +4,9 @@ import { Box, Divider, List, ListItemText } from '@mui/material';
 
 import { Outlet } from 'react-router-dom';
 
-import { TranslatedText } from 'components/translated-text/TranslatedText';
+import { TranslatedText } from 'components';
 
-import { LinkListItemButton } from 'components/material/LinkListItemButton';
+import { LinkListItemButton } from 'components/material';
 
 export const UserGiftsManagement = () => {
   const { t } = useTranslation();

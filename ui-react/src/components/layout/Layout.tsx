@@ -30,9 +30,9 @@ import {
 
 import { useTheme } from '@emotion/react';
 
-import { AppLanguage, LanguageContext } from '../../context/LanguageContext';
-import { ColorModeContext } from '../../context/ColorModeContext';
-import { TranslatedText } from '../translated-text/TranslatedText';
+import { AppLanguage, LanguageContext } from 'context/LanguageContext';
+import { ColorModeContext } from 'context/ColorModeContext';
+import { TranslatedText } from 'components';
 
 export const Layout = () => {
   const { language, changeLanguage } = useContext(LanguageContext);
