@@ -12,10 +12,11 @@ import {
   GiftedUsersQueryKeys,
   useEditGiftedUser,
   useGiftedUser,
-} from '../../api/hooks/gifted-users';
-import { GiftedUser } from '../../api/models/gifted-user';
+} from 'api/hooks';
 
-import { TranslatedText } from '../translated-text/TranslatedText';
+import { GiftedUser } from 'api/models';
+
+import { TranslatedText } from 'components';
 
 import { GiftedUserForm } from './GiftedUserForm';
 

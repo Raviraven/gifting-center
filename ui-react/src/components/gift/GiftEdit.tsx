@@ -7,27 +7,28 @@ import { useTranslation } from 'react-i18next';
 
 import { toast } from 'react-toastify';
 
-import { useGift, useUpdateGift, GiftsQueryKeys } from '../../api/hooks/gifts';
-import { GiftEdit as GiftEditModel } from '../../api/models/gift';
-import { TranslatedText } from '../translated-text/TranslatedText';
+import { useGift, useUpdateGift, GiftsQueryKeys } from 'api/hooks';
+import { GiftEdit as GiftEditModel } from 'api/models';
+import { TranslatedText } from 'components';
 
 import { GiftForm } from './GiftForm';
 
 interface GiftEditProps {
   id: number;
+  userId: number;
   onSubmit?: () => void;
 }
 
-export const GiftEdit = ({ id, onSubmit }: GiftEditProps) => {
+export const GiftEdit = ({ id, onSubmit, userId }: GiftEditProps) => {
   const { isLoading, data } = useGift(id);
   const { t } = useTranslation();
   const updateGiftMutation = useUpdateGift();
   const queryClient = useQueryClient();
 
   const onSuccessSubmit = useCallback(async () => {
-    await queryClient.invalidateQueries(GiftsQueryKeys.giftsList),
-      toast.success(t('giftSuccessfullyEdited'));
-  }, [queryClient, t]);
+    await queryClient.invalidateQueries([GiftsQueryKeys.giftsList, userId]);
+    toast.success(t('giftSuccessfullyEdited'));
+  }, [queryClient, t, userId]);
 
   const handleSubmit = useCallback(
     (values: GiftEditModel) => {

@@ -1,9 +1,7 @@
 /* eslint-disable max-lines */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import { Category } from '../api/models/categories';
-import { GiftList } from '../api/models/gift';
-import { GiftedUser } from '../api/models/gifted-user';
+import { Category, GiftList, GiftedUser } from 'api/models';
 
 import { GiftSchema } from './gift-schema';
 

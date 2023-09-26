@@ -6,10 +6,9 @@ import { Grid, Typography } from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
 
-import { useCategories } from '../../api/hooks/categories';
+import { useCategories, useGiftsForUser } from 'api/hooks';
 
-import { TranslatedText } from '../translated-text/TranslatedText';
-import { useGiftsForUser } from '../../api/hooks/gifts';
+import { TranslatedText } from 'components';
 
 import { SingleGift } from './SingleGift';
 import { GetGiftsByCategory, GiftsByCategory } from './GiftsList.Utils';
@@ -66,7 +65,7 @@ export const GiftsList = (props: GiftsListProps) => {
           key={`gift-category-${giftCategory.categoryName}-${gci}`}
           xs={12}
         >
-          <Typography variant="h3" component="header">
+          <Typography variant="h5" component="header">
             {giftCategory.categoryName}
           </Typography>
           <Grid container spacing={1} component="main">

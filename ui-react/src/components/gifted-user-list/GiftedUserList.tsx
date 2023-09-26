@@ -14,12 +14,12 @@ import { useQueryClient } from 'react-query';
 
 import { useNavigate } from 'react-router-dom';
 
-import { TranslatedText } from '../translated-text/TranslatedText';
+import { TranslatedText } from 'components';
 import {
   GiftedUsersQueryKeys,
   useDeleteGiftedUser,
   useGiftedUsers,
-} from '../../api/hooks/gifted-users';
+} from 'api/hooks';
 
 export const GiftedUserList = () => {
   const { isLoading, data } = useGiftedUsers();

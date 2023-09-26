@@ -7,12 +7,9 @@ import { toast } from 'react-toastify';
 
 import { useTranslation } from 'react-i18next';
 
-import {
-  GiftedUsersQueryKeys,
-  useAddGiftedUser,
-} from '../../api/hooks/gifted-users';
+import { GiftedUsersQueryKeys, useAddGiftedUser } from 'api/hooks';
 
-import { GiftedUser } from '../../api/models/gifted-user';
+import { GiftedUser } from 'api/models';
 
 import { GiftedUserForm } from './GiftedUserForm';
 

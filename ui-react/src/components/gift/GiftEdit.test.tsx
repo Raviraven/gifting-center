@@ -2,12 +2,11 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import { toast } from 'react-toastify';
 
-import { TestQueryClientProvider } from '../../tests/TestQueryClientProvider';
+import { TestQueryClientProvider } from 'tests/TestQueryClientProvider';
 
-import { GiftList } from '../../api/models/gift';
-import { Category } from '../../api/models/categories';
-import { GiftedUser } from '../../api/models/gifted-user';
-import { axiosInstance } from '../../api/axios';
+import { GiftList, Category, GiftedUser } from 'api/models';
+
+import { axiosInstance } from 'api/axios';
 
 import { GiftEdit } from './GiftEdit';
 
@@ -32,6 +31,8 @@ const defaultGiftedUser: GiftedUser = {
   name: 'default user',
 };
 
+const userId = 1;
+
 describe('GiftEdit tests', () => {
   beforeEach(() => {
     jest.spyOn(axiosInstance, 'get').mockImplementation((url: string) => {
@@ -50,7 +51,7 @@ describe('GiftEdit tests', () => {
   test('should show loading when getting edited gift information', async () => {
     render(
       <TestQueryClientProvider>
-        <GiftEdit id={13} />
+        <GiftEdit id={13} userId={userId} />
       </TestQueryClientProvider>
     );
 
@@ -62,7 +63,7 @@ describe('GiftEdit tests', () => {
   test('should fulfill gifts values into input fields', async () => {
     render(
       <TestQueryClientProvider>
-        <GiftEdit id={13} />
+        <GiftEdit id={13} userId={userId} />
       </TestQueryClientProvider>
     );
 
@@ -83,7 +84,7 @@ describe('GiftEdit tests', () => {
 
     render(
       <TestQueryClientProvider>
-        <GiftEdit id={13} />
+        <GiftEdit id={13} userId={userId} />
       </TestQueryClientProvider>
     );
 
@@ -109,7 +110,7 @@ describe('GiftEdit tests', () => {
 
     render(
       <TestQueryClientProvider>
-        <GiftEdit id={13} />
+        <GiftEdit id={13} userId={userId} />
       </TestQueryClientProvider>
     );
 

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import { Category } from '../api/models/categories';
+import { Category } from 'api/models';
 
 import { CategorySchema } from './category-schema';
 

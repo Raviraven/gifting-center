@@ -17,13 +17,9 @@ import {
 
 import { RemoveCircle, EditOutlined } from '@mui/icons-material';
 
-import { GiftEdit, GiftList } from '../../api/models/gift';
-import { TranslatedText } from '../translated-text/TranslatedText';
-import {
-  GiftsQueryKeys,
-  useDeleteGift,
-  useUpdateGift,
-} from '../../api/hooks/gifts';
+import { GiftEdit, GiftList } from 'api/models';
+import { TranslatedText } from 'components';
+import { GiftsQueryKeys, useDeleteGift, useUpdateGift } from 'api/hooks';
 
 import { ReserveGiftSection } from './ReserveGiftSection';
 
@@ -104,7 +100,7 @@ export const SingleGift = ({
 
   return (
     <Card>
-      <CardContent>
+      <CardContent sx={{ paddingBottom: '0.5rem' }}>
         <Grid
           item
           xs={12}
@@ -112,17 +108,18 @@ export const SingleGift = ({
           container
           justifyContent={'space-between'}
         >
-          <Typography variant="h5" component="p" align="left">
+          <Typography variant="h6" component="p" align="left">
             {name}
           </Typography>
-          <Typography variant="h6" component="p">
+          <Typography variant="h6" component="p" fontSize="1rem">
             {`${priceNumber.toFixed(2)} zł`}
           </Typography>
         </Grid>
-        <Grid container component="main" spacing={1} justifyContent="center">
+        <Grid container component="main" padding={0} justifyContent="center">
           <Grid
             item
             xs={12}
+            paddingTop="0.5rem"
             sx={{
               display: 'flex',
               alignItems: 'center',

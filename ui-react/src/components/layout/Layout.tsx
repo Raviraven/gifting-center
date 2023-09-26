@@ -8,7 +8,6 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   SwipeableDrawer,
   Theme,
   Typography,
@@ -21,24 +20,18 @@ import {
   useNavigate,
 } from 'react-router-dom';
 
-import {
-  Brightness4,
-  Brightness7,
-  CheckCircle,
-  Menu,
-} from '@mui/icons-material';
+import { CheckCircle, Menu } from '@mui/icons-material';
 
 import { useTheme } from '@emotion/react';
 
-import { AppLanguage, LanguageContext } from '../../context/LanguageContext';
-import { ColorModeContext } from '../../context/ColorModeContext';
-import { TranslatedText } from '../translated-text/TranslatedText';
+import { AppLanguage, LanguageContext } from 'context/LanguageContext';
+import { TranslatedText } from 'components';
 
 export const Layout = () => {
   const { language, changeLanguage } = useContext(LanguageContext);
   const [drawerOpened, setDrawerOpened] = useState(false);
   const theme = useTheme();
-  const colorMode = useContext(ColorModeContext);
+  //const colorMode = useContext(ColorModeContext);
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -76,9 +69,7 @@ export const Layout = () => {
 
   const calculateSelectedDrawerButton = useCallback(
     (url: string) => {
-      if (pathname === '/admin-panel/' + url) return true;
-
-      return false;
+      return pathname === '/admin-panel/' + url;
     },
     [pathname]
   );
@@ -106,7 +97,7 @@ export const Layout = () => {
         }}
       >
         <Link component={RouterLink} to="/" height="100%">
-          <img src="logo.png" alt="Application logo" height="100%" />
+          <img src={'logo.png'} alt="Application logo" height="100%" />
         </Link>
 
         <Button
@@ -157,22 +148,23 @@ export const Layout = () => {
               </ListItemButton>
             </ListItem>
 
-            <ListItem>
-              <ListItemButton
-                onClick={colorMode.toggleColorMode}
-                sx={{ display: 'flex', justifyContent: 'center' }}
-              >
-                <ListItemIcon
-                  sx={{ display: 'flex', justifyContent: 'center' }}
-                >
-                  {(theme as Theme).palette.mode === 'dark' ? (
-                    <Brightness7 />
-                  ) : (
-                    <Brightness4 />
-                  )}
-                </ListItemIcon>
-              </ListItemButton>
-            </ListItem>
+            {/* toggle dark mode off */}
+            {/*<ListItem>*/}
+            {/*  <ListItemButton*/}
+            {/*    onClick={colorMode.toggleColorMode}*/}
+            {/*    sx={{ display: 'flex', justifyContent: 'center' }}*/}
+            {/*  >*/}
+            {/*    <ListItemIcon*/}
+            {/*      sx={{ display: 'flex', justifyContent: 'center' }}*/}
+            {/*    >*/}
+            {/*      {(theme as Theme).palette.mode === 'dark' ? (*/}
+            {/*        <Brightness7 />*/}
+            {/*      ) : (*/}
+            {/*        <Brightness4 />*/}
+            {/*      )}*/}
+            {/*    </ListItemIcon>*/}
+            {/*  </ListItemButton>*/}
+            {/*</ListItem>*/}
             <Divider />
 
             {pathname.includes('admin-panel') ? (
