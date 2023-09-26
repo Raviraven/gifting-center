@@ -1,5 +1,4 @@
-﻿using System;
-using gifting_center.Data.Database.Configurations;
+﻿using gifting_center.Data.Database.Configurations;
 using gifting_center.Data.Database.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,13 +19,14 @@ namespace gifting_center.Data.Database
         public PostgresSqlContext(DbContextOptions<PostgresSqlContext> options, IConfiguration configuration) : base(options)
         {
             _configuration = configuration;
-        }
-
-        protected PostgresSqlContext(IConfiguration configuration)
-        {
-            _configuration = configuration;
             this.connectionString = configuration.GetConnectionString("DefaultConnection");
         }
+
+        // protected PostgresSqlContext(IConfiguration configuration)
+        // {
+        //     _configuration = configuration;
+        //     this.connectionString = configuration.GetConnectionString("DefaultConnection");
+        // }
 
 
         public DbSet<GiftCategoryDb> GiftCategories { get; set; }
@@ -59,12 +59,6 @@ namespace gifting_center.Data.Database
             
             new UserDbConfiguration().Configure(modelBuilder.Entity<UserDb>());
         }
-
-        //public override int SaveChanges()
-        //{
-        //    ChangeTracker.DetectChanges();
-        //    return base.SaveChanges();
-        //}
     }
 }
 

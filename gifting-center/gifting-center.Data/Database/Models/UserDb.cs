@@ -1,5 +1,5 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
 namespace gifting_center.Data.Database.Models
 {
@@ -26,12 +26,22 @@ namespace gifting_center.Data.Database.Models
         public ICollection<UserRoleDb> Roles { get; set; }
 
         // user can also be the one we want to store gifts for
-        public GiftedUserDb GiftedUser { get; set; }
+        public GiftedUserDb? GiftedUser { get; set; }
         
         public RefreshTokenDb? RefreshToken { get; set; }
 
         public UserDb()
         {
+        }
+
+        public static UserDb Create(string username, string email, string passwordHash)
+        {
+            return new UserDb
+            {
+                Email = email,
+                Username = username,
+                PasswordHash = passwordHash
+            };
         }
     }
 }

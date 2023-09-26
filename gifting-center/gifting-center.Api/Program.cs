@@ -3,11 +3,14 @@ using gifting_center.Api.Middlewares;
 using gifting_center.Data.Database;
 using gifting_center.Data.Repositories;
 using gifting_center.Data.Repositories.Interfaces;
+using gifting_center.Logic.Auth;
+using gifting_center.Logic.Auth.Interfaces;
 using gifting_center.Logic.Services;
 using gifting_center.Logic.Services.Interfaces;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+// using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
+
+// using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +23,9 @@ builder.Services.AddTransient<IGiftsService, GiftsService>();
 builder.Services.AddTransient<ICategoriesRepository, CategoriesRepository>();
 builder.Services.AddTransient<IGiftedUsersRepository, GiftedUsersRepository>();
 builder.Services.AddTransient<IGiftsRepository, GiftsRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+
+builder.Services.AddTransient<IAuthService, AuthService>();
 
 // builder.Services.AddDbContext<PostgresSqlContext>(opts =>
 //     opts.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));

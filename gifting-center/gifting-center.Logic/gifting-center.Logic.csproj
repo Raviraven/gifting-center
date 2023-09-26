@@ -1,13 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <RootNamespace>gifting_center.Logic</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>12</LangVersion>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Optimize></Optimize>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
   <ItemGroup>
     <Folder Include="Services\" />
     <Folder Include="Services\Interfaces\" />
@@ -19,5 +23,8 @@
   <ItemGroup>
     <None Remove="Services\Interfaces\" />
     <None Remove="Exceptions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
   </ItemGroup>
 </Project>
