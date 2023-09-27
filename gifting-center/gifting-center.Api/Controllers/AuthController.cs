@@ -15,10 +15,12 @@ namespace gifting_center.Api.Controllers
             _authService = authService;
         }
 
-        // public IActionResult Login()
-        // {
-        //     return Ok();
-        // }
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginRequest request)
+        {
+            var result = await _authService.Login(request);
+            return string.IsNullOrWhiteSpace(result) ? BadRequest() : Ok(result);
+        }
         //
         // // not needed? mostly action on FE 
         // public IActionResult Logout()
@@ -26,7 +28,7 @@ namespace gifting_center.Api.Controllers
         //     return Ok();
         // }
         
-        [HttpPost("/register")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterRequest request)
         {
             await this._authService.Register(request);
