@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace gifting_center.Logic.Exceptions
+﻿namespace gifting_center.Logic.Exceptions
 {
-    public class NoCategoryException : Exception
+    public class NoCategoryException : Exception, IHttp404Exception
     {
         public NoCategoryException() : base() { }
 
