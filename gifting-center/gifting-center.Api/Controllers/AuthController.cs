@@ -1,5 +1,7 @@
 using gifting_center.Data.ViewModels.Auth;
-using gifting_center.Logic.Auth.Interfaces;
+using gifting_center.Logic.Commands;
+using gifting_center.Logic.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace gifting_center.Api.Controllers
@@ -8,18 +10,18 @@ namespace gifting_center.Api.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthService _authService;
+        private readonly IMediator _mediator;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IMediator mediator)
         {
-            _authService = authService;
+            _mediator = mediator;
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest request)
         {
-            var result = await _authService.Login(request);
-            return string.IsNullOrWhiteSpace(result) ? BadRequest() : Ok(result);
+            var result = await this._mediator.Send(new LoginQuery(request.Email, request.Password));
+            return string.IsNullOrWhiteSpace(result) ? Unauthorized() : Ok(result);
         }
         //
         // // not needed? mostly action on FE 
@@ -31,7 +33,7 @@ namespace gifting_center.Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterRequest request)
         {
-            await this._authService.Register(request);
+            await this._mediator.Send(new RegisterCommand(request.Username, request.Password, request.Email));
             return Ok();
         }
         
