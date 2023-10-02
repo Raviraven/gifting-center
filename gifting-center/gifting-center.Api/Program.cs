@@ -1,16 +1,26 @@
-﻿using gifting_center.Api.Middlewares;
+﻿using System.Text;
+using gifting_center.Api.Configuration;
+using gifting_center.Api.Middlewares;
+using gifting_center.Api.Swagger;
 using gifting_center.Data.Database;
 using gifting_center.Data.Repositories;
 using gifting_center.Data.Repositories.Interfaces;
 using gifting_center.Logic.Auth;
+using gifting_center.Logic.Identity;
+using gifting_center.Logic.OptionsSetup;
 using gifting_center.Logic.Services;
 using gifting_center.Logic.Services.Interfaces;
-// using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using ICryptoProvider = gifting_center.Logic.Auth.ICryptoProvider;
 
 // using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddEnvironmentVariables();
 
 // Add services to the container.
 
@@ -26,14 +36,13 @@ builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IJwtProvider, JwtProvider>();
 builder.Services.AddTransient<ICryptoProvider, CryptoProvider>();
 
+builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
+
 builder.Services.AddMediatR(n =>
 {
     n.Lifetime = ServiceLifetime.Scoped;
     n.RegisterServicesFromAssembly(AppDomain.CurrentDomain.Load("gifting-center.Logic"));
 });
-
-// builder.Services.AddDbContext<PostgresSqlContext>(opts =>
-//     opts.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddDbContext<PostgresSqlContext>();
 
@@ -41,31 +50,19 @@ builder.WebHost.ConfigureKestrel(c => c.ConfigureEndpointDefaults(opts =>
 {
     if (!builder.Environment.IsDevelopment())
     {
+        //TODO: move it to some KernelConfigurationOptions object as it's done with JWT
         opts.UseHttps(Environment.GetEnvironmentVariable("HTTPS_CERTIFICATE_NAME") ?? "",
             Environment.GetEnvironmentVariable("HTTPS_CERTIFICATE_PASSWORD") ?? "");
     }
 }));
 
-// builder.Services.AddAuthentication(x =>
-// {
-//     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-//     x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-//     x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-// }).AddJwtBearer(x =>
-// {
-//     x.TokenValidationParameters = new TokenValidationParameters
-//     {
-//         ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
-//         ValidAudience = builder.Configuration["JwtSettings:Audience"],
-//         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"])),
-//         ValidateIssuer = true,
-//         ValidateAudience = true,
-//         ValidateLifetime = true,
-//         ValidateIssuerSigningKey = true
-//     };
-// });
-//
-// builder.Services.AddAuthorization();
+builder.Services.AddJwt();
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy(IdentityData.AdminUserPolicyName,
+        p => p.RequireClaim(IdentityData.AdminUserClaimName, "true"));
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -89,8 +86,8 @@ if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Developmen
 
 app.UseHttpsRedirection();
 
-// app.UseAuthentication();
-// app.UseAuthorization();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

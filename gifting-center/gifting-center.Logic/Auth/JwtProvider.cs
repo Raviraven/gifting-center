@@ -4,6 +4,7 @@ using System.Text;
 using gifting_center.Data.ViewModels.Auth;
 using gifting_center.Logic.Exceptions;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace gifting_center.Logic.Auth;
@@ -15,33 +16,31 @@ public interface IJwtProvider
 
 public class JwtProvider : IJwtProvider
 {
-    private readonly string _issuer;
-    private readonly string _audience;
-    private readonly string _securityKey;
-    
-    private readonly IConfiguration _configuration;
+    private readonly JwtOptions _options;
 
-    public JwtProvider(IConfiguration configuration)
+    public JwtProvider( IOptions<JwtOptions> options)
     {
-        _configuration = configuration;
-        _issuer = _configuration["JwtSettings:Issuer"] ?? 
-                  throw new ConfigurationValueMissingException("JwtIssuer"); 
-                    // change to nameof(prop) after APpSettings implementation
-        _audience = _configuration["JwtSettings:Audience"];
-        _securityKey = _configuration["JwtSettings:Key"];
+        _options = options.Value;
     }
-
 
     public string Generate(User user)
     {
-        var claims = new Claim[] { };
+        var claims = new Claim[]
+        {
+            new (JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new (JwtRegisteredClaimNames.Sub, user.Email),
+            new (JwtRegisteredClaimNames.Email, user.Email),
+            new ("userid", user.Id.ToString())
+            // add roles here
+            // some like custom claims object?
+        };
 
         var signingCredentials = new SigningCredentials(
-            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_securityKey)), SecurityAlgorithms.HmacSha256);
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey)), SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
-            _issuer,
-            _audience,
+            _options.Issuer,
+            _options.Audience,
             claims,
             null,
             DateTime.UtcNow.AddMinutes(15),
