@@ -1,5 +1,5 @@
-﻿using gifting_center.Data.ViewModels;
-using gifting_center.Logic.Identity;
+﻿using gifting_center.Data.Enums;
+using gifting_center.Data.ViewModels;
 using gifting_center.Logic.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace gifting_center.Api.Controllers
 {
     [Route("api/[controller]")]
-    //[Microsoft.AspNetCore.Authorization.Authorize(Policy = IdentityData.AdminUserPolicyName)]
-    [Microsoft.AspNetCore.Authorization.Authorize]
+    //[Authorize(Policy = IdentityData.AdminUserPolicyName)]
+    [Authorize(Roles = $"Admin")]
+    //[RoleGate(nameof(UserRoles.Admin))]
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoriesService _categoriesService;
@@ -19,14 +20,14 @@ namespace gifting_center.Api.Controllers
         }
 
         [HttpGet]
-        [Microsoft.AspNetCore.Authorization.AllowAnonymous]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<string>>> Get()
         {
             return Ok(await _categoriesService.Get());
         }
 
-        [HttpGet("{id}")]
-        [Microsoft.AspNetCore.Authorization.AllowAnonymous]
+        [HttpGet("{id:int}")]
+        [AllowAnonymous]
         public async Task<ActionResult<Category>> Get(int id)
         {
             return Ok(await _categoriesService.GetById(id));

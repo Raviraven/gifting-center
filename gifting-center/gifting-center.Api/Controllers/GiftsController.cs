@@ -1,11 +1,15 @@
-﻿using gifting_center.Data.ViewModels;
+﻿using gifting_center.Data.Enums;
+using gifting_center.Data.ViewModels;
 using gifting_center.Logic.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace gifting_center.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
+    [RoleGate(nameof(UserRoles.Admin))]
     public class GiftsController : ControllerBase
     {
         private readonly IGiftsService _giftsService;
@@ -16,22 +20,27 @@ namespace gifting_center.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<Gift>> GetById(int id)
         {
             return Ok(await _giftsService.GetById(id));
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<List<Gift>>> GetAll()
         {
             return Ok(await _giftsService.Get());
         }
 
         [HttpGet("user/{userId}")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<GiftList>>> GetGiftsForUser(int userId)
         {
             return Ok(await _giftsService.GetByUserId(userId));
         }
+        
+        // separate endpoint for reservation with role gate user
 
         [HttpPost]
         public async Task<ActionResult<GiftAdd>> AddGift(GiftAdd gift)

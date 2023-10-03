@@ -1,10 +1,14 @@
-﻿using gifting_center.Data.ViewModels;
+﻿using gifting_center.Data.Enums;
+using gifting_center.Data.ViewModels;
 using gifting_center.Logic.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace gifting_center.Api.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Roles = "Admin")]
+    [RoleGate(nameof(UserRoles.Admin))]
     public class GiftedUsersController : ControllerBase
     {
         protected readonly IGiftedUsersService _giftedUsersService;
@@ -15,12 +19,14 @@ namespace gifting_center.Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<GiftedUser>>> Get()
         {
             return Ok(await _giftedUsersService.Get());
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<GiftedUser>> Get(int id)
         {
             return Ok(await _giftedUsersService.GetById(id));

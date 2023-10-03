@@ -2,8 +2,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using gifting_center.Data.ViewModels.Auth;
-using gifting_center.Logic.Exceptions;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -25,15 +23,15 @@ public class JwtProvider : IJwtProvider
 
     public string Generate(User user)
     {
-        var claims = new Claim[]
+        var claims = new List<Claim>
         {
             new (JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new (JwtRegisteredClaimNames.Sub, user.Email),
             new (JwtRegisteredClaimNames.Email, user.Email),
-            new ("userid", user.Id.ToString())
-            // add roles here
-            // some like custom claims object?
+            new ("userid", user.Id.ToString()),
         };
+
+        claims.AddRange(this.UserRolesClaims(user.Roles));
 
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey)), SecurityAlgorithms.HmacSha256);
@@ -50,5 +48,10 @@ public class JwtProvider : IJwtProvider
         var tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
 
         return tokenValue;
+    }
+
+    private IEnumerable<Claim> UserRolesClaims(IEnumerable<string> roles)
+    {
+        return !roles.Any() ? Enumerable.Empty<Claim>() : roles.ToList().Select(r => new Claim(ClaimTypes.Role, r));
     }
 }

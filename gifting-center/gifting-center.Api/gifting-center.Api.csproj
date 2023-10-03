@@ -35,6 +35,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Middlewares\" />
-    <Folder Include="Attributes\" />
   </ItemGroup>
 </Project>

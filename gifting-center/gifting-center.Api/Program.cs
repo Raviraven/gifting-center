@@ -6,7 +6,6 @@ using gifting_center.Data.Database;
 using gifting_center.Data.Repositories;
 using gifting_center.Data.Repositories.Interfaces;
 using gifting_center.Logic.Auth;
-using gifting_center.Logic.Identity;
 using gifting_center.Logic.OptionsSetup;
 using gifting_center.Logic.Services;
 using gifting_center.Logic.Services.Interfaces;
@@ -58,11 +57,11 @@ builder.WebHost.ConfigureKestrel(c => c.ConfigureEndpointDefaults(opts =>
 
 builder.Services.AddJwt();
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy(IdentityData.AdminUserPolicyName,
-        p => p.RequireClaim(IdentityData.AdminUserClaimName, "true"));
-});
+// builder.Services.AddAuthorization(options =>
+// {
+//     options.AddPolicy(AuthData.AdminUserPolicyName,
+//         p => p.RequireClaim(AuthData.AdminUserClaimName, "true"));
+// });
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
