@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using gifting_center.Data.Enums;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace gifting_center.Data.Database.Models
 {
@@ -11,10 +9,16 @@ namespace gifting_center.Data.Database.Models
 
         public string Name { get; set; }
 
-        public UserRoles UserRole { get; set; }
-
         public UserRoleDb()
         {
+        }
+
+        public static UserRoleDb Create(string name)
+        {
+            return new UserRoleDb()
+            {
+                Name = name
+            };
         }
     }
 }

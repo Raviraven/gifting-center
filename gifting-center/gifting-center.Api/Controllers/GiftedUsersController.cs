@@ -1,5 +1,5 @@
-﻿using gifting_center.Data.Enums;
-using gifting_center.Data.ViewModels;
+﻿using gifting_center.Data.ViewModels;
+using gifting_center.Logic.Identity;
 using gifting_center.Logic.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace gifting_center.Api.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize(Roles = "Admin")]
-    [RoleGate(nameof(UserRoles.Admin))]
+    [Authorize(Roles = nameof(Permissions.UserRole.Admin))]
+    //[RoleGate(nameof(UserRoles.Admin))]
     public class GiftedUsersController : ControllerBase
     {
         protected readonly IGiftedUsersService _giftedUsersService;

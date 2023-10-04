@@ -1,6 +1,7 @@
 using gifting_center.Data.Database.Models;
 using gifting_center.Data.Repositories.Interfaces;
 using gifting_center.Logic.Auth;
+using gifting_center.Logic.Identity;
 using MediatR;
 
 namespace gifting_center.Logic.Commands;
@@ -28,7 +29,7 @@ public class RegisterCommandHandler
     public async Task Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
         var passwordHash = cryptoProvider.HashPassword(request.Password);
-        var user = UserDb.Create(request.Username, request.Email, passwordHash);
+        var user = UserDb.Create(request.Username, request.Email, passwordHash, new List<string>{ Permissions.UserRole.User });
         await userRepository.Add(user);
     }
 }

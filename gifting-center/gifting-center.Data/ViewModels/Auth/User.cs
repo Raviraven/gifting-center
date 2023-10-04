@@ -19,7 +19,7 @@ public class User
             Email = userDb.Email,
             Username = userDb.Username,
             Id = userDb.Id,
-            Roles = userDb.Roles.Count > 0 ? userDb.Roles.Select(n => n.UserRole.ToString()).ToList() : Enumerable.Empty<string>()
+            Roles = userDb.Roles.Count > 0 ? userDb.Roles.Select(n => n.Name).ToList() : Enumerable.Empty<string>()
         };
     }
 }

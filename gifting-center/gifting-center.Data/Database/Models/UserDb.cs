@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
-using gifting_center.Data.Enums;
 
 namespace gifting_center.Data.Database.Models
 {
@@ -33,21 +32,14 @@ namespace gifting_center.Data.Database.Models
         {
         }
 
-        public static UserDb Create(string username, string email, string passwordHash)
+        public static UserDb Create(string username, string email, string passwordHash, List<string> roles)
         {
             return new UserDb
             {
                 Email = email,
                 Username = username,
                 PasswordHash = passwordHash,
-                Roles = new List<UserRoleDb>()
-                {
-                    new UserRoleDb
-                    {
-                        Name = UserRoles.User.ToString(),
-                        UserRole = UserRoles.User
-                    }
-                }
+                Roles = roles.Select(UserRoleDb.Create).ToList()
             };
         }
     }
