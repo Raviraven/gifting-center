@@ -2,20 +2,20 @@
 
 namespace gifting_center.Data.Database.Models
 {
-    public class UserRoleDb
+    public class UserRoleEntity
     {
         [Key]
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public UserRoleDb()
+        public UserRoleEntity()
         {
         }
 
-        public static UserRoleDb Create(string name)
+        public static UserRoleEntity Create(string name)
         {
-            return new UserRoleDb()
+            return new UserRoleEntity()
             {
                 Name = name
             };

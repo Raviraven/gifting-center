@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace gifting_center.Data.Database.Models
 {
-    public class GiftCategoryDb
+    public class GiftCategoryEntity
     {
         [Key]
         public int Id { get; set; }
@@ -11,9 +11,9 @@ namespace gifting_center.Data.Database.Models
         public string Name { get; set; }
 
 
-        public ICollection<GiftDb> Gifts { get; set; }
+        public ICollection<GiftEntity> Gifts { get; set; }
 
-        public GiftCategoryDb()
+        public GiftCategoryEntity()
         {
         }
     }

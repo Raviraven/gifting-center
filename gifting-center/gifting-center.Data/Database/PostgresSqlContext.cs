@@ -29,15 +29,15 @@ namespace gifting_center.Data.Database
         // }
 
 
-        public DbSet<GiftCategoryDb> GiftCategories { get; set; }
+        public DbSet<GiftCategoryEntity> GiftCategories { get; set; }
 
-        public DbSet<GiftDb> Gifts { get; set; }
+        public DbSet<GiftEntity> Gifts { get; set; }
 
-        public DbSet<GiftedUserDb> GiftedUsers { get; set; }
+        public DbSet<GiftedUserEntity> GiftedUsers { get; set; }
 
-        public DbSet<UserDb> Users { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
 
-        public DbSet<UserRoleDb> UserRoles { get; set; }
+        public DbSet<UserRoleEntity> UserRoles { get; set; }
         
 
         public void MigrateDatabase()
@@ -57,7 +57,7 @@ namespace gifting_center.Data.Database
         {
             base.OnModelCreating(modelBuilder);
             
-            new UserDbConfiguration().Configure(modelBuilder.Entity<UserDb>());
+            new UserDbConfiguration().Configure(modelBuilder.Entity<UserEntity>());
         }
     }
 }

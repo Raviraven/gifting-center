@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace gifting_center.Data.Database.Models;
 
 //[Owned]
-public class RefreshTokenDb
+public class RefreshTokenEntity
 {
     //[Key]
     //[JsonIgnore]

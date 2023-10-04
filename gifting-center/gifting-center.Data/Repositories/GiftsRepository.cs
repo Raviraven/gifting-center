@@ -17,7 +17,7 @@ namespace gifting_center.Data.Repositories
 
         public async Task<GiftAdd> Add(GiftAdd gift)
         {
-            await _context.Gifts.AddAsync(new GiftDb()
+            await _context.Gifts.AddAsync(new GiftEntity()
             {
                 Name = gift.Name,
                 Price = gift.Price,

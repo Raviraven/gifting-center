@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace gifting_center.Data.Database.Models
 {
-    public class UserDb
+    public class UserEntity
     {
         [Key] public Guid Id { get; set; }
 
@@ -21,25 +21,25 @@ namespace gifting_center.Data.Database.Models
         // public bool IsResetPasswordTokenActive { get; set; }
 
 
-        public ICollection<UserRoleDb> Roles { get; set; }
+        public ICollection<UserRoleEntity> Roles { get; set; }
 
         // user can also be the one we want to store gifts for
-        public GiftedUserDb? GiftedUser { get; set; }
+        public GiftedUserEntity? GiftedUser { get; set; }
 
-        public RefreshTokenDb? RefreshToken { get; set; }
+        public RefreshTokenEntity? RefreshToken { get; set; }
 
-        public UserDb()
+        public UserEntity()
         {
         }
 
-        public static UserDb Create(string username, string email, string passwordHash, List<string> roles)
+        public static UserEntity Create(string username, string email, string passwordHash, List<string> roles)
         {
-            return new UserDb
+            return new UserEntity
             {
                 Email = email,
                 Username = username,
                 PasswordHash = passwordHash,
-                Roles = roles.Select(UserRoleDb.Create).ToList()
+                Roles = roles.Select(UserRoleEntity.Create).ToList()
             };
         }
     }

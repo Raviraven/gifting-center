@@ -12,14 +12,14 @@ public class User
     
     public IEnumerable<string> Roles { get; set; } = null!;
 
-    public static User Create(UserDb userDb)
+    public static User Create(UserEntity userEntity)
     {
         return new User()
         {
-            Email = userDb.Email,
-            Username = userDb.Username,
-            Id = userDb.Id,
-            Roles = userDb.Roles.Count > 0 ? userDb.Roles.Select(n => n.Name).ToList() : Enumerable.Empty<string>()
+            Email = userEntity.Email,
+            Username = userEntity.Username,
+            Id = userEntity.Id,
+            Roles = userEntity.Roles.Count > 0 ? userEntity.Roles.Select(n => n.Name).ToList() : Enumerable.Empty<string>()
         };
     }
 }

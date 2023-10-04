@@ -30,7 +30,7 @@ public class LoginQueryTests
         const string password = "q";
         const string passwordHash = "qHashed";
 
-        var userDb = new UserDb()
+        var userDb = new UserEntity()
         {
             Email = "test@email.com",
             PasswordHash = passwordHash
@@ -54,7 +54,7 @@ public class LoginQueryTests
         const string password = "q";
         const string passwordHash = "qHashed";
 
-        var userDb = new UserDb()
+        var userDb = new UserEntity()
         {
             Email = "test@email.com",
             PasswordHash = passwordHash
