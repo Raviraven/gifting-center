@@ -34,6 +34,8 @@ builder.Services.AddTransient<IUserRepository, UserRepository>();
 
 builder.Services.AddTransient<IJwtProvider, JwtProvider>();
 builder.Services.AddTransient<ICryptoProvider, CryptoProvider>();
+builder.Services.AddTransient<IRefreshTokenUtils, RefreshTokenUtils>();
+builder.Services.AddTransient<IRandomCryptoBytesGenerator, RandomCryptoBytesGenerator>();
 
 builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
 

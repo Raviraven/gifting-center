@@ -1,3 +1,4 @@
+using gifting_center.Data.Database.Models;
 using gifting_center.Data.Repositories.Interfaces;
 using gifting_center.Data.ViewModels.Auth;
 using gifting_center.Logic.Auth;
@@ -5,7 +6,7 @@ using MediatR;
 
 namespace gifting_center.Logic.Queries;
 
-public class LoginQuery : IRequest<string>
+public class LoginQuery : IRequest<LoginResponse>
 {
     public string Email { get; }
 
@@ -20,19 +21,24 @@ public class LoginQuery : IRequest<string>
 
 public class LoginQueryHandler
 (IUserRepository userRepository, IJwtProvider jwtProvider,
-    ICryptoProvider cryptoProvider) : IRequestHandler<LoginQuery, string>
+    ICryptoProvider cryptoProvider, IRefreshTokenUtils refreshTokenUtils) : IRequestHandler<LoginQuery, LoginResponse>
 {
-    public async Task<string> Handle(LoginQuery query, CancellationToken cancellationToken)
+    public async Task<LoginResponse> Handle(LoginQuery query, CancellationToken cancellationToken)
     {
         var user = await userRepository.GetByEmail(query.Email);
         if (user is not null && cryptoProvider.VerifyPassword(query.Password, user.PasswordHash))
         {
-            // return JWT
-            return jwtProvider.Generate(User.Create(user));
+            var accessToken = jwtProvider.Generate(User.Create(user));
+            var refreshToken = refreshTokenUtils.Generate();
 
-            // generate refresh token
+            user.UpdateRefreshToken(RefreshTokenEntity.Create(
+                refreshToken.Token, refreshToken.Expires, refreshToken.Created, refreshToken.Revoked));
+
+            await userRepository.SaveChanges();
+
+            return LoginResponse.Create(accessToken, refreshToken.Token);
         }
 
-        return string.Empty;
+        return LoginResponse.Create(string.Empty, string.Empty);
     }
 }

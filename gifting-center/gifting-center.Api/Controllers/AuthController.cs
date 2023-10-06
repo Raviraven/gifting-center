@@ -24,7 +24,17 @@ namespace gifting_center.Api.Controllers
         public async Task<IActionResult> Login(LoginRequest request)
         {
             var result = await this._mediator.Send(new LoginQuery(request.Email, request.Password));
-            return string.IsNullOrWhiteSpace(result) ? Unauthorized() : Ok(result);
+
+            var cookieOptions = new CookieOptions()
+            {
+                HttpOnly = true,
+                // TODO: change to _datetimeprovider
+                Expires = DateTime.UtcNow.AddDays(7)
+            };
+            
+            Response.Cookies.Append("RefreshToken", result.RefreshToken, cookieOptions);
+            
+            return string.IsNullOrWhiteSpace(result.AccessToken) ? Unauthorized() : Ok(result);
         }
         
         [HttpPost("register")]

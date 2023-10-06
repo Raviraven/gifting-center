@@ -42,5 +42,10 @@ namespace gifting_center.Data.Database.Models
                 Roles = roles.Select(UserRoleEntity.Create).ToList()
             };
         }
+
+        public void UpdateRefreshToken(RefreshTokenEntity token)
+        {
+            this.RefreshToken = token;
+        }
     }
 }

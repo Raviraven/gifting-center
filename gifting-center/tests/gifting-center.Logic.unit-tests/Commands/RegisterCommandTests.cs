@@ -32,7 +32,8 @@ public class RegisterCommandTests
 
         await _sut.Handle(new RegisterCommand(username, password, email), CancellationToken.None);
 
-        await _userRepository.Received(1).Add(Arg.Is<UserEntity>(n =>
+        _userRepository.Received(1).Add(Arg.Is<UserEntity>(n =>
                 n.Username == username && n.Email == email && n.PasswordHash == passwordHashed));
+        await _userRepository.Received(1).SaveChanges();
     }
 }

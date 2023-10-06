@@ -35,5 +35,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\gifting-center.Data\gifting-center.Data.csproj" />
     <ProjectReference Include="..\..\gifting-center.Logic\gifting-center.Logic.csproj" />
+    <ProjectReference Include="..\gifting-center.unit-tests.Utils\gifting-center.unit-tests.Utils.csproj" />
   </ItemGroup>
 </Project>

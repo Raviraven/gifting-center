@@ -19,9 +19,13 @@ public class UserRepository : IUserRepository
         return await this._context.Users.Include(r => r.Roles).FirstOrDefaultAsync(n => n.Email == email);
     }
 
-    public async Task Add(UserEntity user)
+    public void Add(UserEntity user)
     {
         this._context.Users.Add(user);
+    }
+
+    public async Task SaveChanges()
+    {
         await _context.SaveChangesAsync();
     }
 }

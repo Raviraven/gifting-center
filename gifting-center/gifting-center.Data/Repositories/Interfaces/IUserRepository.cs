@@ -5,5 +5,7 @@ namespace gifting_center.Data.Repositories.Interfaces;
 public interface IUserRepository
 {
     Task<UserEntity?> GetByEmail(string email);
-    Task Add(UserEntity user);
+    void Add(UserEntity user);
+
+    Task SaveChanges();
 }

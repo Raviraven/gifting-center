@@ -30,6 +30,7 @@ public class RegisterCommandHandler
     {
         var passwordHash = cryptoProvider.HashPassword(request.Password);
         var user = UserEntity.Create(request.Username, request.Email, passwordHash, new List<string>{ Permissions.UserRole.User });
-        await userRepository.Add(user);
+        userRepository.Add(user);
+        await userRepository.SaveChanges();
     }
 }
