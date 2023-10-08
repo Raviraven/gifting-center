@@ -19,6 +19,12 @@ public class UserRepository : IUserRepository
         return await this._context.Users.Include(r => r.Roles).FirstOrDefaultAsync(n => n.Email == email);
     }
 
+    public async Task<UserEntity?> GetByRefreshToken(string token)
+    {
+        return await this._context.Users.Include(n => n.Roles)
+            .FirstOrDefaultAsync(n => n.RefreshToken != null && n.RefreshToken.Token == token);
+    }
+
     public void Add(UserEntity user)
     {
         this._context.Users.Add(user);

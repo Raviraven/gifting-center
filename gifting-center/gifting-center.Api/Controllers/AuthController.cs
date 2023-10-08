@@ -14,6 +14,8 @@ namespace gifting_center.Api.Controllers
     {
         private readonly IMediator _mediator;
 
+        private const string RefreshTokenCookie = "RefreshToken";
+
         public AuthController(IMediator mediator)
         {
             _mediator = mediator;
@@ -32,7 +34,7 @@ namespace gifting_center.Api.Controllers
                 Expires = DateTime.UtcNow.AddDays(7)
             };
             
-            Response.Cookies.Append("RefreshToken", result.RefreshToken, cookieOptions);
+            Response.Cookies.Append(RefreshTokenCookie, result.RefreshToken, cookieOptions);
             
             return string.IsNullOrWhiteSpace(result.AccessToken) ? Unauthorized() : Ok(result);
         }
@@ -44,11 +46,24 @@ namespace gifting_center.Api.Controllers
             await this._mediator.Send(new RegisterCommand(request.Username, request.Password, request.Email));
             return Ok();
         }
-        
-        // public IActionResult RefreshToken()
-        // {
-        //     return Ok();
-        // }
+
+        [AllowAnonymous] // ?
+        [HttpPost("refresh-token")]
+        public async Task<IActionResult> RefreshToken()
+        {
+            var refreshToken = Request.Cookies[RefreshTokenCookie];
+            var result = await this._mediator.Send(new RefreshTokenCommand(refreshToken));
+            
+            var cookieOptions = new CookieOptions()
+            {
+                HttpOnly = true,
+                // TODO: change to _datetimeprovider
+                Expires = DateTime.UtcNow.AddDays(7)
+            };
+            
+            Response.Cookies.Append(RefreshTokenCookie, result.RefreshToken, cookieOptions);
+            return string.IsNullOrWhiteSpace(result.AccessToken) ? Unauthorized() : Ok(result);
+        }
         //
         // public IActionResult RevokeToken()
         // {

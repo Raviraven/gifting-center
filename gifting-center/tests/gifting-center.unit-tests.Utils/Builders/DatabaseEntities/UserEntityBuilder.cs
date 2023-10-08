@@ -40,6 +40,12 @@ public class UserEntityBuilder : BuilderBase<UserEntity>
         this.entity.Roles = roles;
         return this;
     }
+
+    public UserEntityBuilder WithRefreshToken(RefreshTokenEntity refreshToken)
+    {
+        this.entity.RefreshToken = refreshToken;
+        return this;
+    }
     
     public UserEntity Build()
     {
