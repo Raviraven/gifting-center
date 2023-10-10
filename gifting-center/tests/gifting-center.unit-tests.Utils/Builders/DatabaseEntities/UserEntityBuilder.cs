@@ -12,7 +12,8 @@ public class UserEntityBuilder : BuilderBase<UserEntity>
             return new Faker<UserEntity>()
                 .RuleFor(n => n.Email, b => b.Internet.Email())
                 .RuleFor(n => n.PasswordHash, b => b.Random.Hash())
-                .RuleFor(n => n.Roles, b => new UserRoleEntityBuilder().GenerateList(3));
+                .RuleFor(n => n.Roles, b => new UserRoleEntityBuilder().GenerateList(3))
+                .RuleFor(n => n.RefreshTokens, b => new RefreshTokenEntityBuilder().GenerateList(3));
         }
     }
 
@@ -43,7 +44,13 @@ public class UserEntityBuilder : BuilderBase<UserEntity>
 
     public UserEntityBuilder WithRefreshToken(RefreshTokenEntity refreshToken)
     {
-        this.entity.RefreshToken = refreshToken;
+        this.entity.RefreshTokens = new List<RefreshTokenEntity>() { refreshToken };
+        return this;
+    }
+
+    public UserEntityBuilder WithRefreshTokens(List<RefreshTokenEntity> tokens)
+    {
+        this.entity.RefreshTokens = tokens;
         return this;
     }
     

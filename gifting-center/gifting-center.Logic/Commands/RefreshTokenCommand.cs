@@ -17,23 +17,27 @@ public class RefreshTokenCommand : IRequest<LoginResponse>
 }
 
 public class RefreshTokenCommandHandler(IUserRepository userRepository, IJwtProvider jwtProvider,
-    IRefreshTokenUtils refreshTokenUtils) : IRequestHandler<RefreshTokenCommand, LoginResponse>
+    IRefreshTokenUtils refreshTokenUtils,
+    IDateTimeProvider dateTimeProvider) : IRequestHandler<RefreshTokenCommand, LoginResponse>
 {
     public async Task<LoginResponse> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
     {
         var user = await userRepository.GetByRefreshToken(request.RefreshToken);
+        var currentRefreshToken = user?.RefreshTokens.First(n => n.Token == request.RefreshToken);
 
-        // TODO: change to datetime provider
-        if (user is null || user.RefreshToken!.Expires <= DateTime.UtcNow || user.RefreshToken.Revoked is not null)
+        if (user is null || currentRefreshToken is not null &&
+            (currentRefreshToken.Expires <= dateTimeProvider.UtcNow || currentRefreshToken.Revoked is not null))
         {
             return LoginResponse.Create(string.Empty, string.Empty);
         }
 
         var jwt = jwtProvider.Generate(User.Create(user));
         var refreshToken = refreshTokenUtils.Generate();
-        
-        user.UpdateRefreshToken(RefreshTokenEntity.Create(
+
+        currentRefreshToken!.Revoke(dateTimeProvider.UtcNow);
+        user.AddNewRefreshToken(RefreshTokenEntity.Create(
             refreshToken.Token, refreshToken.Expires, refreshToken.Created, refreshToken.Revoked));
+
         await userRepository.SaveChanges();
 
         return LoginResponse.Create(jwt, refreshToken.Token);

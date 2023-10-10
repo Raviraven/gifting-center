@@ -39,6 +39,8 @@ namespace gifting_center.Data.Database
 
         public DbSet<UserRoleEntity> UserRoles { get; set; }
         
+        public DbSet<RefreshTokenEntity> RefreshTokens { get; set; }
+        
 
         public void MigrateDatabase()
         {
@@ -57,7 +59,7 @@ namespace gifting_center.Data.Database
         {
             base.OnModelCreating(modelBuilder);
             
-            new UserDbConfiguration().Configure(modelBuilder.Entity<UserEntity>());
+            //new UserDbConfiguration().Configure(modelBuilder.Entity<UserEntity>());
         }
     }
 }

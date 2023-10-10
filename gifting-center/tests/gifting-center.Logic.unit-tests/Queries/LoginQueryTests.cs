@@ -71,6 +71,7 @@ public class LoginQueryTests
             .WithRoles(new List<UserRoleEntity>() { new() { Id = -9, Name = Permissions.UserRole.User } })
             .Build();
 
+        var newRefreshToken = new RefreshToken("generated-refresh-token", now, now, null);
 
         var loginRequest = new LoginQuery(userDb.Email, password);
 
@@ -81,12 +82,18 @@ public class LoginQueryTests
                 u.Roles.Contains(Permissions.UserRole.User)))
             .Returns("test.generated.token");
         _refreshTokenUtils.Generate()
-            .Returns(new RefreshToken("generated-refresh-token", now, now, null));
+            .Returns(newRefreshToken);
 
         await _sut.Handle(loginRequest, CancellationToken.None);
 
-        userDb.RefreshToken.Should()
-            .BeEquivalentTo(RefreshTokenEntity.Create("generated-refresh-token", now, now, null));
+        userDb.RefreshTokens.Should().ContainEquivalentOf(new RefreshTokenEntity()
+        {
+            Token = newRefreshToken.Token,
+            Created = newRefreshToken.Created,
+            Expires = newRefreshToken.Expires,
+            Revoked = newRefreshToken.Revoked
+        });
+        
         await _userRepository.Received(1).SaveChanges();
     }
 

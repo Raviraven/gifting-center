@@ -5,6 +5,7 @@ using gifting_center.Api.Swagger;
 using gifting_center.Data.Database;
 using gifting_center.Data.Repositories;
 using gifting_center.Data.Repositories.Interfaces;
+using gifting_center.Logic;
 using gifting_center.Logic.Auth;
 using gifting_center.Logic.OptionsSetup;
 using gifting_center.Logic.Services;
@@ -36,6 +37,7 @@ builder.Services.AddTransient<IJwtProvider, JwtProvider>();
 builder.Services.AddTransient<ICryptoProvider, CryptoProvider>();
 builder.Services.AddTransient<IRefreshTokenUtils, RefreshTokenUtils>();
 builder.Services.AddTransient<IRandomCryptoBytesGenerator, RandomCryptoBytesGenerator>();
+builder.Services.AddTransient<IDateTimeProvider, DateTimeProvider>();
 
 builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
 

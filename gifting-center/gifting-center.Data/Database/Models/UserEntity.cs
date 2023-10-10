@@ -25,11 +25,16 @@ namespace gifting_center.Data.Database.Models
 
         // user can also be the one we want to store gifts for
         public GiftedUserEntity? GiftedUser { get; set; }
-
-        public RefreshTokenEntity? RefreshToken { get; set; }
+        
+        // TODO: rewrite to multiple refresh tokens available to keep user signed in on different devices
+        //public RefreshTokenEntity? RefreshToken { get; set; }
+        
+        public ICollection<RefreshTokenEntity> RefreshTokens { get; set; }
 
         public UserEntity()
         {
+            this.Roles = new List<UserRoleEntity>();
+            this.RefreshTokens = new List<RefreshTokenEntity>();
         }
 
         public static UserEntity Create(string username, string email, string passwordHash, List<string> roles)
@@ -43,9 +48,9 @@ namespace gifting_center.Data.Database.Models
             };
         }
 
-        public void UpdateRefreshToken(RefreshTokenEntity token)
+        public void AddNewRefreshToken(RefreshTokenEntity token)
         {
-            this.RefreshToken = token;
+            this.RefreshTokens.Add(token); 
         }
     }
 }

@@ -31,9 +31,9 @@ public class LoginQueryHandler
             var accessToken = jwtProvider.Generate(User.Create(user));
             var refreshToken = refreshTokenUtils.Generate();
 
-            user.UpdateRefreshToken(RefreshTokenEntity.Create(
+            user.AddNewRefreshToken(RefreshTokenEntity.Create(
                 refreshToken.Token, refreshToken.Expires, refreshToken.Created, refreshToken.Revoked));
-
+            
             await userRepository.SaveChanges();
 
             return LoginResponse.Create(accessToken, refreshToken.Token);

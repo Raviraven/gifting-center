@@ -64,10 +64,13 @@ namespace gifting_center.Api.Controllers
             Response.Cookies.Append(RefreshTokenCookie, result.RefreshToken, cookieOptions);
             return string.IsNullOrWhiteSpace(result.AccessToken) ? Unauthorized() : Ok(result);
         }
-        //
-        // public IActionResult RevokeToken()
-        // {
-        //     return Ok();
-        // }
+        
+        [HttpPost("revoke-token")]
+        public async Task<IActionResult> RevokeToken(string token)
+        {
+            var refreshToken = token ?? Request.Cookies[RefreshTokenCookie];
+            var result = await this._mediator.Send(new RevokeTokenCommand(refreshToken ?? string.Empty));
+            return string.IsNullOrWhiteSpace(result) ? Unauthorized() : Ok(result);
+        }
     }
 }

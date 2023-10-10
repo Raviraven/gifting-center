@@ -16,13 +16,18 @@ public class UserRepository : IUserRepository
 
     public async Task<UserEntity?> GetByEmail(string email)
     {
-        return await this._context.Users.Include(r => r.Roles).FirstOrDefaultAsync(n => n.Email == email);
+        return await this._context.Users
+            .Include(r => r.Roles)
+            .Include(n => n.RefreshTokens)
+            .FirstOrDefaultAsync(n => n.Email == email);
     }
 
     public async Task<UserEntity?> GetByRefreshToken(string token)
     {
-        return await this._context.Users.Include(n => n.Roles)
-            .FirstOrDefaultAsync(n => n.RefreshToken != null && n.RefreshToken.Token == token);
+        return await this._context.Users
+            .Include(n => n.Roles)
+            .Include(n => n.RefreshTokens)
+            .FirstOrDefaultAsync(n => n.RefreshTokens.Any(rt => rt.Token == token));
     }
 
     public void Add(UserEntity user)
