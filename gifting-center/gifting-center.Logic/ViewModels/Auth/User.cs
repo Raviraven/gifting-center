@@ -1,6 +1,6 @@
-using gifting_center.Data.Database.Models;
+using gifting_center.Logic.Entities;
 
-namespace gifting_center.Data.ViewModels.Auth;
+namespace gifting_center.Logic.ViewModels.Auth;
 
 public class User
 {

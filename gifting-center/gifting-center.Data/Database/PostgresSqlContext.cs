@@ -1,5 +1,5 @@
 ﻿using gifting_center.Data.Database.Configurations;
-using gifting_center.Data.Database.Models;
+using gifting_center.Logic.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

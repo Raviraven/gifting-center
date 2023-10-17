@@ -1,9 +1,9 @@
-using gifting_center.Data.Database.Models;
 using gifting_center.Data.Repositories.Interfaces;
-using gifting_center.Data.ViewModels.Auth;
 using gifting_center.Logic.Auth;
+using gifting_center.Logic.Entities;
 using gifting_center.Logic.Identity;
 using gifting_center.Logic.Queries;
+using gifting_center.Logic.ViewModels.Auth;
 using gifting_center.unit_tests.Utils.Builders.DatabaseEntities;
 
 namespace gifting_center.Logic.unit_tests.Queries;

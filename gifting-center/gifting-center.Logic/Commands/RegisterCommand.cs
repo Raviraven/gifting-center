@@ -1,6 +1,6 @@
-using gifting_center.Data.Database.Models;
 using gifting_center.Data.Repositories.Interfaces;
 using gifting_center.Logic.Auth;
+using gifting_center.Logic.Entities;
 using gifting_center.Logic.Identity;
 using MediatR;
 
@@ -23,14 +23,23 @@ public class RegisterCommand : IRequest
 }
 
 //TODO: add some kind of a logger?
-public class RegisterCommandHandler
-    (IUserRepository userRepository, ICryptoProvider cryptoProvider) : IRequestHandler<RegisterCommand>
+public class RegisterCommandHandler : IRequestHandler<RegisterCommand>
 {
+    private readonly IUserRepository _userRepository;
+    private readonly ICryptoProvider _cryptoProvider;
+
+
+    public RegisterCommandHandler(IUserRepository userRepository, ICryptoProvider cryptoProvider)
+    {
+        _userRepository = userRepository;
+        _cryptoProvider = cryptoProvider;
+    }
+
     public async Task Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
-        var passwordHash = cryptoProvider.HashPassword(request.Password);
+        var passwordHash = _cryptoProvider.HashPassword(request.Password);
         var user = UserEntity.Create(request.Username, request.Email, passwordHash, new List<string>{ Permissions.UserRole.User });
-        userRepository.Add(user);
-        await userRepository.SaveChanges();
+        _userRepository.Add(user);
+        await _userRepository.SaveChanges();
     }
 }

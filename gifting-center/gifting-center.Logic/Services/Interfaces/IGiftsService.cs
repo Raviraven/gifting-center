@@ -1,5 +1,4 @@
-﻿using gifting_center.Data.ViewModels;
-using System;
+﻿using gifting_center.Logic.ViewModels;
 
 namespace gifting_center.Logic.Services.Interfaces
 {

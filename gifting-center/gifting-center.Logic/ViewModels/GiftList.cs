@@ -1,18 +1,9 @@
-﻿namespace gifting_center.Data.ViewModels
+﻿namespace gifting_center.Logic.ViewModels
 {
-    public class Gift
+    public class GiftList
     {
-        public Gift(
-            int id,
-            string name,
-            float price,
-            string url,
-            bool reserved,
-            bool deleted,
-            int categoryId,
-            int giftedUserId,
-            Category? category = null,
-            GiftedUser? giftedUser = null)
+        public GiftList(int id, string name, float price, string url, bool reserved, bool deleted, int categoryId,
+            int giftedUserId)
         {
             Id = id;
             Name = name;
@@ -22,8 +13,6 @@
             Deleted = deleted;
             CategoryId = categoryId;
             GiftedUserId = giftedUserId;
-            Category = category;
-            GiftedUser = giftedUser;
         }
 
         public int Id { get; set; }
@@ -41,11 +30,5 @@
         public int CategoryId { get; set; }
 
         public int GiftedUserId { get; set; }
-
-
-        public Category Category { get; set; }
-
-        public GiftedUser GiftedUser { get; set; }
     }
 }
-

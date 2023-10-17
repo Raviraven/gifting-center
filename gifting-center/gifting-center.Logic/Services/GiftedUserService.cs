@@ -1,9 +1,7 @@
-﻿using gifting_center.Data.Extensions;
-using gifting_center.Data.Repositories.Interfaces;
-using gifting_center.Data.ViewModels;
-using gifting_center.Logic.Exceptions;
+﻿using gifting_center.Logic.Exceptions;
 using gifting_center.Logic.Services.Interfaces;
-using System;
+using gifting_center.Logic.Repositories;
+using gifting_center.Logic.ViewModels;
 
 namespace gifting_center.Logic.Services
 {

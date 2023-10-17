@@ -1,4 +1,4 @@
-using gifting_center.Data.Repositories.Interfaces;
+using gifting_center.Logic.Repositories;
 using MediatR;
 
 namespace gifting_center.Logic.Commands;
@@ -13,8 +13,17 @@ public class RevokeTokenCommand : IRequest<string>
     public string RefreshToken { get; } 
 }
 
-public class RevokeTokenCommandHandler(IRefreshTokenRepository refreshTokenRepository, IDateTimeProvider dateTimeProvider) : IRequestHandler<RevokeTokenCommand, string>
+public class RevokeTokenCommandHandler: IRequestHandler<RevokeTokenCommand, string>
 {
+    private readonly IRefreshTokenRepository _refreshTokenRepository;
+    private readonly IDateTimeProvider _dateTimeProvider;
+
+    public RevokeTokenCommandHandler(IRefreshTokenRepository refreshTokenRepository, IDateTimeProvider dateTimeProvider)
+    {
+        _refreshTokenRepository = refreshTokenRepository;
+        _dateTimeProvider = dateTimeProvider;
+    }
+
     public async Task<string> Handle(RevokeTokenCommand request, CancellationToken cancellationToken)
     {
         
@@ -23,15 +32,15 @@ public class RevokeTokenCommandHandler(IRefreshTokenRepository refreshTokenRepos
             return string.Empty;
         }
         
-        var refreshToken = await refreshTokenRepository.GetByRefreshToken(request.RefreshToken);
+        var refreshToken = await _refreshTokenRepository.GetByRefreshToken(request.RefreshToken);
 
         if (refreshToken is null || refreshToken.Revoked is not null)
         {
             return string.Empty;
         }
         
-        refreshToken.Revoke(dateTimeProvider.UtcNow);
-        await refreshTokenRepository.SaveChanges();
+        refreshToken.Revoke(_dateTimeProvider.UtcNow);
+        await _refreshTokenRepository.SaveChanges();
 
         return refreshToken.Token;
     }

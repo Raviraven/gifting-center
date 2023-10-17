@@ -5,11 +5,18 @@ public interface IRefreshTokenUtils
     RefreshToken Generate();
 }
 
-public class RefreshTokenUtils(IRandomCryptoBytesGenerator randomCryptoBytesGenerator) : IRefreshTokenUtils
+public class RefreshTokenUtils : IRefreshTokenUtils
 {
+    private readonly IRandomCryptoBytesGenerator _randomCryptoBytesGenerator;
+
+    public RefreshTokenUtils(IRandomCryptoBytesGenerator randomCryptoBytesGenerator)
+    {
+        _randomCryptoBytesGenerator = randomCryptoBytesGenerator;
+    }
+
     public RefreshToken Generate()
     {
-        var randomBytes = randomCryptoBytesGenerator.Get(64);
+        var randomBytes = _randomCryptoBytesGenerator.Get(64);
         var refreshToken = Convert.ToBase64String(randomBytes);
         var now = DateTime.UtcNow;
 

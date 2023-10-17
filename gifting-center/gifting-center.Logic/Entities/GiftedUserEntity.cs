@@ -1,7 +1,6 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace gifting_center.Data.Database.Models
+namespace gifting_center.Logic.Entities
 {
     public class GiftedUserEntity
     {

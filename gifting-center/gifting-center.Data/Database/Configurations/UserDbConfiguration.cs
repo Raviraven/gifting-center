@@ -1,4 +1,4 @@
-using gifting_center.Data.Database.Models;
+using gifting_center.Logic.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

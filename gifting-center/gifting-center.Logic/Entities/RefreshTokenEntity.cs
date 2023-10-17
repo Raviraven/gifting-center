@@ -1,9 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
-using Microsoft.EntityFrameworkCore;
 
-namespace gifting_center.Data.Database.Models;
+namespace gifting_center.Logic.Entities;
 
 //[Owned]
 public class RefreshTokenEntity

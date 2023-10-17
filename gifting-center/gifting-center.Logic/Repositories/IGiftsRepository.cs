@@ -1,6 +1,6 @@
-﻿using gifting_center.Data.ViewModels;
+﻿using gifting_center.Logic.ViewModels;
 
-namespace gifting_center.Data.Repositories.Interfaces
+namespace gifting_center.Logic.Repositories
 {
 	public interface IGiftsRepository
 	{

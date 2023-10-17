@@ -1,6 +1,6 @@
-using gifting_center.Data.Database.Models;
+using gifting_center.Logic.Entities;
 
-namespace gifting_center.Data.Repositories.Interfaces;
+namespace gifting_center.Logic.Repositories;
 
 public interface IRefreshTokenRepository
 {

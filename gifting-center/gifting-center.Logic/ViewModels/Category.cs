@@ -1,7 +1,4 @@
-﻿using System;
-using gifting_center.Data.Database.Models;
-
-namespace gifting_center.Data.ViewModels
+﻿namespace gifting_center.Logic.ViewModels
 {
 	public class Category
 	{

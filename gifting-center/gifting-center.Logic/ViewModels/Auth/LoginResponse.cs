@@ -1,4 +1,4 @@
-namespace gifting_center.Data.ViewModels.Auth;
+namespace gifting_center.Logic.ViewModels.Auth;
 
 public class LoginResponse
 {

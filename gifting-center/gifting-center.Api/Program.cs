@@ -1,5 +1,4 @@
-﻿using System.Text;
-using gifting_center.Api.Configuration;
+﻿using gifting_center.Api.Configuration;
 using gifting_center.Api.Middlewares;
 using gifting_center.Api.Swagger;
 using gifting_center.Data.Database;
@@ -7,13 +6,9 @@ using gifting_center.Data.Repositories;
 using gifting_center.Data.Repositories.Interfaces;
 using gifting_center.Logic;
 using gifting_center.Logic.Auth;
-using gifting_center.Logic.OptionsSetup;
+using gifting_center.Logic.Repositories;
 using gifting_center.Logic.Services;
 using gifting_center.Logic.Services.Interfaces;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using ICryptoProvider = gifting_center.Logic.Auth.ICryptoProvider;
 
 // using Microsoft.IdentityModel.Tokens;

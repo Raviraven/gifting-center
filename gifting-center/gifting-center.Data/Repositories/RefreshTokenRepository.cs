@@ -1,6 +1,6 @@
 using gifting_center.Data.Database;
-using gifting_center.Data.Database.Models;
-using gifting_center.Data.Repositories.Interfaces;
+using gifting_center.Logic.Entities;
+using gifting_center.Logic.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace gifting_center.Data.Repositories;

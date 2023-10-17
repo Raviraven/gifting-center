@@ -1,7 +1,7 @@
-using gifting_center.Data.Database.Models;
 using gifting_center.Data.Repositories.Interfaces;
-using gifting_center.Data.ViewModels.Auth;
 using gifting_center.Logic.Auth;
+using gifting_center.Logic.Entities;
+using gifting_center.Logic.ViewModels.Auth;
 using MediatR;
 
 namespace gifting_center.Logic.Commands;
@@ -16,29 +16,41 @@ public class RefreshTokenCommand : IRequest<LoginResponse>
     }
 }
 
-public class RefreshTokenCommandHandler(IUserRepository userRepository, IJwtProvider jwtProvider,
-    IRefreshTokenUtils refreshTokenUtils,
-    IDateTimeProvider dateTimeProvider) : IRequestHandler<RefreshTokenCommand, LoginResponse>
+public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, LoginResponse>
 {
+    private readonly IUserRepository _userRepository;
+    private readonly IJwtProvider _jwtProvider;
+    private readonly IRefreshTokenUtils _refreshTokenUtils;
+    private readonly IDateTimeProvider _dateTimeProvider;
+
+
+    public RefreshTokenCommandHandler(IUserRepository userRepository, IJwtProvider jwtProvider, IRefreshTokenUtils refreshTokenUtils, IDateTimeProvider dateTimeProvider)
+    {
+        _userRepository = userRepository;
+        _jwtProvider = jwtProvider;
+        _refreshTokenUtils = refreshTokenUtils;
+        _dateTimeProvider = dateTimeProvider;
+    }
+
     public async Task<LoginResponse> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
     {
-        var user = await userRepository.GetByRefreshToken(request.RefreshToken);
+        var user = await _userRepository.GetByRefreshToken(request.RefreshToken);
         var currentRefreshToken = user?.RefreshTokens.First(n => n.Token == request.RefreshToken);
 
         if (user is null || currentRefreshToken is not null &&
-            (currentRefreshToken.Expires <= dateTimeProvider.UtcNow || currentRefreshToken.Revoked is not null))
+            (currentRefreshToken.Expires <= _dateTimeProvider.UtcNow || currentRefreshToken.Revoked is not null))
         {
             return LoginResponse.Create(string.Empty, string.Empty);
         }
 
-        var jwt = jwtProvider.Generate(User.Create(user));
-        var refreshToken = refreshTokenUtils.Generate();
+        var jwt = _jwtProvider.Generate(User.Create(user));
+        var refreshToken = _refreshTokenUtils.Generate();
 
-        currentRefreshToken!.Revoke(dateTimeProvider.UtcNow);
+        currentRefreshToken!.Revoke(_dateTimeProvider.UtcNow);
         user.AddNewRefreshToken(RefreshTokenEntity.Create(
             refreshToken.Token, refreshToken.Expires, refreshToken.Created, refreshToken.Revoked));
 
-        await userRepository.SaveChanges();
+        await _userRepository.SaveChanges();
 
         return LoginResponse.Create(jwt, refreshToken.Token);
     }

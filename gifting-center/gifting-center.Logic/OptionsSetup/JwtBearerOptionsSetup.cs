@@ -6,9 +6,14 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace gifting_center.Logic.OptionsSetup;
 
-public class JwtBearerOptionsSetup(IOptions<JwtOptions> jwtOptions) : IConfigureNamedOptions<JwtBearerOptions>
+public class JwtBearerOptionsSetup : IConfigureNamedOptions<JwtBearerOptions>
 {
-    private readonly JwtOptions _jwtOptions = jwtOptions?.Value ?? throw new ArgumentNullException(nameof(jwtOptions));
+    private readonly JwtOptions _jwtOptions;
+    
+    public JwtBearerOptionsSetup(IOptions<JwtOptions> jwtOptions)
+    {
+        _jwtOptions = jwtOptions?.Value ?? throw new ArgumentNullException(nameof(jwtOptions));
+    }
 
     public void Configure(JwtBearerOptions options)
     {

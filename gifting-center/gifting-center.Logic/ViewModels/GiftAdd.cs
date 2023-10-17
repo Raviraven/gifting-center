@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace gifting_center.Data.ViewModels
+﻿namespace gifting_center.Logic.ViewModels
 {
     public class GiftAdd
     {

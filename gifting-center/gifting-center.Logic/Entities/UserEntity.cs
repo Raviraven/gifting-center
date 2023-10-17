@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
 
-namespace gifting_center.Data.Database.Models
+namespace gifting_center.Logic.Entities
 {
     public class UserEntity
     {

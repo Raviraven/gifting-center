@@ -1,7 +1,7 @@
-using gifting_center.Data.Database.Models;
 using gifting_center.Data.Repositories.Interfaces;
 using gifting_center.Logic.Auth;
 using gifting_center.Logic.Commands;
+using gifting_center.Logic.Entities;
 
 namespace gifting_center.Logic.unit_tests.Commands;
 

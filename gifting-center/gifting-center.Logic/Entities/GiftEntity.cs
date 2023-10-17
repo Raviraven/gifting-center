@@ -1,8 +1,7 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace gifting_center.Data.Database.Models
+namespace gifting_center.Logic.Entities
 {
     public class GiftEntity
     {
