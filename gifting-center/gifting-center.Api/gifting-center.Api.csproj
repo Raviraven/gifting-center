@@ -9,6 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+<!--    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0-rc.1.23421.29" />-->
+<!--    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0-rc.1.23461.3" />-->
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.11" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -17,10 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\gifting-center.Data\gifting-center.Data.csproj">
+    <ProjectReference Include="..\gifting-center.Infrastructure\gifting-center.Infrastructure.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
-    <ProjectReference Include="..\gifting-center.Logic\gifting-center.Logic.csproj">
+    <ProjectReference Include="..\gifting-center.Domain\gifting-center.Domain.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
@@ -31,6 +34,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Middlewares\" />
-    <Folder Include="Attributes\" />
   </ItemGroup>
 </Project>

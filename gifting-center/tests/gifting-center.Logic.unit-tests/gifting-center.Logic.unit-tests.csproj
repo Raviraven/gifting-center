@@ -7,10 +7,13 @@
     <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
+
+    <LangVersion>11</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
+    <PackageReference Include="NSubstitute" Version="5.1.0" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -20,7 +23,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Moq" Version="4.18.4" />
     <PackageReference Include="FluentAssertions" Version="6.8.0" />
   </ItemGroup>
 
@@ -31,7 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\gifting-center.Data\gifting-center.Data.csproj" />
-    <ProjectReference Include="..\..\gifting-center.Logic\gifting-center.Logic.csproj" />
+    <ProjectReference Include="..\..\gifting-center.Infrastructure\gifting-center.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\gifting-center.Domain\gifting-center.Domain.csproj" />
+    <ProjectReference Include="..\gifting-center.unit-tests.Utils\gifting-center.unit-tests.Utils.csproj" />
   </ItemGroup>
 </Project>

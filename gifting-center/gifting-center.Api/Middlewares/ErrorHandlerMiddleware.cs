@@ -1,6 +1,6 @@
-﻿using gifting_center.Logic.Exceptions;
-using System.Net;
+﻿using System.Net;
 using System.Text.Json;
+using gifting_center.Domain.Exceptions;
 
 namespace gifting_center.Api.Middlewares
 {
@@ -34,15 +34,20 @@ namespace gifting_center.Api.Middlewares
                     //    response.StatusCode = (int)HttpStatusCode.BadRequest;
                     //    break;
 
-                    case NoGiftException:
-                        response.StatusCode = (int)HttpStatusCode.NotFound;
-                        break;
-
-                    case NoCategoryException:
-                        response.StatusCode = (int)HttpStatusCode.NotFound;
-                        break;
-
-                    case NoGiftedUserException:
+                    // case NoGiftException:
+                    //     response.StatusCode = (int)HttpStatusCode.NotFound;
+                    //     break;
+                    //
+                    // case NoCategoryException:
+                    //     response.StatusCode = (int)HttpStatusCode.NotFound;
+                    //     break;
+                    //
+                    // case NoGiftedUserException:
+                    //     response.StatusCode = (int)HttpStatusCode.NotFound;
+                    //     break;
+                    
+                    case IHttp404Exception e:
+                        // to check!
                         response.StatusCode = (int)HttpStatusCode.NotFound;
                         break;
 

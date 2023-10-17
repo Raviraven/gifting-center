@@ -1,23 +1,23 @@
-﻿using gifting_center.Data.Repositories.Interfaces;
-using gifting_center.Data.ViewModels;
-using gifting_center.Logic.Exceptions;
-using gifting_center.Logic.Services;
+﻿using gifting_center.Domain.Exceptions;
+using gifting_center.Domain.Repositories;
+using gifting_center.Domain.Services;
+using gifting_center.Domain.ViewModels;
 
 namespace gifting_center.Logic.unit_tests.Services
 {
     public class GiftServiceTests
     {
-        private Mock<IGiftsRepository> _giftsRepository;
+        private readonly IGiftsRepository _giftsRepository;
 
-        private GiftsService _sut;
+        private readonly GiftsService _sut;
 
-        private GiftList defaultGift;
+        private readonly GiftList defaultGift;
 
         public GiftServiceTests()
         {
-            _giftsRepository = new Mock<IGiftsRepository>();
+            _giftsRepository = Substitute.For<IGiftsRepository>();
 
-            _sut = new GiftsService(_giftsRepository.Object);
+            _sut = new GiftsService(_giftsRepository);
 
             defaultGift = new GiftList(12, "test gift", 100.12f, "url to gift", true, false, 1, 1);
         }
@@ -27,7 +27,7 @@ namespace gifting_center.Logic.unit_tests.Services
         {
             List<GiftList> giftsFromDb = new();
 
-            _giftsRepository.Setup(n => n.Get()).ReturnsAsync(giftsFromDb);
+            _giftsRepository.Get().Returns(giftsFromDb);
 
             await _sut.Invoking(n => n.Get()).Should().ThrowAsync<NoGiftException>().WithMessage("No gifts found");
         }
@@ -37,7 +37,7 @@ namespace gifting_center.Logic.unit_tests.Services
         {
             List<GiftList> giftsFromDb = new() { defaultGift };
 
-            _giftsRepository.Setup(n => n.Get()).ReturnsAsync(giftsFromDb);
+            _giftsRepository.Get().Returns(giftsFromDb);
 
             var result = await _sut.Get();
 
@@ -49,7 +49,7 @@ namespace gifting_center.Logic.unit_tests.Services
         {
             Gift giftFromDb = null;
 
-            _giftsRepository.Setup(n => n.GetById(3)).ThrowsAsync(new InvalidOperationException());
+            _giftsRepository.GetById(3).ThrowsAsync(new InvalidOperationException());
 
             await _sut.Invoking(n => n.GetById(3)).Should().ThrowAsync<NoGiftException>().WithMessage("There is no gift with id: 3");
         }
@@ -57,7 +57,7 @@ namespace gifting_center.Logic.unit_tests.Services
         [Fact]
         public async void getById_should_return_gift_with_passed_id()
         {
-            _giftsRepository.Setup(n => n.GetById(3)).ReturnsAsync(defaultGift);
+            _giftsRepository.GetById(3).Returns(defaultGift);
 
             var result = await _sut.GetById(3);
             result.Should().BeEquivalentTo(new GiftList(12, "test gift", 100.12f, "url to gift", true, false, 1, 1));
@@ -68,7 +68,7 @@ namespace gifting_center.Logic.unit_tests.Services
         {
             List<GiftList> giftsFromDb = null;
 
-            _giftsRepository.Setup(n => n.GetGiftsByUserId(-3)).ReturnsAsync(giftsFromDb);
+            _giftsRepository.GetGiftsByUserId(-3)!.Returns(giftsFromDb);
 
             await _sut.Invoking(n => n.GetByUserId(-3)).Should().ThrowAsync<NoGiftException>().WithMessage("There are no gifts for given user id: -3");
         }
@@ -79,7 +79,7 @@ namespace gifting_center.Logic.unit_tests.Services
         {
             List<GiftList> giftsFromDb = new() { defaultGift };
 
-            _giftsRepository.Setup(n => n.GetGiftsByUserId(-3)).ReturnsAsync(giftsFromDb);
+            _giftsRepository.GetGiftsByUserId(-3).Returns(giftsFromDb);
 
             var result = await _sut.GetByUserId(-3);
 

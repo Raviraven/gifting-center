@@ -5,15 +5,17 @@ VisualStudioVersion = 25.0.1703.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gifting-center.Api", "gifting-center.Api\gifting-center.Api.csproj", "{AA900B1F-36C5-4624-8C52-E489FEF8FCF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gifting-center.Data", "gifting-center.Data\gifting-center.Data.csproj", "{0415CE76-8EB9-45F8-A9AF-957E772DB10D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gifting-center.Infrastructure", "gifting-center.Infrastructure\gifting-center.Infrastructure.csproj", "{0415CE76-8EB9-45F8-A9AF-957E772DB10D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gifting-center.Logic", "gifting-center.Logic\gifting-center.Logic.csproj", "{78B771BC-15E1-4B1F-BDA7-E08A9AD83536}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gifting-center.Domain", "gifting-center.Domain\gifting-center.Domain.csproj", "{78B771BC-15E1-4B1F-BDA7-E08A9AD83536}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6CFACFBE-BFF8-4D67-877C-E8C6C2092BB9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gifting-center.Logic.unit-tests", "tests\gifting-center.Logic.unit-tests\gifting-center.Logic.unit-tests.csproj", "{320C40B5-A729-4950-B271-6CE7940683A7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gifting-center.Data.unit-tests", "tests\gifting-center.Data.unit-tests\gifting-center.Data.unit-tests.csproj", "{7C969096-DF5C-49BA-9D76-E429998F73BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gifting-center.unit-tests.Utils", "tests\gifting-center.unit-tests.Utils\gifting-center.unit-tests.Utils.csproj", "{746FFD0A-16ED-4051-B405-3BB402701181}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{7C969096-DF5C-49BA-9D76-E429998F73BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C969096-DF5C-49BA-9D76-E429998F73BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C969096-DF5C-49BA-9D76-E429998F73BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{746FFD0A-16ED-4051-B405-3BB402701181}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{746FFD0A-16ED-4051-B405-3BB402701181}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{746FFD0A-16ED-4051-B405-3BB402701181}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{746FFD0A-16ED-4051-B405-3BB402701181}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,5 +57,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{320C40B5-A729-4950-B271-6CE7940683A7} = {6CFACFBE-BFF8-4D67-877C-E8C6C2092BB9}
 		{7C969096-DF5C-49BA-9D76-E429998F73BB} = {6CFACFBE-BFF8-4D67-877C-E8C6C2092BB9}
+		{746FFD0A-16ED-4051-B405-3BB402701181} = {6CFACFBE-BFF8-4D67-877C-E8C6C2092BB9}
 	EndGlobalSection
 EndGlobal

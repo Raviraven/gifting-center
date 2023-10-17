@@ -1,40 +1,30 @@
-﻿using gifting_center.Api.Middlewares;
-using gifting_center.Data.Database;
-using gifting_center.Data.Repositories;
-using gifting_center.Data.Repositories.Interfaces;
-using gifting_center.Logic.Services;
-using gifting_center.Logic.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
+﻿using gifting_center.Api;
+using gifting_center.Api.Configuration;
+using gifting_center.Api.Middlewares;
+using gifting_center.Domain;
+using gifting_center.Infrastructure;
+using gifting_center.Infrastructure.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Configuration.AddEnvironmentVariables();
 
-builder.Services.AddTransient<ICategoriesService, CategoriesService>();
-builder.Services.AddTransient<IGiftedUsersService, GiftedUserService>();
-builder.Services.AddTransient<IGiftsService, GiftsService>();
+builder.Services
+    .AddDomain()
+    .AddInfrastructure()
+    .AddApplication();
 
-builder.Services.AddTransient<ICategoriesRepository, CategoriesRepository>();
-builder.Services.AddTransient<IGiftedUsersRepository, GiftedUsersRepository>();
-builder.Services.AddTransient<IGiftsRepository, GiftsRepository>();
-
-builder.Services.AddDbContext<PostgresSqlContext>(opts => opts.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.WebHost.ConfigureKestrel(c => c.ConfigureEndpointDefaults(opts =>
 {
     if (!builder.Environment.IsDevelopment())
     {
-        opts.UseHttps(Environment.GetEnvironmentVariable("HTTPS_CERTIFICATE_NAME") ?? "", 
+        //TODO: move it to some KernelConfigurationOptions object as it's done with JWT
+        opts.UseHttps(Environment.GetEnvironmentVariable("HTTPS_CERTIFICATE_NAME") ?? "",
             Environment.GetEnvironmentVariable("HTTPS_CERTIFICATE_PASSWORD") ?? "");
     }
 }));
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddCors();
 
 var app = builder.Build();
 
@@ -51,6 +41,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Developmen
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
@@ -60,4 +51,3 @@ app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseCors((opts) => opts.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
 app.Run();
-

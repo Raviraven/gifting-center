@@ -1,26 +1,25 @@
-﻿using gifting_center.Data.Repositories.Interfaces;
-using gifting_center.Data.ViewModels;
-using gifting_center.Logic.Exceptions;
-using gifting_center.Logic.Services;
-
+﻿using gifting_center.Domain.Exceptions;
+using gifting_center.Domain.Repositories;
+using gifting_center.Domain.Services;
+using gifting_center.Domain.ViewModels;
 
 namespace gifting_center.Logic.unit_tests.Services
 {
     public class CategoriesServiceTests
     {
-        public Mock<ICategoriesRepository> _categoriesRepository;
+        private readonly ICategoriesRepository _categoriesRepository;
 
         private CategoriesService _sut;
 
-        private Category defaultCategory;
+        private readonly Category defaultCategory;
 
         public CategoriesServiceTests()
         {
-            _categoriesRepository = new Mock<ICategoriesRepository>();
+            _categoriesRepository = Substitute.For<ICategoriesRepository>();
 
-            _sut = new CategoriesService(_categoriesRepository.Object);
+            _sut = new CategoriesService(_categoriesRepository);
 
-            defaultCategory = new(-1, "test mocked category");
+            defaultCategory = new Category(-1, "test mocked category");
         }
 
         [Fact]
@@ -28,7 +27,7 @@ namespace gifting_center.Logic.unit_tests.Services
         {
             List<Category> categoriesFromDb = new();
 
-            _categoriesRepository.Setup(n => n.GetAll()).ReturnsAsync(categoriesFromDb);
+            _categoriesRepository.GetAll().Returns(categoriesFromDb);
 
             await _sut.Invoking(n => n.Get()).Should().ThrowAsync<NoCategoryException>().WithMessage("No categories found");
         }
@@ -38,7 +37,7 @@ namespace gifting_center.Logic.unit_tests.Services
         {
             List<Category> categoriesFromDb = new() { defaultCategory };
 
-            _categoriesRepository.Setup(n => n.GetAll()).ReturnsAsync(categoriesFromDb);
+            _categoriesRepository.GetAll().Returns(categoriesFromDb);
 
             var result = await _sut.Get();
 
@@ -50,7 +49,7 @@ namespace gifting_center.Logic.unit_tests.Services
         {
             Category categoryFromDb = null;
 
-            _categoriesRepository.Setup(n => n.GetById(3)).ThrowsAsync(new InvalidOperationException());
+            _categoriesRepository.GetById(3).ThrowsAsync(new InvalidOperationException());
 
             await _sut.Invoking(n => n.GetById(3)).Should().ThrowAsync<NoCategoryException>().WithMessage("There is no category with id: 3");
         }
@@ -58,7 +57,7 @@ namespace gifting_center.Logic.unit_tests.Services
         [Fact]
         public async void getById_should_return_gift_with_passed_id()
         {
-            _categoriesRepository.Setup(n => n.GetById(3)).ReturnsAsync(defaultCategory);
+            _categoriesRepository.GetById(3).Returns(defaultCategory);
 
             var result = await _sut.GetById(3);
             result.Should().BeEquivalentTo(new Category(-1, "test mocked category"));
