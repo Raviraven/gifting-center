@@ -1,48 +1,18 @@
-﻿using gifting_center.Api.Configuration;
+﻿using gifting_center.Api;
 using gifting_center.Api.Middlewares;
-using gifting_center.Api.Swagger;
-using gifting_center.Data.Database;
-using gifting_center.Data.Repositories;
-using gifting_center.Data.Repositories.Interfaces;
-using gifting_center.Logic;
-using gifting_center.Logic.Auth;
-using gifting_center.Logic.Repositories;
-using gifting_center.Logic.Services;
-using gifting_center.Logic.Services.Interfaces;
-using ICryptoProvider = gifting_center.Logic.Auth.ICryptoProvider;
-
-// using Microsoft.IdentityModel.Tokens;
+using gifting_center.Domain;
+using gifting_center.Infrastructure;
+using gifting_center.Infrastructure.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddEnvironmentVariables();
 
-// Add services to the container.
+builder.Services
+    .AddDomain()
+    .AddInfrastructure()
+    .AddApplication();
 
-builder.Services.AddTransient<ICategoriesService, CategoriesService>();
-builder.Services.AddTransient<IGiftedUsersService, GiftedUserService>();
-builder.Services.AddTransient<IGiftsService, GiftsService>();
-
-builder.Services.AddTransient<ICategoriesRepository, CategoriesRepository>();
-builder.Services.AddTransient<IGiftedUsersRepository, GiftedUsersRepository>();
-builder.Services.AddTransient<IGiftsRepository, GiftsRepository>();
-builder.Services.AddTransient<IUserRepository, UserRepository>();
-
-builder.Services.AddTransient<IJwtProvider, JwtProvider>();
-builder.Services.AddTransient<ICryptoProvider, CryptoProvider>();
-builder.Services.AddTransient<IRefreshTokenUtils, RefreshTokenUtils>();
-builder.Services.AddTransient<IRandomCryptoBytesGenerator, RandomCryptoBytesGenerator>();
-builder.Services.AddTransient<IDateTimeProvider, DateTimeProvider>();
-
-builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
-
-builder.Services.AddMediatR(n =>
-{
-    n.Lifetime = ServiceLifetime.Scoped;
-    n.RegisterServicesFromAssembly(AppDomain.CurrentDomain.Load("gifting-center.Logic"));
-});
-
-builder.Services.AddDbContext<PostgresSqlContext>();
 
 builder.WebHost.ConfigureKestrel(c => c.ConfigureEndpointDefaults(opts =>
 {
@@ -54,20 +24,6 @@ builder.WebHost.ConfigureKestrel(c => c.ConfigureEndpointDefaults(opts =>
     }
 }));
 
-builder.Services.AddJwt();
-
-// builder.Services.AddAuthorization(options =>
-// {
-//     options.AddPolicy(AuthData.AdminUserPolicyName,
-//         p => p.RequireClaim(AuthData.AdminUserClaimName, "true"));
-// });
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddCors();
 
 var app = builder.Build();
 

@@ -1,7 +1,7 @@
-﻿using gifting_center.Logic.Exceptions;
-using gifting_center.Logic.Repositories;
-using gifting_center.Logic.Services;
-using gifting_center.Logic.ViewModels;
+﻿using gifting_center.Domain.Exceptions;
+using gifting_center.Domain.Repositories;
+using gifting_center.Domain.Services;
+using gifting_center.Domain.ViewModels;
 
 namespace gifting_center.Logic.unit_tests.Services
 {

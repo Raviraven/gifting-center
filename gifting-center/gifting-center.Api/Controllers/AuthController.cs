@@ -1,6 +1,6 @@
-using gifting_center.Logic.Commands;
-using gifting_center.Logic.Queries;
-using gifting_center.Logic.ViewModels.Auth;
+using gifting_center.Domain.Commands;
+using gifting_center.Domain.Queries;
+using gifting_center.Domain.ViewModels.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

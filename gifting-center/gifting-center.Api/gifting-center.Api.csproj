@@ -20,10 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\gifting-center.Data\gifting-center.Data.csproj">
+    <ProjectReference Include="..\gifting-center.Infrastructure\gifting-center.Infrastructure.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
-    <ProjectReference Include="..\gifting-center.Logic\gifting-center.Logic.csproj">
+    <ProjectReference Include="..\gifting-center.Domain\gifting-center.Domain.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>

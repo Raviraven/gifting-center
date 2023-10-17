@@ -1,8 +1,9 @@
-using gifting_center.Data.Repositories.Interfaces;
-using gifting_center.Logic.Auth;
-using gifting_center.Logic.Commands;
-using gifting_center.Logic.Entities;
-using gifting_center.Logic.ViewModels.Auth;
+using gifting_center.Domain;
+using gifting_center.Domain.Auth;
+using gifting_center.Domain.Commands;
+using gifting_center.Domain.Entities;
+using gifting_center.Domain.Repositories;
+using gifting_center.Domain.ViewModels.Auth;
 using gifting_center.unit_tests.Utils.Builders.DatabaseEntities;
 
 namespace gifting_center.Logic.unit_tests.Commands;

@@ -1,4 +1,4 @@
-using gifting_center.Logic.OptionsSetup;
+using gifting_center.Domain.OptionsSetup;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace gifting_center.Api.Configuration;

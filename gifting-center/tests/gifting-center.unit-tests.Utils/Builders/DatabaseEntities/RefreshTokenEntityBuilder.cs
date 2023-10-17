@@ -1,5 +1,5 @@
 using Bogus;
-using gifting_center.Logic.Entities;
+using gifting_center.Domain.Entities;
 
 namespace gifting_center.unit_tests.Utils.Builders.DatabaseEntities;
 

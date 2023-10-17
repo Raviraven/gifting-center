@@ -1,6 +1,6 @@
-﻿using gifting_center.Logic.Identity;
-using gifting_center.Logic.Services.Interfaces;
-using gifting_center.Logic.ViewModels;
+﻿using gifting_center.Domain.Identity;
+using gifting_center.Domain.Services.Interfaces;
+using gifting_center.Domain.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

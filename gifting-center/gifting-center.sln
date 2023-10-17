@@ -5,9 +5,9 @@ VisualStudioVersion = 25.0.1703.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gifting-center.Api", "gifting-center.Api\gifting-center.Api.csproj", "{AA900B1F-36C5-4624-8C52-E489FEF8FCF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gifting-center.Data", "gifting-center.Data\gifting-center.Data.csproj", "{0415CE76-8EB9-45F8-A9AF-957E772DB10D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gifting-center.Infrastructure", "gifting-center.Infrastructure\gifting-center.Infrastructure.csproj", "{0415CE76-8EB9-45F8-A9AF-957E772DB10D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gifting-center.Logic", "gifting-center.Logic\gifting-center.Logic.csproj", "{78B771BC-15E1-4B1F-BDA7-E08A9AD83536}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gifting-center.Domain", "gifting-center.Domain\gifting-center.Domain.csproj", "{78B771BC-15E1-4B1F-BDA7-E08A9AD83536}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6CFACFBE-BFF8-4D67-877C-E8C6C2092BB9}"
 EndProject

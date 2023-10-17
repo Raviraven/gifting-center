@@ -1,6 +1,6 @@
-﻿using gifting_center.Logic.Exceptions;
-using System.Net;
+﻿using System.Net;
 using System.Text.Json;
+using gifting_center.Domain.Exceptions;
 
 namespace gifting_center.Api.Middlewares
 {

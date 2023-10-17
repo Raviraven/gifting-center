@@ -1,6 +1,7 @@
-using gifting_center.Logic.Commands;
-using gifting_center.Logic.Entities;
-using gifting_center.Logic.Repositories;
+using gifting_center.Domain;
+using gifting_center.Domain.Commands;
+using gifting_center.Domain.Entities;
+using gifting_center.Domain.Repositories;
 using gifting_center.unit_tests.Utils.Builders.DatabaseEntities;
 
 namespace gifting_center.Logic.unit_tests.Commands;

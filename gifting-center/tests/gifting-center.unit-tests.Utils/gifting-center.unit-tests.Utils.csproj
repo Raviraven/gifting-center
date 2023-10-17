@@ -9,7 +9,8 @@
 
 
     <ItemGroup>
-      <ProjectReference Include="..\..\gifting-center.Data\gifting-center.Data.csproj" />
+      <ProjectReference Include="..\..\gifting-center.Domain\gifting-center.Domain.csproj" />
+      <ProjectReference Include="..\..\gifting-center.Infrastructure\gifting-center.Infrastructure.csproj" />
     </ItemGroup>
 
 
