@@ -1,6 +1,4 @@
-﻿using gifting_center.Logic.ViewModels;
-
-namespace gifting_center.Domain.ViewModels
+﻿namespace gifting_center.Domain.ViewModels
 {
     public class Gift
     {

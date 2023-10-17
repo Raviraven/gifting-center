@@ -2,7 +2,6 @@
 using gifting_center.Domain.Repositories;
 using gifting_center.Domain.Services.Interfaces;
 using gifting_center.Domain.ViewModels;
-using gifting_center.Logic.ViewModels;
 
 namespace gifting_center.Domain.Services
 {
