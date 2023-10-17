@@ -1,4 +1,5 @@
 ﻿using gifting_center.Api;
+using gifting_center.Api.Configuration;
 using gifting_center.Api.Middlewares;
 using gifting_center.Domain;
 using gifting_center.Infrastructure;
