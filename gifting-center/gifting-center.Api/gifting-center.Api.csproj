@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>gifting_center.Api</RootNamespace>
+    <AssemblyName>giftingcenter</AssemblyName>
     <!-- <UserSecretsId>274bb6f5-ffa1-458c-a248-18f95b84d0fe</UserSecretsId> -->
   </PropertyGroup>
 
