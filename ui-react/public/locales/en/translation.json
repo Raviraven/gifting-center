@@ -46,5 +46,6 @@
   "validationPriceMustBeHigherThanZero": "Price must be higher than zero",
   "validationUrlFieldRequired": "Url field required",
   "validationUrlFieldMustBeValidUrlAddress": "Url field must be valid url address",
-  "wrongDataReceivedFromServer": "Wrong data received from server"
+  "wrongDataReceivedFromServer": "Wrong data received from server",
+  "giftedUserVisibleOnIndex": "Visible on index page"
 }
