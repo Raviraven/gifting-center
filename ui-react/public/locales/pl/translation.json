@@ -46,5 +46,6 @@
   "validationPriceMustBeHigherThanZero": "Cena musi być wyższa niż 0",
   "validationUrlFieldRequired": "Link do prezentu wymagany",
   "validationUrlFieldMustBeValidUrlAddress": "Link do prezentu musi być poprawnym adresem url",
-  "wrongDataReceivedFromServer": "Niepoprawne dane z serwera"
+  "wrongDataReceivedFromServer": "Niepoprawne dane z serwera",
+  "giftedUserVisibleOnIndex": "Widoczny na stronie głównej"
 }
