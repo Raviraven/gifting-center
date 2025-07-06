@@ -14,6 +14,7 @@ import { GiftedUserEdit } from './GiftedUserEdit';
 const defaultGiftedUser: GiftedUser = {
   id: 5,
   name: 'test name',
+  visibleOnIndexPage: false,
 };
 
 describe('GiftedUserEdit tests', () => {
@@ -63,6 +64,7 @@ describe('GiftedUserEdit tests', () => {
       expect(mockedAxiosPut).toHaveBeenCalledWith('giftedusers/5', {
         id: 5,
         name: 'test name edited',
+        visibleOnIndexPage: false,
       });
     });
   });

@@ -17,6 +17,12 @@ builder.WebHost.ConfigureKestrel(c => c.ConfigureEndpointDefaults(opts =>
 }));
 ```
 
+### How to run postgres db docker container locally
+
+```
+docker run --name some-postgres -e POSTGRES_DB=test-database -e POSTGRES_USER=test-user -e POSTGRES_PASSWORD=test-password -d postgres:17.4-alpine3.21
+```
+
 ### Generating https certificates
 
 - .pfx from .pem certificate and key
@@ -26,6 +32,19 @@ openssl pkcs12 -export -in cert.pem -inkey key.pem -out your-certificate.pfx
 ```
 
 - dotnet local certs [Create self-signed certificate - MS Docs](https://learn.microsoft.com/en-us/dotnet/core/additional-tools/self-signed-certificates-guide#create-a-self-signed-certificate)
+
+### Restarting docker-compose backend service due to i.e. another certificate / domain
+
+1. Generate .pfx file
+2. Make sure .env file stays up to date / needs update
+3. Copy files to the server
+4. Run
+
+```
+docker-compose --env-file path/to/env.file up -d --build net-core
+```
+
+---
 
 Useful links:
 

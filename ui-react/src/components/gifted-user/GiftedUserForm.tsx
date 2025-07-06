@@ -24,6 +24,7 @@ export const GiftedUserForm = ({
   const defaultInitialValue: GiftedUser = {
     id: 0,
     name: '',
+    visibleOnIndexPage: false,
   };
 
   return (

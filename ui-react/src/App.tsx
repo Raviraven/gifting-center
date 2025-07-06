@@ -19,11 +19,11 @@ import {
   CategoryEditPage,
   CategoriesManagement,
   UserGiftsManagement,
-  UserGifts,
   GiftEditPage,
   GiftedUserEditPage,
   GiftedUsersManagement,
   GiftsPerSelectedUser,
+  UserGiftsContainer,
 } from 'pages';
 
 export const App = () => {
@@ -31,7 +31,7 @@ export const App = () => {
     <Suspense fallback="loading...">
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<UserGifts userId={1} />} />
+          <Route index element={<UserGiftsContainer />} />
 
           <Route path="/admin-panel" element={<AdminLayout />}>
             <Route index element={<Navigate to="gifts" />} />
