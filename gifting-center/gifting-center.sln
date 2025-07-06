@@ -15,6 +15,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gifting-center.Logic.unit-t
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gifting-center.Data.unit-tests", "tests\gifting-center.Data.unit-tests\gifting-center.Data.unit-tests.csproj", "{7C969096-DF5C-49BA-9D76-E429998F73BB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "others", "others", "{609C3759-F284-48D2-BA99-87AA459D2A58}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+		..\docker-compose.yml = ..\docker-compose.yml
+		Dockerfile.pi = Dockerfile.pi
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

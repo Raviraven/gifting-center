@@ -14,6 +14,8 @@ import { CssBaseline } from '@mui/material';
 import { LanguageContextProvider } from 'context/LanguageContext';
 import { ColorModeContextProvider } from 'context/ColorModeContext';
 
+import { ReactQueryDevtools } from 'react-query/devtools';
+
 import { App } from './App';
 import { reportWebVitals } from './reportWebVitals';
 
@@ -21,7 +23,16 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      //refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      retry: 1,
+      staleTime: 1000 * 60 * 5, // 5 minutes
+    },
+  },
+});
 
 root.render(
   <StrictMode>
@@ -35,6 +46,8 @@ root.render(
           </BrowserRouter>
         </ColorModeContextProvider>
       </LanguageContextProvider>
+
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </StrictMode>
 );

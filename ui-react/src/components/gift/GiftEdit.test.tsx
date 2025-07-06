@@ -29,6 +29,7 @@ const defaultCategory: Category = {
 const defaultGiftedUser: GiftedUser = {
   id: 1,
   name: 'default user',
+  visibleOnIndexPage: false,
 };
 
 const userId = 1;

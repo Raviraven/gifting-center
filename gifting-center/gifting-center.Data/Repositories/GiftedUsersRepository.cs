@@ -34,6 +34,7 @@ namespace gifting_center.Data.Repositories
         {
             var userDb = await _context.GiftedUsers.SingleAsync(n => n.Id == id);
             userDb.Name = giftedUser.Name;
+            userDb.VisibleOnIndexPage = giftedUser.VisibleOnIndexPage;
 
             _context.Update(userDb);
             await _context.SaveChangesAsync();
@@ -44,14 +45,14 @@ namespace gifting_center.Data.Repositories
         {
             var giftedUsers = await _context.GiftedUsers.ToListAsync();
             List<GiftedUser> result = new();
-            giftedUsers.ForEach(gu => result.Add(new(gu.Id, gu.Name)));
+            giftedUsers.ForEach(gu => result.Add(new(gu.Id, gu.Name, gu.VisibleOnIndexPage)));
             return result;
         }
 
         public async Task<GiftedUser> GetById(int id)
         {
             var user = await _context.GiftedUsers.SingleAsync(n => n.Id == id);
-            return new(user.Id, user.Name);
+            return new(user.Id, user.Name, user.VisibleOnIndexPage);
         }
     }
 }
