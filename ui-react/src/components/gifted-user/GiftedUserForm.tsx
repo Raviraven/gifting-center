@@ -2,7 +2,7 @@ import { Form, Formik, FormikHelpers } from 'formik';
 
 import { Button } from '@mui/material';
 
-import { TextFieldFormik } from 'components/material';
+import { TextFieldFormik, CheckboxFieldFormik } from 'components/material';
 import { TranslatedText } from 'components';
 import { GiftedUser } from 'api/models';
 import { GiftedUserSchema } from 'yup-schemas';
@@ -36,6 +36,10 @@ export const GiftedUserForm = ({
       >
         <Form>
           <TextFieldFormik label="giftedUserName" name="name" type={'text'} />
+          <CheckboxFieldFormik
+            label="giftedUserVisibleOnIndex"
+            name="visibleOnIndexPage"
+          />
 
           <Button variant="outlined" type="submit" fullWidth>
             <TranslatedText lKey={submitButtonLKey} />
