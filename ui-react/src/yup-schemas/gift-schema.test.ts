@@ -27,6 +27,7 @@ const defaultGiftedUsers: GiftedUser[] = [
   {
     id: 1,
     name: 'first gifted user',
+    visibleOnIndexPage: false,
   },
 ];
 

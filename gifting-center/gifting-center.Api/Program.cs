@@ -22,6 +22,8 @@ builder.Services.AddDbContext<PostgresSqlContext>(opts => opts.UseNpgsql(builder
 
 builder.WebHost.ConfigureKestrel(c => c.ConfigureEndpointDefaults(opts =>
 {
+    // adjust - if running on Pi - get certificate
+    // if on Azure - skip it
     if (!builder.Environment.IsDevelopment())
     {
         opts.UseHttps(Environment.GetEnvironmentVariable("HTTPS_CERTIFICATE_NAME") ?? "", 
@@ -35,6 +37,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors();
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
@@ -50,10 +53,10 @@ if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Developmen
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHealthChecks("/health");
 
 app.UseMiddleware<ErrorHandlerMiddleware>();
 

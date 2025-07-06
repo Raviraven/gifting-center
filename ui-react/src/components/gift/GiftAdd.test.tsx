@@ -19,6 +19,7 @@ const defaultCategory: Category = {
 const defaultGiftedUser: GiftedUser = {
   id: 1,
   name: 'default gifted user',
+  visibleOnIndexPage: false,
 };
 
 describe('GiftAdd tests', () => {

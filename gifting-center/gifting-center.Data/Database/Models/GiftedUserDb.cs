@@ -9,6 +9,8 @@ namespace gifting_center.Data.Database.Models
         public int Id { get; set; }
 
         public string Name { get; set; }
+        
+        public bool VisibleOnIndexPage { get; set; }
 
 
         public ICollection<GiftDb> Gifts { get; set; }
