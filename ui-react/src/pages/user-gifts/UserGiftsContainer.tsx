@@ -11,7 +11,12 @@ export const UserGiftsContainer = () => {
   const { isLoading, data } = useGiftedUsers();
 
   const visibleGiftedUsers = useMemo(
-    () => (isLoading ? [] : data?.filter((n) => n.visibleOnIndexPage)),
+    () =>
+      isLoading
+        ? []
+        : data
+            ?.filter((n) => n.visibleOnIndexPage)
+            .sort((a, b) => a.id - b.id) ?? [],
     [data, isLoading]
   );
 
