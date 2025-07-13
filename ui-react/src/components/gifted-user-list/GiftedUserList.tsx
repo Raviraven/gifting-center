@@ -50,66 +50,68 @@ export const GiftedUserList = () => {
     </Typography>
   ) : data && data.length > 0 ? (
     <Grid container>
-      {data.map((gUser, gUi) => (
-        <Grid item key={`gifted-user-${gUser.name}-${gUi}`} xs={12}>
-          <Card>
-            <CardContent>
-              <Grid
-                item
-                xs={12}
-                component="header"
-                container
-                justifyContent={'space-between'}
-              >
-                <Typography variant="h5" component="p" align="center">
-                  {gUser.name}
-                </Typography>
-              </Grid>
-            </CardContent>
-            <CardActions>
-              <Grid container spacing={1}>
-                <Grid item xs={6}>
-                  <Formik
-                    initialValues={{ id: gUser.id }}
-                    onSubmit={onDeleteSubmit}
-                  >
-                    <Form>
-                      <Button
-                        variant="outlined"
-                        type="submit"
-                        fullWidth
-                        sx={{
-                          display: 'flex',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                        }}
-                      >
-                        <RemoveCircle
-                          color="error"
-                          sx={{ marginRight: '0.25rem' }}
-                        />
-                        <TranslatedText lKey="delete" />
-                      </Button>
-                    </Form>
-                  </Formik>
+      {data
+        .sort((a, b) => a.id - b.id)
+        .map((gUser, gUi) => (
+          <Grid item key={`gifted-user-${gUser.name}-${gUi}`} xs={12}>
+            <Card>
+              <CardContent>
+                <Grid
+                  item
+                  xs={12}
+                  component="header"
+                  container
+                  justifyContent={'space-between'}
+                >
+                  <Typography variant="h5" component="p" align="center">
+                    {gUser.name}
+                  </Typography>
                 </Grid>
+              </CardContent>
+              <CardActions>
+                <Grid container spacing={1}>
+                  <Grid item xs={6}>
+                    <Formik
+                      initialValues={{ id: gUser.id }}
+                      onSubmit={onDeleteSubmit}
+                    >
+                      <Form>
+                        <Button
+                          variant="outlined"
+                          type="submit"
+                          fullWidth
+                          sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <RemoveCircle
+                            color="error"
+                            sx={{ marginRight: '0.25rem' }}
+                          />
+                          <TranslatedText lKey="delete" />
+                        </Button>
+                      </Form>
+                    </Formik>
+                  </Grid>
 
-                <Grid item xs={6}>
-                  <Button
-                    variant="outlined"
-                    type="submit"
-                    onClick={() => handleEdit(gUser.id)}
-                    fullWidth
-                  >
-                    <EditOutlined sx={{ marginRight: '0.25rem' }} />
-                    <TranslatedText lKey="edit" />
-                  </Button>
+                  <Grid item xs={6}>
+                    <Button
+                      variant="outlined"
+                      type="submit"
+                      onClick={() => handleEdit(gUser.id)}
+                      fullWidth
+                    >
+                      <EditOutlined sx={{ marginRight: '0.25rem' }} />
+                      <TranslatedText lKey="edit" />
+                    </Button>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </CardActions>
-          </Card>
-        </Grid>
-      ))}
+              </CardActions>
+            </Card>
+          </Grid>
+        ))}
     </Grid>
   ) : (
     <p>

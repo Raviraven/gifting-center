@@ -14,9 +14,9 @@ interface CheckboxFieldFormikProps {
 }
 
 export const CheckboxFieldFormik = (props: CheckboxFieldFormikProps) => {
-  const [field, meta, helpers] = useField({
+  const [field, meta] = useField({
     name: props.name,
-    type: 'checkbox',
+    //type: 'checkbox',
   });
   const { t } = useTranslation();
 
